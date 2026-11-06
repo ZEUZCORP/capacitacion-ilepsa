@@ -11,9 +11,9 @@ st.set_page_config(
     layout="centered"
 )
 
-# Configuración de Supabase (ZEUZCORP's Project)
+# Conexión oficial con tus credenciales exactas de Supabase
 SUPABASE_URL = "https://anjdmtixsmmdhsptmhjx.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFuanBtdGl4c21tZGhzcHRtaGp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAz..."
+SUPABASE_KEY = "sb_publishable_YlMWpmIi6OVnElD6zlJA3w_BQGhLuiI"
 
 @st.cache_resource
 def init_supabase() -> Client:
@@ -33,7 +33,7 @@ if "seccion_actual" not in st.session_state:
 if "respuestas_correctas" not in st.session_state:
     st.session_state.respuestas_correctas = 0
 
-# Estilos CSS avanzados con animación de transición de página real
+# Estilos CSS con animación de transición de página limpia
 st.markdown("""
     <style>
     @keyframes fadeInSlide {
@@ -70,7 +70,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Script infalible para forzar el scroll al inicio absoluto (top 0) en cada cambio de vista
+# Script para forzar el scroll al inicio absoluto en cada cambio de vista
 components.html(
     """
     <script>
@@ -83,7 +83,7 @@ components.html(
 )
 
 # =========================================================
-# FASE 1: LOGIN (Página de Acceso)
+# FASE 1: LOGIN (Consulta directa a la tabla 'usuarios')
 # =========================================================
 if st.session_state.paso == "login":
     st.markdown("""
@@ -99,14 +99,14 @@ if st.session_state.paso == "login":
         cedula_limpia = cedula_input.strip()
         if len(cedula_limpia) >= 10:
             try:
-                # Consulta directa a Supabase (tabla 'usuarios', columnas 'cedula' y 'nombres')
+                # Consulta real a Supabase trayendo el campo 'nombres' desde la tabla 'usuarios'
                 response = supabase.table("usuarios").select("nombres").eq("cedula", cedula_limpia).execute()
                 
                 if response.data and len(response.data) > 0:
                     st.session_state.cedula = cedula_limpia
                     st.session_state.nombre_usuario = response.data[0]["nombres"]
                     
-                    # Traqueo de hora de ingreso en Supabase
+                    # Traqueo y registro de horas en la tabla 'registro_tiempos'
                     try:
                         supabase.table("registro_tiempos").insert({
                             "cedula": cedula_limpia,
@@ -165,7 +165,6 @@ elif st.session_state.paso == "evaluacion":
     if sec_idx < total_secciones:
         seccion = SECCIONES[sec_idx]
         
-        # Cabecera fija de la página
         st.markdown(f"""
         <div class="header-box">
             <table style="width:100%; border:none; margin:0;">
@@ -206,7 +205,6 @@ elif st.session_state.paso == "evaluacion":
         </div>
         """, unsafe_allow_html=True)
         
-        # Componente de opción con ID único por sección para evitar conflictos de caché
         respuesta = st.radio(
             "Seleccione la respuesta correcta para continuar:", 
             seccion['opciones'], 
@@ -218,7 +216,6 @@ elif st.session_state.paso == "evaluacion":
                 st.session_state.respuestas_correctas += 1
                 st.session_state.seccion_actual += 1
                 
-                # Transición visual explícita de carga de página nueva
                 with st.spinner(f"Cargando la siguiente página ({st.session_state.seccion_actual + 1}/{total_secciones})..."):
                     time.sleep(0.3)
                 st.rerun()
@@ -229,7 +226,7 @@ elif st.session_state.paso == "evaluacion":
         st.rerun()
 
 # =========================================================
-# FASE 4: CERTIFICADO FINAL (Página de Aprobación)
+# FASE 4: CERTIFICADO FINAL
 # =========================================================
 elif st.session_state.paso == "certificado":
     st.balloons()
