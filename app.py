@@ -61,7 +61,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# 1. PANTALLA DE LOGIN (MINIMALISTA)
+# 1. PANTALLA DE LOGIN
 # ---------------------------------------------------------
 if st.session_state.paso == "login":
     st.markdown("""
@@ -90,7 +90,7 @@ if st.session_state.paso == "login":
             st.error("Ingrese un número de cédula válido de 10 dígitos.")
 
 # ---------------------------------------------------------
-# 2. MENSAJE OBLIGATORIO, MARCO LEGAL Y DIRECTRICES
+# 2. PANTALLA DE INSTRUCCIONES Y MARCO LEGAL
 # ---------------------------------------------------------
 elif st.session_state.paso == "instrucciones":
     st.markdown(f"""
@@ -120,22 +120,26 @@ elif st.session_state.paso == "instrucciones":
         st.rerun()
 
 # ---------------------------------------------------------
-# 3. PANTALLA DE CAPACITACIÓN (ORDENADA Y LIMPIA)
+# 3. PANTALLA DE CAPACITACIÓN (FORZAR SCROLL ARRIBA)
 # ---------------------------------------------------------
 elif st.session_state.paso == "evaluacion":
-    # Forzar scroll automático al inicio de la página
+    total_secciones = len(SECCIONES)
+    sec_idx = st.session_state.seccion_actual
+
+    # Script JavaScript reforzado para obligar al contenedor principal a hacer Scroll to Top
     components.html(
         """
         <script>
+            var mainContainer = window.parent.document.querySelector('.main');
+            if (mainContainer) {
+                mainContainer.scrollTo({top: 0, behavior: 'instant'});
+            }
             window.parent.scrollTo({top: 0, behavior: 'instant'});
         </script>
         """,
         height=0,
     )
-    
-    total_secciones = len(SECCIONES)
-    sec_idx = st.session_state.seccion_actual
-    
+
     # Encabezado fijo limpio
     st.markdown(f"""
     <div class="header-box">
@@ -161,14 +165,16 @@ elif st.session_state.paso == "evaluacion":
     if sec_idx < total_secciones:
         seccion = SECCIONES[sec_idx]
         
-        # Contenido teórico limpio
+        # Limpieza de cualquier etiqueta HTML rota como </div> que venga desde contenidos.py
+        contenido_limpio = seccion['contenido'].replace("</div>", "").replace("</div>", "")
+        
         st.markdown(f"""
         <div class="card-principal">
             <span style="color: #0284c7; font-weight: bold; font-size: 14px;">{seccion['eje']}</span>
             <h2 style="margin-top: 5px; color: #0f172a;">{seccion['titulo']}</h2>
             <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 15px 0;">
             <div style="font-size: 16px; line-height: 1.6; color: #334155;">
-                {seccion['contenido']}
+                {contenido_limpio}
             </div>
         </div>
         """, unsafe_allow_html=True)
@@ -191,7 +197,7 @@ elif st.session_state.paso == "evaluacion":
                     st.session_state.seccion_actual += 1
                     st.session_state.progreso_usuarios[st.session_state.cedula] = st.session_state.seccion_actual
                     st.success("¡Respuesta correcta! Cargando la siguiente sección...")
-                    time.sleep(0.3)
+                    time.sleep(0.2)
                     st.rerun()
                 else:
                     st.error("Respuesta incorrecta. Revise detenidamente la lectura teórica superior e intente de nuevo.")
@@ -217,7 +223,7 @@ elif st.session_state.paso == "certificado":
     </div>
     """, unsafe_allow_html=True)
     
-    st.success("¡Felicitaciones! Su certificado ha sido emitido con éxito y está listo para guardarse.")
+    st.success("¡Felicitaciones! Su certificado ha sido emitido con éxito.")
     
     if st.button("Finalizar y Salir"):
         st.session_state.paso = "login"
