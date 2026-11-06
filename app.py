@@ -1,6 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 import time
+import random
 from datetime import datetime
 from supabase import create_client, Client
 from contenidos import SECCIONES
@@ -92,13 +93,13 @@ st.markdown("""
         box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
     
-    /* FORZAR TAMAÑO GRANDE EN LAS OPCIONES DEL RADIO BUTTON */
-    div.stRadio > label {
-        font-size: 18px !important;
-        font-weight: 600 !important;
+    /* TÍTULO SELECCIONE SU RESPUESTA GRANDE Y NEGRITA */
+    .stRadio > label {
+        font-size: 20px !important;
+        font-weight: 700 !important;
         color: #0f172a !important;
+        margin-bottom: 12px !important;
     }
-    /* Estilo para los textos internos de cada opción del radio */
     div.stRadio div[role="radiogroup"] label p {
         font-size: 17.5px !important;
         color: #1e293b !important;
@@ -349,9 +350,16 @@ elif st.session_state.paso == "evaluacion":
             </div>
             """, unsafe_allow_html=True)
             
+            # ORDEN ALEATORIO DE OPCIONES (Se barajan manteniendo la semilla de la sesión o sección para estabilidad)
+            key_opciones_mix = f"opciones_mix_{sec_idx}"
+            if key_opciones_mix not in st.session_state:
+                lista_opciones = list(seccion['opciones'])
+                random.shuffle(lista_opciones)
+                st.session_state[key_opciones_mix] = lista_opciones
+
             respuesta = st.radio(
                 "Seleccione su respuesta:", 
-                seccion['opciones'], 
+                st.session_state[key_opciones_mix], 
                 key=f"radio_cuestionario_{sec_idx}"
             )
             
@@ -374,6 +382,10 @@ elif st.session_state.paso == "evaluacion":
                     st.session_state.respuestas_correctas += 1
                     st.session_state.seccion_actual += 1
                     st.session_state.sub_paso = "teoria"
+                    
+                    # Limpiar las opciones mezclas para la siguiente sección
+                    if key_opciones_mix in st.session_state:
+                        del st.session_state[key_opciones_mix]
                     
                     try:
                         supabase.table("usuarios").update({
