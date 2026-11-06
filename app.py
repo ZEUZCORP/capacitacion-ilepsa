@@ -3,6 +3,11 @@ import streamlit.components.v1 as components
 import time
 from datetime import datetime
 from supabase import create_client, Client
+
+# Forzamos recarga limpia de contenidos.py para evitar problemas de caché de Streamlit
+import importlib
+import contenidos
+importlib.reload(contenidos)
 from contenidos import SECCIONES
 
 st.set_page_config(
@@ -11,14 +16,12 @@ st.set_page_config(
     layout="wide"
 )
 
-# Conexión limpia y segura usando st.secrets
 @st.cache_resource
 def init_supabase() -> Client:
     return create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
 
 supabase = init_supabase()
 
-# Inicialización de estados de sesión
 if "paso" not in st.session_state:
     st.session_state.paso = "login"
 if "cedula" not in st.session_state:
@@ -42,7 +45,6 @@ COLORES_SECCION = [
     {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}
 ]
 
-# Estilos CSS compactos para aprovechar el ancho y evitar scroll vertical innecesario
 st.markdown("""
     <style>
     @keyframes fadeInPage {
@@ -105,7 +107,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Script para forzar scroll al inicio absoluto (0,0)
 components.html(
     """
     <script>
@@ -125,9 +126,6 @@ components.html(
     height=0,
 )
 
-# =========================================================
-# FASE 1: LOGIN (Recupera progreso de Supabase)
-# =========================================================
 if st.session_state.paso == "login":
     st.markdown("""
     <div class="pagina-nueva-transicion card-principal" style="text-align: center; border-top: 5px solid #0284c7; max-width: 600px; margin: 50px auto;">
@@ -173,9 +171,6 @@ if st.session_state.paso == "login":
             else:
                 st.error("Ingrese un número de cédula válido.")
 
-# =========================================================
-# FASE 2: PANEL DE ADMINISTRACIÓN
-# =========================================================
 elif st.session_state.paso == "admin_dashboard":
     st.markdown(f"""
     <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #0f172a;">
@@ -223,9 +218,6 @@ elif st.session_state.paso == "admin_dashboard":
         st.session_state.es_admin = False
         st.rerun()
 
-# =========================================================
-# FASE 3: INSTRUCCIONES / BIENVENIDA
-# =========================================================
 elif st.session_state.paso == "instrucciones":
     st.markdown(f"""
     <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #0284c7;">
@@ -250,9 +242,6 @@ elif st.session_state.paso == "instrucciones":
             st.session_state.paso = "evaluacion"
         st.rerun()
 
-# =========================================================
-# FASE 4: MÓDULO DE CAPACITACIÓN (Lee directo de contenidos.py)
-# =========================================================
 elif st.session_state.paso == "evaluacion":
     total_secciones = len(SECCIONES)
     sec_idx = st.session_state.seccion_actual
@@ -282,9 +271,6 @@ elif st.session_state.paso == "evaluacion":
         progreso = sec_idx / total_secciones
         st.progress(progreso, text=f"Progreso actual: Sección {sec_idx + 1} de {total_secciones}")
         
-        # -------------------------------------------------
-        # PANTALLA 1: TEORÍA COMPACTA
-        # -------------------------------------------------
         if st.session_state.sub_paso == "teoria":
             st.markdown(f"""
             <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid {estilo_color['borde']};">
@@ -298,12 +284,13 @@ elif st.session_state.paso == "evaluacion":
                 <div class="sabias-que-box">
                     💡 <b>¿Sabías tú que...</b> este módulo normativo es fundamental para consolidar nuestros valores corporativos y cumplir con las directrices del MDT?
                 </div>
-                <div class="contenido-texto">
-                    {seccion.get('contenido', '')}
-                </div>
             </div>
             """, unsafe_allow_html=True)
             
+            # Carga directa del contenido en Markdown desde contenidos.py
+            st.markdown(seccion.get('contenido', ''), unsafe_allow_html=True)
+            
+            st.markdown("<br>", unsafe_allow_html=True)
             if st.button("Continuar al Cuestionario de esta Sección ➔", type="primary", key=f"btn_ir_cuestionario_{sec_idx}", use_container_width=True):
                 st.session_state.sub_paso = "cuestionario"
                 try:
@@ -329,9 +316,6 @@ elif st.session_state.paso == "evaluacion":
                 )
                 st.rerun()
 
-        # -------------------------------------------------
-        # PANTALLA 2: CUESTIONARIO
-        # -------------------------------------------------
         elif st.session_state.sub_paso == "cuestionario":
             st.markdown(f"""
             <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid {estilo_color['borde']};">
@@ -409,9 +393,6 @@ elif st.session_state.paso == "evaluacion":
         st.session_state.paso = "certificado"
         st.rerun()
 
-# =========================================================
-# FASE 5: CERTIFICADO OFICIAL (DIPLOMA HORIZONTAL UNIVERSITARIO)
-# =========================================================
 elif st.session_state.paso == "certificado":
     st.markdown("""
     <div style="text-align: center; margin-bottom: 15px;">
