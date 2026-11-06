@@ -11,13 +11,10 @@ st.set_page_config(
     layout="centered"
 )
 
-# Conexión con tu token JWT anon original de Supabase (el largo que sí funcionaba)
-SUPABASE_URL = "https://anjdmtixsmmdhsptmhjx.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." # Pega aquí tu token largo anon original que ya tenías
-
+# Conexión limpia y segura usando st.secrets como lo configuramos
 @st.cache_resource
 def init_supabase() -> Client:
-    return create_client(SUPABASE_URL, SUPABASE_KEY)
+    return create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
 
 supabase = init_supabase()
 
