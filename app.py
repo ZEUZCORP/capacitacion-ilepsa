@@ -52,24 +52,16 @@ if st.session_state.get(f"estado_msg_{sec_actual_idx}", "") == "exito":
     }
     """
 
-st.markdown(f"""
+st.markdown("""
     <style>
-    @keyframes fadeInPage {{
-        0% {{ opacity: 0; transform: translateY(10px); }}
-        100% {{ opacity: 1; transform: translateY(0); }}
-    }}
-    @keyframes fadeOutMsg {{
-        0% {{ opacity: 1; }}
-        60% {{ opacity: 1; }}
-        100% {{ opacity: 0; }}
-    }}
-    .alerta-desvanecer {{
-        animation: fadeOutMsg 3.5s ease-out forwards;
-    }}
-    .pagina-nueva-transicion {{
+    @keyframes fadeInPage {
+        0% { opacity: 0; transform: translateY(10px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    .pagina-nueva-transicion {
         animation: fadeInPage 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }}
-    .card-principal {{
+    }
+    .card-principal {
         background: #ffffff;
         border: 1px solid #e2e8f0;
         padding: 30px;
@@ -78,7 +70,7 @@ st.markdown(f"""
         margin-bottom: 20px;
         position: relative;
     }
-    .badge-seccion-derecha {{
+    .badge-seccion-derecha {
         position: absolute;
         top: 20px;
         right: 25px;
@@ -88,48 +80,47 @@ st.markdown(f"""
         font-weight: 700;
         letter-spacing: 0.5px;
         text-transform: uppercase;
-    }}
-    .header-box {{
+    }
+    .header-box {
         background-color: #f8fafc;
         border: 1px solid #cbd5e1;
         padding: 12px 18px;
         border-radius: 8px;
         margin-bottom: 20px;
         font-size: 15px;
-    }}
-    .contenido-texto {{
+    }
+    .contenido-texto {
         font-size: 18.5px;
         line-height: 1.8;
         color: #334155;
         text-align: justify;
-    }}
-    .pregunta-box {{
+    }
+    .pregunta-box {
         background-color: #f8fafc;
         border-left: 4px solid #0f172a;
         padding: 22px;
         border-radius: 0 8px 8px 0;
         margin-bottom: 20px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    }}
+    }
     
-    .stRadio > label {{
+    .stRadio > label {
         font-size: 20px !important;
         font-weight: 700 !important;
         color: #0f172a !important;
         margin-bottom: 12px !important;
-    }}
-    div.stRadio div[role="radiogroup"] label p {{
+    }
+    div.stRadio div[role="radiogroup"] label p {
         font-size: 17.5px !important;
         color: #1e293b !important;
         line-height: 1.5 !important;
-    }}
-    div.stRadio div[role="radiogroup"] label {{
+    }
+    div.stRadio div[role="radiogroup"] label {
         font-size: 17.5px !important;
         padding-top: 6px !important;
         padding-bottom: 6px !important;
-    }}
-    
-    {bloqueo_css}
+    }
+    """ + bloqueo_css + """
     </style>
 """, unsafe_allow_html=True)
 
@@ -371,11 +362,8 @@ elif st.session_state.paso == "evaluacion":
             """, unsafe_allow_html=True)
             
             key_estado_msg = f"estado_msg_{sec_idx}"
-            key_contador_error = f"cont_error_{sec_idx}"
             if key_estado_msg not in st.session_state:
                 st.session_state[key_estado_msg] = ""
-            if key_contador_error not in st.session_state:
-                st.session_state[key_contador_error] = 0
 
             col_lbl1, col_lbl2 = st.columns([2, 3])
             with col_lbl1:
@@ -383,8 +371,7 @@ elif st.session_state.paso == "evaluacion":
             with col_lbl2:
                 msg = st.session_state[key_estado_msg]
                 if msg == "error":
-                    contador_actual = st.session_state[key_contador_error]
-                    st.markdown(f"<p key='error_anim_{contador_actual}' class='alerta-desvanecer' style='color: #dc2626; font-weight: 700; font-size: 13.5px; background-color: #fee2e2; padding: 8px 12px; border-radius: 6px; border: 1px solid #fca5a5; margin: 0;'>❌ Respuesta incorrecta. Debe revisar nuevamente la teoría.</p>", unsafe_allow_html=True)
+                    st.markdown("<p style='color: #dc2626; font-weight: 700; font-size: 13.5px; background-color: #fee2e2; padding: 8px 12px; border-radius: 6px; border: 1px solid #fca5a5; margin: 0;'>❌ Respuesta incorrecta. Debe revisar nuevamente la teoría.</p>", unsafe_allow_html=True)
                 elif msg == "exito":
                     st.markdown("<p style='color: #059669; font-weight: 700; font-size: 13.5px; background-color: #d1fae5; padding: 8px 12px; border-radius: 6px; border: 1px solid #a7f3d0; margin: 0;'>✔ ¡Respuesta correcta!</p>", unsafe_allow_html=True)
 
@@ -452,7 +439,6 @@ elif st.session_state.paso == "evaluacion":
                             st.session_state[key_estado_msg] = "exito"
                             st.rerun()
                         else:
-                            st.session_state[key_contador_error] += 1
                             st.session_state[key_estado_msg] = "error"
                             st.rerun()
     else:
@@ -616,7 +602,7 @@ elif st.session_state.paso == "certificado":
     components.html(html_certificado, height=620, scrolling=True)
     st.markdown("<br>", unsafe_allow_html=True)
     
-    if st.button("🖨️ Imprimir y Guardar Certificado en PDF", type="primary", use_container_width=True):
+    if st.button("🖨️ Imprimir y Guardar Certificado in PDF", type="primary", use_container_width=True):
         components.html("<script>window.parent.print();</script>", height=0)
     
     if st.button("Finalizar y Salir del Sistema"):
