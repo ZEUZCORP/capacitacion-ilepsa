@@ -29,27 +29,29 @@ if "es_admin" not in st.session_state:
     st.session_state.es_admin = False
 if "seccion_actual" not in st.session_state:
     st.session_state.seccion_actual = 0
+if "sub_paso" not in st.session_state:
+    st.session_state.sub_paso = "teoria" # Controla si ve "teoria" o "cuestionario" dentro de la sección
 if "respuestas_correctas" not in st.session_state:
     st.session_state.respuestas_correctas = 0
 
-# Paleta de colores rotativa por sección para que el usuario note visualmente que cambió de pantalla
+# Paleta de colores rotativa por sección
 COLORES_SECCION = [
-    {"borde": "#0284c7", "fondo_etiqueta": "#e0f2fe", "texto_etiqueta": "#0369a1"}, # Azul
-    {"borde": "#7c3aed", "fondo_etiqueta": "#ede9fe", "texto_etiqueta": "#6d28d9"}, # Violeta
-    {"borde": "#059669", "fondo_etiqueta": "#d1fae5", "texto_etiqueta": "#047857"}, # Esmeralda
-    {"borde": "#d97706", "fondo_etiqueta": "#fef3c7", "texto_etiqueta": "#b45309"}, # Ámbar
-    {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}  # Rojo institucional
+    {"borde": "#0284c7", "fondo_etiqueta": "#e0f2fe", "texto_etiqueta": "#0369a1"},
+    {"borde": "#7c3aed", "fondo_etiqueta": "#ede9fe", "texto_etiqueta": "#6d28d9"},
+    {"borde": "#059669", "fondo_etiqueta": "#d1fae5", "texto_etiqueta": "#047857"},
+    {"borde": "#d97706", "fondo_etiqueta": "#fef3c7", "texto_etiqueta": "#b45309"},
+    {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}
 ]
 
-# Estilos CSS avanzados con indicador lateral derecho y animaciones de cambio de página
+# Estilos CSS avanzados con indicador lateral derecho
 st.markdown("""
     <style>
     @keyframes fadeInPage {
-        0% { opacity: 0; transform: translateY(25px); }
+        0% { opacity: 0; transform: translateY(20px); }
         100% { opacity: 1; transform: translateY(0); }
     }
     .pagina-nueva-transicion {
-        animation: fadeInPage 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        animation: fadeInPage 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     .card-principal {
         background: #ffffff;
@@ -81,16 +83,15 @@ st.markdown("""
     .pregunta-box {
         background-color: #f8fafc;
         border-left: 5px solid #0f172a;
-        padding: 22px;
+        padding: 25px;
         border-radius: 0 10px 10px 0;
-        margin-top: 25px;
         margin-bottom: 25px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
     }
     </style>
 """, unsafe_allow_html=True)
 
-# SCRIPT DE JAVASCRIPT INQUEBRANTABLE PARA FORZAR EL SCROLL AL INICIO ABSOLUTO (0,0)
+# Script infalible para forzar el scroll al inicio absoluto (0,0) en cada cambio de vista
 components.html(
     """
     <script>
@@ -218,12 +219,12 @@ elif st.session_state.paso == "instrucciones":
             En cumplimiento con la normativa legal vigente y el <b>Acuerdo Ministerial MDT-2025-006</b>, este programa de formación integral es de <b>carácter obligatorio</b> para todo el personal de la Compañía ILEPSA S.A.
         </p>
         <p style="font-size: 15px; color: #334155; line-height: 1.6;">
-            <b>Directrices importantes:</b>
+            <b>Dinámica de la Capacitación:</b>
         </p>
         <ul style="color: #334155; font-size: 15px;">
-            <li>Debe completar obligatoriamente cada una de las secciones interactivas.</li>
-            <li>Cada página contiene contenido teórico y una evaluación obligatoria. El sistema le exigirá lectura atenta para avanzar.</li>
-            <li><b>Al completar el 100% de las secciones, se generará su certificado oficial de aprobación.</b></li>
+            <li>Primero leerá el contenido teórico detallado de cada sección.</li>
+            <li>Al terminar la lectura, pasará de manera independiente al cuestionario de validación correspondiente.</li>
+            <li><b>Al completar todas las secciones y sus evaluaciones, se emitirá su certificado de aprobación.</b></li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
@@ -231,10 +232,11 @@ elif st.session_state.paso == "instrucciones":
     if st.button("Comenzar Capacitación ➔", type="primary", use_container_width=True):
         st.session_state.paso = "evaluacion"
         st.session_state.seccion_actual = 0
+        st.session_state.sub_paso = "teoria"
         st.rerun()
 
 # =========================================================
-# FASE 4: MÓDULO DE CAPACITACIÓN (SECCIÓN POR SECCIÓN CON CAMBIO VISUAL Y SCROLL FORZADO)
+# FASE 4: MÓDULO DE CAPACITACIÓN (PANTALLAS SEPARADAS: TEORÍA VS CUESTIONARIO)
 # =========================================================
 elif st.session_state.paso == "evaluacion":
     total_secciones = len(SECCIONES)
@@ -242,10 +244,9 @@ elif st.session_state.paso == "evaluacion":
 
     if sec_idx < total_secciones:
         seccion = SECCIONES[sec_idx]
-        
-        # Seleccionar dinámicamente un color institucional rotativo para esta sección específica
         estilo_color = COLORES_SECCION[sec_idx % len(COLORES_SECCION)]
         
+        # Cabecera fija de usuario
         st.markdown(f"""
         <div class="header-box">
             <table style="width:100%; border:none; margin:0;">
@@ -267,45 +268,30 @@ elif st.session_state.paso == "evaluacion":
         progreso = sec_idx / total_secciones
         st.progress(progreso, text=f"Progreso actual: Sección {sec_idx + 1} de {total_secciones}")
         
-        # CONTENEDOR DE TEORÍA CON BORDES DINÁMICOS Y ETIQUETA VISIBLE A LA DERECHA
-        st.markdown(f"""
-        <div class="pagina-nueva-transicion card-principal" style="border-top: 6px solid {estilo_color['borde']};">
-            <div class="badge-seccion-derecha" style="background-color: {estilo_color['fondo_etiqueta']}; color: {estilo_color['texto_etiqueta']};">
-                SECCIÓN {sec_idx + 1} DE {total_secciones}
+        # -------------------------------------------------
+        # PANTALLA 1: SOLO CONTENIDO TEÓRICO
+        # -------------------------------------------------
+        if st.session_state.sub_paso == "teoria":
+            st.markdown(f"""
+            <div class="pagina-nueva-transicion card-principal" style="border-top: 6px solid {estilo_color['borde']};">
+                <div class="badge-seccion-derecha" style="background-color: {estilo_color['fondo_etiqueta']}; color: {estilo_color['texto_etiqueta']};">
+                    LECTURA - SECCIÓN {sec_idx + 1} DE {total_secciones}
+                </div>
+                <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 14px; text-transform: uppercase;">
+                    {seccion['eje']}
+                </span>
+                <h2 style="margin-top: 8px; color: #0f172a; font-size: 24px;">{seccion['titulo']}</h2>
+                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;">
+                <div style="font-size: 16px; line-height: 1.7; color: #334155;">
+                    {seccion['contenido']}
+                </div>
             </div>
-            <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 14px; text-transform: uppercase;">
-                {seccion['eje']}
-            </span>
-            <h2 style="margin-top: 8px; color: #0f172a; font-size: 24px;">{seccion['titulo']}</h2>
-            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;">
-            <div style="font-size: 16px; line-height: 1.7; color: #334155;">
-                {seccion['contenido']}
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        # CONTENEDOR DE EVALUACIÓN
-        st.markdown(f"""
-        <div class="pagina-nueva-transicion pregunta-box" style="border-left: 5px solid {estilo_color['borde']};">
-            <h4 style="margin-top:0; color: #0f172a;">Evaluación de Validación Obligatoria</h4>
-            <p style="font-size: 16px; font-weight: 600; color: #1e293b; margin-bottom: 0;">{seccion['pregunta']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        # Selector único e independiente para cada página
-        respuesta = st.radio(
-            "Seleccione la respuesta correcta para continuar a la siguiente página:", 
-            seccion['opciones'], 
-            key=f"radio_seccion_aislada_{sec_idx}"
-        )
-        
-        # Botón con reseteo absoluto de scroll y pantalla
-        if st.button("Siguiente Sección ➔", type="primary", key=f"btn_siguiente_pagina_{sec_idx}", use_container_width=True):
-            if respuesta == seccion['correcta']:
-                st.session_state.respuestas_correctas += 1
-                st.session_state.seccion_actual += 1
+            """, unsafe_allow_html=True)
+            
+            if st.button("Continuar al Cuestionario de esta Sección ➔", type="primary", key=f"btn_ir_cuestionario_{sec_idx}", use_container_width=True):
+                st.session_state.sub_paso = "cuestionario"
                 
-                # Script de re-enrutamiento y carga limpia
+                # Forzar scroll arriba para el cuestionario
                 components.html(
                     """
                     <script>
@@ -319,12 +305,71 @@ elif st.session_state.paso == "evaluacion":
                     """,
                     height=0,
                 )
-                
-                with st.spinner(f"Guardando avance y cargando página {st.session_state.seccion_actual + 1}..."):
-                    time.sleep(0.35)
                 st.rerun()
-            else:
-                st.error("Respuesta incorrecta. Debe leer detalladamente la teoría de esta sección para poder avanzar.")
+
+        # -------------------------------------------------
+        # PANTALLA 2: SOLO CUESTIONARIO DE LA SECCIÓN
+        # -------------------------------------------------
+        elif st.session_state.sub_paso == "cuestionario":
+            st.markdown(f"""
+            <div class="pagina-nueva-transicion card-principal" style="border-top: 6px solid {estilo_color['borde']};">
+                <div class="badge-seccion-derecha" style="background-color: {estilo_color['fondo_etiqueta']}; color: {estilo_color['texto_etiqueta']};">
+                    EVALUACIÓN - SECCIÓN {sec_idx + 1} DE {total_secciones}
+                </div>
+                <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 14px; text-transform: uppercase;">
+                    Cuestionario de Validación
+                </span>
+                <h2 style="margin-top: 8px; color: #0f172a; font-size: 22px;">{seccion['titulo']}</h2>
+                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;">
+                <p style="font-size: 16px; color: #475569; margin-bottom: 20px;">
+                    Responda la siguiente pregunta correspondiente al contenido que acaba de estudiar para poder avanzar a la siguiente sección:
+                </p>
+                <div class="pregunta-box" style="border-left: 5px solid {estilo_color['borde']};">
+                    <p style="font-size: 17px; font-weight: 600; color: #1e293b; margin: 0;">{seccion['pregunta']}</p>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            respuesta = st.radio(
+                "Seleccione su respuesta:", 
+                seccion['opciones'], 
+                key=f"radio_cuestionario_{sec_idx}"
+            )
+            
+            col_btn1, col_btn2 = st.columns(2)
+            with col_btn1:
+                if st.button("⬅ Volver a leer la Teoría", use_container_width=True):
+                    st.session_state.sub_paso = "teoria"
+                    st.rerun()
+            with col_btn2:
+                btn_siguiente = st.button("Enviar Respuesta y Siguiente Sección ➔", type="primary", key=f"btn_enviar_{sec_idx}", use_container_width=True)
+            
+            if btn_siguiente:
+                if respuesta == seccion['correcta']:
+                    st.session_state.respuestas_correctas += 1
+                    st.session_state.seccion_actual += 1
+                    st.session_state.sub_paso = "teoria" # Reinicia la vista para la siguiente sección en modo lectura
+                    
+                    # Forzar scroll arriba absoluto
+                    components.html(
+                        """
+                        <script>
+                            const parentDoc = window.parent.document;
+                            parentDoc.querySelectorAll('section.main').forEach(el => {
+                                el.scrollTop = 0;
+                                el.scrollTo({top: 0, behavior: 'instant'});
+                            });
+                            window.parent.scrollTo({top: 0, behavior: 'instant'});
+                        </script>
+                        """,
+                        height=0,
+                    )
+                    
+                    with st.spinner(f"¡Respuesta correcta! Cargando la siguiente sección..."):
+                        time.sleep(0.3)
+                    st.rerun()
+                else:
+                    st.error("Respuesta incorrecta. Debe revisar nuevamente la teoría de esta sección para poder avanzar.")
     else:
         st.session_state.paso = "certificado"
         st.rerun()
@@ -355,4 +400,5 @@ elif st.session_state.paso == "certificado":
         st.session_state.nombre_usuario = ""
         st.session_state.es_admin = False
         st.session_state.seccion_actual = 0
+        st.session_state.sub_paso = "teoria"
         st.rerun()
