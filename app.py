@@ -1,6 +1,8 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import time
 from datetime import datetime
+from supabase import create_client, Client
 from contenidos import SECCIONES
 
 st.set_page_config(
@@ -9,11 +11,17 @@ st.set_page_config(
     layout="centered"
 )
 
-# Configuración de Supabase (conexión activa con tu proyecto)
+# Configuración de Supabase (ZEUZCORP's Project)
 SUPABASE_URL = "https://anjdmtixsmmdhsptmhjx.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." 
+SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFuanBtdGl4c21tZGhzcHRtaGp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAz..."
 
-# Inicializar estados principales de la sesión
+@st.cache_resource
+def init_supabase() -> Client:
+    return create_client(SUPABASE_URL, SUPABASE_KEY)
+
+supabase = init_supabase()
+
+# Inicialización de estados de sesión
 if "paso" not in st.session_state:
     st.session_state.paso = "login"
 if "cedula" not in st.session_state:
@@ -24,11 +32,17 @@ if "seccion_actual" not in st.session_state:
     st.session_state.seccion_actual = 0
 if "respuestas_correctas" not in st.session_state:
     st.session_state.respuestas_correctas = 0
-if "enviando_respuesta" not in st.session_state:
-    st.session_state.enviando_respuesta = False
 
+# Estilos CSS avanzados con animación de transición de página real
 st.markdown("""
     <style>
+    @keyframes fadeInSlide {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    .nueva-pagina {
+        animation: fadeInSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
     .card-principal {
         background: #ffffff;
         border: 1px solid #e2e8f0;
@@ -56,14 +70,26 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Script infalible para forzar el scroll al inicio absoluto (top 0) en cada cambio de vista
+components.html(
+    """
+    <script>
+        const parentDoc = window.parent.document;
+        parentDoc.querySelectorAll('section.main').forEach(el => el.scrollTo({top: 0, behavior: 'instant'}));
+        window.parent.scrollTo({top: 0, behavior: 'instant'});
+    </script>
+    """,
+    height=0,
+)
+
 # =========================================================
 # FASE 1: LOGIN (Página de Acceso)
 # =========================================================
 if st.session_state.paso == "login":
     st.markdown("""
-    <div class="card-principal" style="text-align: center;">
+    <div class="nueva-pagina card-principal" style="text-align: center;">
         <h2 style="color: #0f172a; margin-top:0;">ACCESO COLABORADORES ILEPSA</h2>
-        <p style="color: #64748b; margin-bottom: 0;">Ingrese su número de documento para continuar</p>
+        <p style="color: #64748b; margin-bottom: 0;">Ingrese su número de cédula para continuar</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -72,21 +98,38 @@ if st.session_state.paso == "login":
     if st.button("Ingresar al Sistema", type="primary", use_container_width=True):
         cedula_limpia = cedula_input.strip()
         if len(cedula_limpia) >= 10:
-            st.session_state.cedula = cedula_limpia
-            st.session_state.nombre_usuario = f"Colaborador C.I. {cedula_limpia}"
-            
-            # Cambio de página real hacia la bienvenida
-            st.session_state.paso = "instrucciones"
-            st.rerun()
+            try:
+                # Consulta directa a Supabase (tabla 'usuarios', columnas 'cedula' y 'nombres')
+                response = supabase.table("usuarios").select("nombres").eq("cedula", cedula_limpia).execute()
+                
+                if response.data and len(response.data) > 0:
+                    st.session_state.cedula = cedula_limpia
+                    st.session_state.nombre_usuario = response.data[0]["nombres"]
+                    
+                    # Traqueo de hora de ingreso en Supabase
+                    try:
+                        supabase.table("registro_tiempos").insert({
+                            "cedula": cedula_limpia,
+                            "fecha_ingreso": datetime.now().isoformat()
+                        }).execute()
+                    except Exception:
+                        pass
+                    
+                    st.session_state.paso = "instrucciones"
+                    st.rerun()
+                else:
+                    st.error("Cédula no registrada en la base de datos de ILEPSA.")
+            except Exception as e:
+                st.error(f"Error de conexión con Supabase: {e}")
         else:
             st.error("Ingrese un número de cédula válido de 10 dígitos.")
 
 # =========================================================
-# FASE 2: INSTRUCCIONES Y BIENVENIDA (Página de Marco Legal)
+# FASE 2: INSTRUCCIONES Y MARCO LEGAL (Bienvenida)
 # =========================================================
 elif st.session_state.paso == "instrucciones":
     st.markdown(f"""
-    <div class="card-principal">
+    <div class="nueva-pagina card-principal">
         <h3 style="color: #0f172a; margin-top:0;">¡Bienvenido(a), {st.session_state.nombre_usuario}!</h3>
         <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 15px 0;">
         <p style="font-size: 15px; color: #334155; line-height: 1.6;">
@@ -99,22 +142,21 @@ elif st.session_state.paso == "instrucciones":
             <b>Directrices importantes:</b>
         </p>
         <ul style="color: #334155; font-size: 15px;">
-            <li>Debe completar obligatoriamente las secciones diarias establecidas en el cronograma.</li>
-            <li>Cada sección consta de contenido teórico modular y una evaluación de validación.</li>
-            <li>Su progreso se registra y traquea en la base de datos de manera centralizada.</li>
-            <li><b>Al completar el 100% de las secciones, el sistema le habilitará su certificado oficial de aprobación.</b></li>
+            <li>Debe completar obligatoriamente las secciones establecidas en el cronograma.</li>
+            <li>Cada sección consta de contenido teórico y una evaluación interactiva de validación.</li>
+            <li>Su avance se registra de manera centralizada en el sistema de la empresa.</li>
+            <li><b>Al completar el 100% de las secciones, el sistema le habilitará de forma automática su certificado oficial de aprobación.</b></li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
     
     if st.button("Comenzar Capacitación ➔", type="primary", use_container_width=True):
-        # Salto de página real a la primera sección de evaluación
         st.session_state.paso = "evaluacion"
         st.session_state.seccion_actual = 0
         st.rerun()
 
 # =========================================================
-# FASE 3: CAPACITACIÓN Y EVALUACIÓN (CADA SECCIÓN ES UNA PÁGINA)
+# FASE 3: MÓDULO DE CAPACITACIÓN (SECCIÓN POR SECCIÓN RECREADA)
 # =========================================================
 elif st.session_state.paso == "evaluacion":
     total_secciones = len(SECCIONES)
@@ -123,7 +165,7 @@ elif st.session_state.paso == "evaluacion":
     if sec_idx < total_secciones:
         seccion = SECCIONES[sec_idx]
         
-        # Cabecera de la página actual
+        # Cabecera fija de la página
         st.markdown(f"""
         <div class="header-box">
             <table style="width:100%; border:none; margin:0;">
@@ -145,9 +187,9 @@ elif st.session_state.paso == "evaluacion":
         progreso = sec_idx / total_secciones
         st.progress(progreso, text=f"Progreso actual: Sección {sec_idx + 1} de {total_secciones}")
         
-        # Tarjeta de Teoría (Se redibuja completamente como una página nueva)
+        # CONTENEDOR RECREADO COMO UNA PÁGINA TOTALMENTE NUEVA
         st.markdown(f"""
-        <div class="card-principal">
+        <div class="nueva-pagina card-principal">
             <span style="color: #0284c7; font-weight: bold; font-size: 14px;">{seccion['eje']}</span>
             <h2 style="margin-top: 5px; color: #0f172a;">{seccion['titulo']}</h2>
             <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 15px 0;">
@@ -157,35 +199,31 @@ elif st.session_state.paso == "evaluacion":
         </div>
         """, unsafe_allow_html=True)
         
-        # Tarjeta de Pregunta
         st.markdown(f"""
-        <div class="pregunta-box">
+        <div class="nueva-pagina pregunta-box">
             <h4 style="margin-top:0; color: #0f172a;">Evaluación Obligatoria</h4>
             <p style="font-size: 16px; font-weight: 600; color: #1e293b;">{seccion['pregunta']}</p>
         </div>
         """, unsafe_allow_html=True)
         
-        # Selector de opciones exclusivo para esta página
+        # Componente de opción con ID único por sección para evitar conflictos de caché
         respuesta = st.radio(
-            "Seleccione la respuesta correcta para pasar a la siguiente página:", 
+            "Seleccione la respuesta correcta para continuar:", 
             seccion['opciones'], 
-            key=f"radio_pagina_{sec_idx}"
+            key=f"radio_seccion_aislada_{sec_idx}"
         )
         
-        # Botón de Siguiente que destruye la página actual y construye la nueva
-        if st.button("Siguiente Sección ➔", type="primary", key=f"btn_pagina_{sec_idx}", use_container_width=True):
+        if st.button("Siguiente Sección ➔", type="primary", key=f"btn_siguiente_pagina_{sec_idx}", use_container_width=True):
             if respuesta == seccion['correcta']:
                 st.session_state.respuestas_correctas += 1
                 st.session_state.seccion_actual += 1
                 
-                # Feedback visual de cambio de página
-                with st.spinner("Generando siguiente página de capacitación..."):
-                    time.sleep(0.4)
-                
-                # Forzar recarga absoluta del entorno para simular la nueva página
+                # Transición visual explícita de carga de página nueva
+                with st.spinner(f"Cargando la siguiente página ({st.session_state.seccion_actual + 1}/{total_secciones})..."):
+                    time.sleep(0.3)
                 st.rerun()
             else:
-                st.error("Respuesta incorrecta. Debe leer detalladamente la teoría de esta página para poder avanzar.")
+                st.error("Respuesta incorrecta. Debe revisar detenidamente la teoría de esta página para poder avanzar.")
     else:
         st.session_state.paso = "certificado"
         st.rerun()
@@ -196,7 +234,7 @@ elif st.session_state.paso == "evaluacion":
 elif st.session_state.paso == "certificado":
     st.balloons()
     st.markdown(f"""
-    <div class="card-principal" style="text-align: center;">
+    <div class="nueva-pagina card-principal" style="text-align: center;">
         <h2 style="color: #0f172a;">📜 CERTIFICADO OFICIAL DE APROBACIÓN</h2>
         <h4 style="color: #0284c7;">COMPAÑÍA ILEPSA S.A.</h4>
         <p>Se otorga el presente certificado oficial bajo el marco del <b>Acuerdo Ministerial MDT-2025-006</b> a:</p>
