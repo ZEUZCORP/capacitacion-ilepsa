@@ -494,4 +494,91 @@ elif st.session_state.paso == "certificado":
           border-bottom: 2px solid #cbd5e1;
           display: inline-block;
           padding-bottom: 6px;
-          margin: 10px 0 15px 0
+          margin: 10px 0 15px 0;
+      }}
+      .cedula-texto {{
+          font-family: 'Open Sans', sans-serif;
+          font-size: 15px;
+          color: #475569;
+          margin-bottom: 30px;
+      }}
+      .cuerpo-texto {{
+          font-family: 'Lora', serif;
+          font-size: 15.5px;
+          color: #334155;
+          line-height: 1.8;
+          max-width: 740px;
+          margin: 0 auto 50px auto;
+          text-align: justify;
+      }}
+      .firmas-area {{
+          display: flex;
+          justify-content: center;
+          margin-top: 20px;
+      }}
+      .firma-caja {{
+          text-align: center;
+          width: 300px;
+      }}
+      .linea-firma {{
+          border-top: 1px solid #1e3a8a;
+          margin-bottom: 8px;
+      }}
+      .cargo-titulo {{
+          font-family: 'Open Sans', sans-serif;
+          font-weight: 700;
+          color: #0f172a;
+          font-size: 15px;
+      }}
+      .empresa-sub {{
+          font-family: 'Open Sans', sans-serif;
+          font-size: 13px;
+          color: #64748b;
+      }}
+      
+      @media print {{
+          body {{ background: transparent; padding: 0; }}
+          .diploma-marco {{ box-shadow: none; border: 10px double #1e3a8a; width: 100%; }}
+      }}
+    </style>
+    </head>
+    <body>
+      <div class="diploma-marco">
+        <div class="institucion-sup">COMPAÑÍA ILEPSA S.A.</div>
+        <h1>CERTIFICADO DE APROBACIÓN</h1>
+        <div class="normativa">Acuerdo Ministerial MDT-2025-006 • Capacitación de 40 Horas</div>
+        
+        <div class="otorga-texto">Se otorga el presente reconocimiento oficial a:</div>
+        <div class="nombre-colaborador">{st.session_state.nombre_usuario}</div>
+        <div class="cedula-texto">Cédula de Identidad N° <b>{st.session_state.cedula}</b></div>
+        
+        <div class="cuerpo-texto">
+          Por haber cumplido y aprobado satisfactoriamente el programa de formación corporativa en cumplimiento del <b>Artículo 3 del Acuerdo Ministerial MDT-2025-006</b>, abordando los ejes de derechos laborales de mujeres y hombres, igualdad de género, erradicación de violencia y no discriminación en el centro de trabajo, y trabajo de igual valor, con una intensidad de <b>40 horas académicas</b>.
+        </div>
+        
+        <div class="firmas-area">
+          <div class="firma-caja">
+            <div class="linea-firma"></div>
+            <div class="cargo-titulo">Gerencia General</div>
+            <div class="empresa-sub">ILEPSA S.A.</div>
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+    """
+    
+    components.html(html_certificado, height=620, scrolling=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    if st.button("🖨️ Imprimir y Guardar Certificado en PDF", type="primary", use_container_width=True):
+        components.html("<script>window.parent.print();</script>", height=0)
+    
+    if st.button("Finalizar y Salir del Sistema"):
+        st.session_state.paso = "login"
+        st.session_state.cedula = ""
+        st.session_state.nombre_usuario = ""
+        st.session_state.es_admin = False
+        st.session_state.seccion_actual = 0
+        st.session_state.sub_paso = "teoria"
+        st.rerun()
