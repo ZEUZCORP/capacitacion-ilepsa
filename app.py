@@ -91,34 +91,36 @@ st.markdown("""
         margin-bottom: 20px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
-    /* Forzar tamaño y negrita absoluta en los radio buttons de Streamlit */
-    div.stRadio > label { 
-        font-size: 19px !important; 
-        font-weight: 700 !important; 
-        color: #0f172a !important; 
+    
+    /* ESTILOS BLINDADOS PARA LOS RADIO BUTTONS (Tamaño grande, negrita y separadas en cajitas) */
+    .stRadio > label {
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        color: #0f172a !important;
         margin-bottom: 15px !important;
     }
-    div.stRadio div[role="radiogroup"] {
+    .stRadio div[role="radiogroup"] {
         display: flex;
         flex-direction: column;
-        gap: 14px !important;
+        gap: 16px !important;
     }
-    div.stRadio div[role="radiogroup"] > label {
+    .stRadio div[role="radiogroup"] > label {
         background-color: #f8fafc !important;
         padding: 16px 20px !important;
         border-radius: 10px !important;
         border: 1px solid #cbd5e1 !important;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         transition: all 0.2s ease;
     }
-    div.stRadio div[role="radiogroup"] > label p,
-    div.stRadio div[role="radiogroup"] > label span,
-    div.stRadio div[role="radiogroup"] > label div {
-        font-size: 18px !important;
+    .stRadio div[role="radiogroup"] > label p,
+    .stRadio div[role="radiogroup"] > label span,
+    .stRadio div[role="radiogroup"] > label div,
+    .stRadio div[role="radiogroup"] label {
+        font-size: 17.5px !important;
         font-weight: 700 !important;
         color: #1e293b !important;
     }
-    div.stRadio div[role="radiogroup"] > label:hover {
+    .stRadio div[role="radiogroup"] > label:hover {
         background-color: #f1f5f9 !important;
         border-color: #0284c7 !important;
     }
