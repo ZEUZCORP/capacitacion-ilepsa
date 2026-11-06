@@ -1,3 +1,46 @@
+import streamlit as st
+import streamlit.components.v1 as components
+import time
+from datetime import datetime
+from supabase import create_client, Client
+from contenidos import SECCIONES
+
+st.set_page_config(
+    page_title="Plataforma ILEPSA",
+    page_icon="🏢",
+    layout="centered"
+)
+
+@st.cache_resource
+def init_supabase() -> Client:
+    return create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
+
+supabase = init_supabase()
+
+# Inicialización de estados de sesión
+if "paso" not in st.session_state:
+    st.session_state.paso = "login"
+if "cedula" not in st.session_state:
+    st.session_state.cedula = ""
+if "nombre_usuario" not in st.session_state:
+    st.session_state.nombre_usuario = ""
+if "es_admin" not in st.session_state:
+    st.session_state.es_admin = False
+if "seccion_actual" not in st.session_state:
+    st.session_state.seccion_actual = 0
+if "sub_paso" not in st.session_state:
+    st.session_state.sub_paso = "teoria"
+if "respuestas_correctas" not in st.session_state:
+    st.session_state.respuestas_correctas = 0
+
+COLORES_SECCION = [
+    {"borde": "#0284c7", "fondo_etiqueta": "#e0f2fe", "texto_etiqueta": "#0369a1"},
+    {"borde": "#7c3aed", "fondo_etiqueta": "#ede9fe", "texto_etiqueta": "#6d28d9"},
+    {"borde": "#059669", "fondo_etiqueta": "#d1fae5", "texto_etiqueta": "#047857"},
+    {"borde": "#d97706", "fondo_etiqueta": "#fef3c7", "texto_etiqueta": "#b45309"},
+    {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}
+]
+
 # Estilos CSS (Texto justificado y opciones del radio en cajitas separadas y letra grande)
 st.markdown("""
     <style>
