@@ -11,14 +11,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Conexión limpia y segura usando st.secrets
 @st.cache_resource
 def init_supabase() -> Client:
     return create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
 
 supabase = init_supabase()
 
-# Inicialización de estados de sesión
 if "paso" not in st.session_state:
     st.session_state.paso = "login"
 if "cedula" not in st.session_state:
@@ -34,7 +32,6 @@ if "sub_paso" not in st.session_state:
 if "respuestas_correctas" not in st.session_state:
     st.session_state.respuestas_correctas = 0
 
-# Paleta de colores corporativa y moderna
 COLORES_SECCION = [
     {"borde": "#0284c7", "fondo_etiqueta": "#e0f2fe", "texto_etiqueta": "#0369a1"},
     {"borde": "#7c3aed", "fondo_etiqueta": "#ede9fe", "texto_etiqueta": "#6d28d9"},
@@ -43,7 +40,7 @@ COLORES_SECCION = [
     {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}
 ]
 
-# Estilos CSS con tamaño de letra optimizado (3 niveles más grande)
+# Estilos CSS (Texto justificado y opciones del radio con mayor tamaño y separación)
 st.markdown("""
     <style>
     @keyframes fadeInPage {
@@ -83,8 +80,9 @@ st.markdown("""
     }
     .contenido-texto {
         font-size: 18.5px;
-        line-height: 1.7;
+        line-height: 1.8;
         color: #334155;
+        text-align: justify;
     }
     .pregunta-box {
         background-color: #f8fafc;
@@ -94,10 +92,30 @@ st.markdown("""
         margin-bottom: 20px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
+    /* Agrandar letra y separar opciones del radio button */
+    div.stRadio > label { 
+        font-size: 18px !important; 
+        font-weight: 600 !important; 
+        color: #1e293b !important; 
+        margin-bottom: 12px !important;
+    }
+    div.stRadio div[role="radiogroup"] > label {
+        background-color: #f8fafc !important;
+        padding: 12px 16px !important;
+        border-radius: 8px !important;
+        border: 1px solid #e2e8f0 !important;
+        margin-bottom: 12px !important;
+        font-size: 16.5px !important;
+        font-weight: 400 !important;
+        color: #334155 !important;
+    }
+    div.stRadio div[role="radiogroup"] > label:hover {
+        background-color: #f1f5f9 !important;
+        border-color: #cbd5e1 !important;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# Script para forzar scroll al inicio absoluto (0,0)
 components.html(
     """
     <script>
@@ -124,7 +142,7 @@ if st.session_state.paso == "login":
     st.markdown("""
     <div class="pagina-nueva-transicion card-principal" style="text-align: center; border-top: 5px solid #0284c7; max-width: 550px; margin: 40px auto;">
         <h3 style="color: #0f172a; margin-top:0;">ACCESO COLABORADORES ILEPSA</h3>
-        <p style="color: #64748b; font-size: 15px; margin-bottom: 0;">Ingrese su número de cédula para continuar con su capacitación guardada</p>
+        <p style="color: #64748b; font-size: 15px; margin-bottom: 0;">Ingrese su número de cédula para acceder a la capacitación virtual programada por la compañía.</p>
     </div>
     """, unsafe_allow_html=True)
     
@@ -144,18 +162,19 @@ if st.session_state.paso == "login":
                         st.session_state.seccion_actual = user_data.get("seccion_actual", 0) or 0
                         st.session_state.sub_paso = user_data.get("sub_paso", "teoria") or "teoria"
                         
+                        try:
+                            supabase.table("registro_tiempos").insert({
+                                "cedula": cedula_limpia,
+                                "fecha_ingreso": datetime.now().isoformat()
+                            }).execute()
+                        except Exception:
+                            pass
+
                         if "Administrador" in st.session_state.nombre_usuario or cedula_limpia in ["9999999999", "1"]:
                             st.session_state.es_admin = True
                             st.session_state.paso = "admin_dashboard"
                         else:
                             st.session_state.es_admin = False
-                            try:
-                                supabase.table("registro_tiempos").insert({
-                                    "cedula": cedula_limpia,
-                                    "fecha_ingreso": datetime.now().isoformat()
-                                }).execute()
-                            except Exception:
-                                pass
                             st.session_state.paso = "instrucciones"
                         st.rerun()
                     else:
@@ -166,7 +185,7 @@ if st.session_state.paso == "login":
                 st.error("Ingrese un número de cédula válido.")
 
 # =========================================================
-# FASE 2: PANEL DE ADMINISTRACIÓN
+# FASE 2: PANEL DE ADMINISTRACIÓN (Corregido para mostrar tiempos)
 # =========================================================
 elif st.session_state.paso == "admin_dashboard":
     st.markdown(f"""
@@ -188,25 +207,26 @@ elif st.session_state.paso == "admin_dashboard":
             for reg in query_tiempos.data:
                 cedula_reg = reg.get("cedula", "N/A")
                 fecha_reg = reg.get("fecha_ingreso", "N/A")
+                
                 res_user = supabase.table("usuarios").select("nombres, seccion_actual").eq("cedula", cedula_reg).execute()
                 if res_user.data:
                     nombre_reg = res_user.data[0]["nombres"]
                     sec_progreso = res_user.data[0].get("seccion_actual", 0)
                 else:
-                    nombre_reg = "Colaborador Externo"
-                    sec_progreso = 0
+                    nombre_reg = "Colaborador / Admin"
+                    sec_progreso = "N/A"
                 
                 datos_tabla.append({
                     "Colaborador": nombre_reg,
                     "Cédula": cedula_reg,
-                    "Sección Actual": f"{sec_progreso} / {len(SECCIONES)}",
+                    "Sección Actual": f"{sec_progreso} / {len(SECCIONES)}" if isinstance(sec_progreso, int) else sec_progreso,
                     "Fecha y Hora de Ingreso": fecha_reg
                 })
             st.dataframe(datos_tabla, use_container_width=True)
         else:
-            st.info("Aún no se registran ingresos de colaboradores.")
-    except Exception:
-        pass
+            st.info("Aún no se registran ingresos en la tabla registro_tiempos.")
+    except Exception as e:
+        st.error(f"Error al consultar los registros: {e}")
         
     if st.button("Cerrar Sesión de Administrador", type="primary", use_container_width=True):
         st.session_state.paso = "login"
@@ -216,7 +236,7 @@ elif st.session_state.paso == "admin_dashboard":
         st.rerun()
 
 # =========================================================
-# FASE 3: INSTRUCCIONES / BIENVENIDA (Artículo 3 correcto)
+# FASE 3: INSTRUCCIONES / BIENVENIDA (Nota de persistencia corregida)
 # =========================================================
 elif st.session_state.paso == "instrucciones":
     st.markdown(f"""
@@ -229,8 +249,8 @@ elif st.session_state.paso == "instrucciones":
         <p style="font-size: 16px; color: #334155; line-height: 1.6;">
             Este programa aborda los temas obligatorios normativos: <b>a) Derechos laborales de mujeres y hombres; b) Igualdad de género; c) Erradicación de violencia y no discriminación en el centro de trabajo; y d) Establecimiento de trabajo de igual valor.</b>
         </p>
-        <p style="font-size: 16px; color: #334155; line-height: 1.6; margin-bottom: 5px;">
-            <b>Persistencia Automática:</b> Su avance se guarda de manera automática en Supabase. Si cierra sesión o ingresa otro día, continuará exactamente desde donde se quedó.
+        <p style="font-size: 15px; color: #0284c7; background-color: #e0f2fe; padding: 12px; border-radius: 6px; margin-top: 15px; font-weight: 500;">
+            💡 <b>Nota:</b> Su progreso se guardará automáticamente para cuando inicie sesión nuevamente.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -272,7 +292,7 @@ elif st.session_state.paso == "evaluacion":
         st.progress(progreso, text=f"Progreso actual: Sección {sec_idx + 1} de {total_secciones}")
         
         # -------------------------------------------------
-        # PANTALLA 1: TEORÍA
+        # PANTALLA 1: TEORÍA (Con texto justificado)
         # -------------------------------------------------
         if st.session_state.sub_paso == "teoria":
             st.markdown(f"""
@@ -317,7 +337,7 @@ elif st.session_state.paso == "evaluacion":
                 st.rerun()
 
         # -------------------------------------------------
-        # PANTALLA 2: CUESTIONARIO
+        # PANTALLA 2: CUESTIONARIO (Opciones grandes y separadas)
         # -------------------------------------------------
         elif st.session_state.sub_paso == "cuestionario":
             st.markdown(f"""
@@ -337,12 +357,6 @@ elif st.session_state.paso == "evaluacion":
                     <p style="font-size: 18px; font-weight: 600; color: #1e293b; margin: 0;">{seccion['pregunta']}</p>
                 </div>
             </div>
-            """, unsafe_allow_html=True)
-            
-            st.markdown("""
-                <style>
-                div.stRadio > label { font-size: 17px !important; font-weight: 500 !important; color: #1e293b !important; }
-                </style>
             """, unsafe_allow_html=True)
             
             respuesta = st.radio(
@@ -403,7 +417,7 @@ elif st.session_state.paso == "evaluacion":
         st.rerun()
 
 # =========================================================
-# FASE 5: CERTIFICADO OFICIAL CORPORATIVO (Diseño Elegante y PDF nativo)
+# FASE 5: CERTIFICADO OFICIAL CORPORATIVO
 # =========================================================
 elif st.session_state.paso == "certificado":
     st.markdown("""
@@ -558,15 +572,6 @@ elif st.session_state.paso == "certificado":
     
     components.html(html_certificado, height=620, scrolling=True)
     st.markdown("<br>", unsafe_allow_html=True)
-    
-    # Botón directo para imprimir / guardar como PDF
-    st.markdown("""
-        <script>
-        function imprimirPDF() {
-            window.parent.print();
-        }
-        </script>
-    """, unsafe_allow_html=True)
     
     if st.button("🖨️ Imprimir y Guardar Certificado en PDF", type="primary", use_container_width=True):
         components.html("<script>window.parent.print();</script>", height=0)
