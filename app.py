@@ -42,7 +42,7 @@ COLORES_SECCION = [
     {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}
 ]
 
-# Estilos CSS optimizados para aprovechar el ancho y evitar scroll vertical largo
+# Estilos CSS compactos para aprovechar el ancho y evitar scroll vertical innecesario
 st.markdown("""
     <style>
     @keyframes fadeInPage {
@@ -251,7 +251,7 @@ elif st.session_state.paso == "instrucciones":
         st.rerun()
 
 # =========================================================
-# FASE 4: MÓDULO DE CAPACITACIÓN (Lee de contenidos.py)
+# FASE 4: MÓDULO DE CAPACITACIÓN (Lee directo de contenidos.py)
 # =========================================================
 elif st.session_state.paso == "evaluacion":
     total_secciones = len(SECCIONES)
@@ -292,14 +292,14 @@ elif st.session_state.paso == "evaluacion":
                     LECTURA {sec_idx + 1} / {total_secciones}
                 </div>
                 <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 13px; text-transform: uppercase;">
-                    {seccion['eje']}
+                    {seccion.get('eje', '')}
                 </span>
-                <h3 style="margin-top: 6px; margin-bottom: 8px; color: #0f172a; font-size: 18px;">{seccion['titulo']}</h3>
+                <h3 style="margin-top: 6px; margin-bottom: 8px; color: #0f172a; font-size: 18px;">{seccion.get('titulo', '')}</h3>
                 <div class="sabias-que-box">
                     💡 <b>¿Sabías tú que...</b> este módulo normativo es fundamental para consolidar nuestros valores corporativos y cumplir con las directrices del MDT?
                 </div>
                 <div class="contenido-texto">
-                    {seccion['contenido']}
+                    {seccion.get('contenido', '')}
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -341,20 +341,20 @@ elif st.session_state.paso == "evaluacion":
                 <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 13px; text-transform: uppercase;">
                     Cuestionario de Validación
                 </span>
-                <h3 style="margin-top: 6px; margin-bottom: 10px; color: #0f172a; font-size: 18px;">{seccion['titulo']}</h3>
+                <h3 style="margin-top: 6px; margin-bottom: 10px; color: #0f172a; font-size: 18px;">{seccion.get('titulo', '')}</h3>
                 <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 10px 0;">
                 <p style="font-size: 13.5px; color: #475569; margin-bottom: 12px;">
                     Responda la siguiente pregunta correspondiente al contenido que acaba de estudiar:
                 </p>
                 <div class="pregunta-box" style="border-left: 4px solid {estilo_color['borde']};">
-                    <p style="font-size: 14.5px; font-weight: 600; color: #1e293b; margin: 0;">{seccion['pregunta']}</p>
+                    <p style="font-size: 14.5px; font-weight: 600; color: #1e293b; margin: 0;">{seccion.get('pregunta', '')}</p>
                 </div>
             </div>
             """, unsafe_allow_html=True)
             
             respuesta = st.radio(
                 "Seleccione su respuesta:", 
-                seccion['opciones'], 
+                seccion.get('opciones', []), 
                 key=f"radio_cuestionario_{sec_idx}"
             )
             
@@ -373,7 +373,7 @@ elif st.session_state.paso == "evaluacion":
                 btn_siguiente = st.button("Enviar Respuesta y Siguiente ➔", type="primary", key=f"btn_enviar_{sec_idx}", use_container_width=True)
             
             if btn_siguiente:
-                if respuesta == seccion['correcta']:
+                if respuesta == seccion.get('correcta', ''):
                     st.session_state.respuestas_correctas += 1
                     st.session_state.seccion_actual += 1
                     st.session_state.sub_paso = "teoria"
