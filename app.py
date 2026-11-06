@@ -91,6 +91,7 @@ st.markdown("""
         margin-bottom: 20px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
+    /* Forzar tamaño y negrita absoluta en los radio buttons de Streamlit */
     div.stRadio > label { 
         font-size: 19px !important; 
         font-weight: 700 !important; 
@@ -107,11 +108,15 @@ st.markdown("""
         padding: 16px 20px !important;
         border-radius: 10px !important;
         border: 1px solid #cbd5e1 !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        transition: all 0.2s ease;
+    }
+    div.stRadio div[role="radiogroup"] > label p,
+    div.stRadio div[role="radiogroup"] > label span,
+    div.stRadio div[role="radiogroup"] > label div {
         font-size: 18px !important;
         font-weight: 700 !important;
         color: #1e293b !important;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.03);
-        transition: all 0.2s ease;
     }
     div.stRadio div[role="radiogroup"] > label:hover {
         background-color: #f1f5f9 !important;
