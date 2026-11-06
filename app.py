@@ -92,37 +92,22 @@ st.markdown("""
         box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
     
-    /* ESTILOS BLINDADOS PARA LOS RADIO BUTTONS (Tamaño grande, negrita y separadas en cajitas) */
-    .stRadio > label {
-        font-size: 20px !important;
-        font-weight: 700 !important;
+    /* FORZAR TAMAÑO GRANDE EN LAS OPCIONES DEL RADIO BUTTON */
+    div.stRadio > label {
+        font-size: 18px !important;
+        font-weight: 600 !important;
         color: #0f172a !important;
-        margin-bottom: 15px !important;
     }
-    .stRadio div[role="radiogroup"] {
-        display: flex;
-        flex-direction: column;
-        gap: 16px !important;
-    }
-    .stRadio div[role="radiogroup"] > label {
-        background-color: #f8fafc !important;
-        padding: 16px 20px !important;
-        border-radius: 10px !important;
-        border: 1px solid #cbd5e1 !important;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        transition: all 0.2s ease;
-    }
-    .stRadio div[role="radiogroup"] > label p,
-    .stRadio div[role="radiogroup"] > label span,
-    .stRadio div[role="radiogroup"] > label div,
-    .stRadio div[role="radiogroup"] label {
+    /* Estilo para los textos internos de cada opción del radio */
+    div.stRadio div[role="radiogroup"] label p {
         font-size: 17.5px !important;
-        font-weight: 700 !important;
         color: #1e293b !important;
+        line-height: 1.5 !important;
     }
-    .stRadio div[role="radiogroup"] > label:hover {
-        background-color: #f1f5f9 !important;
-        border-color: #0284c7 !important;
+    div.stRadio div[role="radiogroup"] label {
+        font-size: 17.5px !important;
+        padding-top: 6px !important;
+        padding-bottom: 6px !important;
     }
     </style>
 """, unsafe_allow_html=True)
