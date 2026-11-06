@@ -14,6 +14,8 @@ if "paso" not in st.session_state:
     st.session_state.paso = "login"  # login, cargando, capacitacion, certificado
 if "cedula" not in st.session_state:
     st.session_state.cedula = ""
+if "nombre_usuario" not in st.session_state:
+    st.session_state.nombre_usuario = ""
 if "seccion_actual" not in st.session_state:
     st.session_state.seccion_actual = 0
 if "respuestas_correctas" not in st.session_state:
@@ -21,32 +23,38 @@ if "respuestas_correctas" not in st.session_state:
 if "progreso_usuarios" not in st.session_state:
     st.session_state.progreso_usuarios = {}
 
-# Estilos avanzados con animación de paso de página de libro (Flip 3D)
+# Estilos CSS con animación de volteo de página de libro (Page Flip 3D)
 st.markdown("""
     <style>
-    @keyframes pageTurn {
+    @keyframes flipPage3D {
         0% {
             opacity: 0;
-            transform: translateY(15px) scale(0.98);
+            transform: perspective(1200px) rotateY(-18deg) translateX(-40px);
+            filter: blur(4px);
+        }
+        50% {
+            opacity: 0.6;
+            filter: blur(1px);
         }
         100% {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: perspective(1200px) rotateY(0deg) translateX(0px);
+            filter: blur(0px);
         }
     }
 
-    .libro-hoja {
-        animation: pageTurn 0.5s ease-out forwards;
+    .hoja-libro-animada {
+        animation: flipPage3D 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         background: #ffffff;
         border: 1px solid #cbd5e1;
-        border-left: 6px solid #0284c7;
+        border-left: 8px solid #0284c7;
         padding: 35px;
         border-radius: 12px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.06);
-        margin-bottom: 25px;
+        box-shadow: 12px 12px 30px rgba(0,0,0,0.08);
+        margin-bottom: 30px;
     }
 
-    .welcome-container {
+    .welcome-card {
         background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         color: white;
         padding: 40px;
@@ -54,91 +62,87 @@ st.markdown("""
         text-align: center;
         box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         margin-bottom: 25px;
-        animation: pageTurn 0.6s ease-out forwards;
+    }
+
+    .header-info-box {
+        background: linear-gradient(90deg, #f8fafc 0%, #e2e8f0 100%);
+        padding: 15px 20px;
+        border-radius: 10px;
+        border: 1px solid #cbd5e1;
+        margin-bottom: 20px;
     }
 
     .question-box {
         background-color: #f8fafc;
         border: 1px solid #e2e8f0;
-        border-left: 4px solid #0284c7;
-        padding: 20px;
+        border-left: 5px solid #0284c7;
+        padding: 22px;
         border-radius: 8px;
-        margin-top: 20px;
+        margin-top: 25px;
         margin-bottom: 20px;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# Forzar scroll automático hacia arriba en cada recarga
-components.html(
-    """
-    <script>
-        window.parent.scrollTo({top: 0, behavior: 'smooth'});
-    </script>
-    """,
-    height=0,
-)
-
 # ---------------------------------------------------------
-# FASE 1: PANTALLA DE INGRESO (LOGIN)
+# FASE 1: INGRESO DE DATOS (NOMBRE Y CÉDULA)
 # ---------------------------------------------------------
 if st.session_state.paso == "login":
     st.markdown("""
-    <div class="welcome-container">
+    <div class="welcome-card">
         <h1 style="color: #ffffff; margin-top: 0; font-size: 28px;">PROGRAMA DE FORMACIÓN INTEGRAL</h1>
         <h3 style="color: #38bdf8; margin-bottom: 10px;">COMPAÑÍA ILEPSA S.A.</h3>
-        <p style="opacity: 0.9; font-size: 15px;">Marco normativo del Acuerdo Ministerial MDT-2025-006</p>
+        <p style="opacity: 0.9; font-size: 15px;">Cumplimiento Normativo — Acuerdo Ministerial MDT-2025-006</p>
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown("""
-    <div class="libro-hoja">
-        <h4 style="margin-top:0; color: #0f172a;">📋 Indicaciones Importantes:</h4>
-        <ul>
-            <li><b>Estructura:</b> 100 Secciones de aprendizaje evaluadas.</li>
-            <li><b>Guardado Automático:</b> Su progreso se almacena de forma individual por cédula.</li>
-            <li><b>Certificación:</b> Se emite de forma automática al completar el 100% de las secciones.</li>
-        </ul>
+    <div class="hoja-libro-animada">
+        <h4 style="margin-top:0; color: #0f172a;">📋 Registro de Ingreso al Sistema</h4>
+        <p style="color: #475569; font-size: 14px;">Ingrese sus nombres completos y cédula de identidad para iniciar la sesión personalizada y registrar su avance.</p>
     </div>
     """, unsafe_allow_html=True)
     
+    nombre_input = st.text_input("Ingrese sus Nombres y Apellidos Completos:", placeholder="Ej. Juan Carlos Pérez")
     cedula_input = st.text_input("Ingrese su Cédula de Identidad:", max_chars=10, type="password")
     
-    if st.button("Ingresar al Sistema", type="primary"):
+    if st.button("Iniciar Capacitación", type="primary"):
+        nombre_limpio = nombre_input.strip()
         cedula_limpia = cedula_input.strip()
-        if len(cedula_limpia) >= 10:
+        
+        if len(nombre_limpio) > 2 and len(cedula_limpia) >= 10:
+            st.session_state.nombre_usuario = nombre_limpio
             st.session_state.cedula = cedula_limpia
             st.session_state.paso = "cargando"
             st.rerun()
         else:
-            st.error("Por favor ingrese un número de cédula válido de 10 dígitos.")
+            st.error("Por favor ingrese su nombre completo y un número de cédula válido de 10 dígitos.")
 
 # ---------------------------------------------------------
-# FASE 2: PANTALLA DE BIENVENIDA Y CARGA VISIBLE
+# FASE 2: PANTALLA DE BIENVENIDA Y CARGA DE PÁGINA
 # ---------------------------------------------------------
 elif st.session_state.paso == "cargando":
     st.markdown(f"""
-    <div class="welcome-container">
+    <div class="welcome-card">
         <h1 style="color: #38bdf8; margin-bottom: 10px;">¡BIENVENIDO(A) A ILEPSA!</h1>
-        <h3 style="color: #ffffff; margin-top: 0;">Colaborador(a) Cédula N°: {st.session_state.cedula}</h3>
-        <p style="font-size: 16px; color: #cbd5e1; margin-top: 15px;">Preparando su entorno de capacitación modular...</p>
+        <h2 style="color: #ffffff; margin-top: 0;">{st.session_state.nombre_usuario}</h2>
+        <p style="font-size: 15px; color: #cbd5e1;">Cédula de Identidad: N° {st.session_state.cedula}</p>
+        <p style="font-size: 14px; color: #94a3b8; margin-top: 20px;">Abriendo libro digital de capacitación y recuperando registro de avance...</p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Barra de progreso visual de carga deliberada para que el usuario aprecie la bienvenida
-    barra_carga = st.progress(0, text="Iniciando sesión segura...")
+    barra_carga = st.progress(0, text="Cargando libro digital...")
     for porcentaje in range(1, 101):
-        time.sleep(0.02)  # Controla la velocidad de la animación de bienvenida
+        time.sleep(0.02)
         if porcentaje == 30:
-            barra_carga.progress(porcentaje, text="Verificando registros de cumplimiento MDT-2025-006...")
+            barra_carga.progress(porcentaje, text="Validando perfil de colaborador en ILEPSA S.A. ...")
         elif porcentaje == 70:
-            barra_carga.progress(porcentaje, text="Cargando progreso guardado del colaborador...")
+            barra_carga.progress(porcentaje, text="Recuperando la última sección completada...")
         elif porcentaje == 100:
-            barra_carga.progress(porcentaje, text="¡Entorno listo con éxito!")
+            barra_carga.progress(porcentaje, text="¡Página lista! Trasladando a la sección de lectura...")
 
-    time.sleep(0.5)
+    time.sleep(0.4)
     
-    # Recuperar progreso guardado si existe
     if st.session_state.cedula in st.session_state.progreso_usuarios:
         st.session_state.seccion_actual = st.session_state.progreso_usuarios[st.session_state.cedula]
     else:
@@ -148,20 +152,43 @@ elif st.session_state.paso == "cargando":
     st.rerun()
 
 # ---------------------------------------------------------
-# FASE 3: DESARROLLO DE LA CAPACITACIÓN (LIBRO INTERACTIVO)
+# FASE 3: DESARROLLO DE LA CAPACITACIÓN (TRANSICIÓN TIPO LIBRO)
 # ---------------------------------------------------------
 elif st.session_state.paso == "capacitacion":
     total_secciones = len(SECCIONES)
     sec_idx = st.session_state.seccion_actual
     
-    col_h1, col_h2, col_h3 = st.columns([2, 2, 1])
-    col_h1.write("🏢 **Empresa:** ILEPSA S.A.")
-    col_h2.write(f"👤 **Cédula:** {st.session_state.cedula}")
-    if col_h3.button("Guardar y Salir"):
-        st.session_state.paso = "login"
-        st.session_state.cedula = ""
-        st.rerun()
-        
+    # Inyección de JavaScript que obliga a la ventana principal a subir completamente al inicio
+    components.html(
+        """
+        <script>
+            window.parent.scrollTo({top: 0, behavior: 'instant'});
+        </script>
+        """,
+        height=0,
+    )
+    
+    # Barra con Nombre y Cédula
+    st.markdown(f"""
+    <div class="header-info-box">
+        <table style="width:100%; border:none;">
+            <tr>
+                <td style="border:none;">🏢 <b>Empresa:</b> COMPAÑÍA ILEPSA S.A.</td>
+                <td style="border:none;">👤 <b>Colaborador:</b> {st.session_state.nombre_usuario}</td>
+                <td style="border:none;">🪪 <b>Cédula:</b> {st.session_state.cedula}</td>
+            </tr>
+        </table>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col_sal1, col_sal2 = st.columns([4, 1])
+    with col_sal2:
+        if st.button("Guardar y Salir"):
+            st.session_state.paso = "login"
+            st.session_state.cedula = ""
+            st.session_state.nombre_usuario = ""
+            st.rerun()
+            
     st.divider()
     
     progreso_val = sec_idx / total_secciones
@@ -170,49 +197,53 @@ elif st.session_state.paso == "capacitacion":
     if sec_idx < total_secciones:
         seccion = SECCIONES[sec_idx]
         
-        # Contenedor principal con efecto visual de paso de hoja
-        st.markdown(f'<div class="libro-hoja" key="hoja_{sec_idx}">', unsafe_allow_html=True)
+        # El atributo key fuerza a Streamlit a destruir la vista anterior y animar la nueva hoja
+        st.markdown(f'<div class="hoja-libro-animada" key="pagina_libro_{sec_idx}_{time.time()}">', unsafe_allow_html=True)
         
         st.markdown(f"### 📖 {seccion['eje']}")
         st.markdown(f"## {seccion['titulo']}")
         
+        # Texto de Lectura Obligatoria
         st.markdown(seccion['contenido'])
         
+        st.divider()
+        
+        # Bloque de Evaluación en la parte inferior de la página
         st.markdown(f"""
         <div class="question-box">
-            <h4 style="margin-top:0;">📝 Evaluación de la Sección {sec_idx + 1}</h4>
+            <h4 style="margin-top:0;">📝 Evaluación Obligatoria de la Sección {sec_idx + 1}</h4>
             <p style="font-size:16px;"><b>{seccion['pregunta']}</b></p>
         </div>
         """, unsafe_allow_html=True)
         
-        respuesta_usuario = st.radio("Seleccione la respuesta correcta:", seccion['opciones'], key=f"radio_s_{sec_idx}")
+        respuesta_usuario = st.radio("Seleccione su respuesta para avanzar de página:", seccion['opciones'], key=f"radio_choice_{sec_idx}")
         
         col_b1, col_b2 = st.columns([1, 3])
         with col_b1:
-            if st.button("Siguiente Sección ➔", type="primary"):
+            if st.button("Pasar de Página ➔", type="primary"):
                 if respuesta_usuario == seccion['correcta']:
-                    st.success("¡Respuesta correcta! Pasando a la siguiente página...")
+                    st.success("¡Respuesta correcta! Volteando hoja del libro...")
                     st.session_state.respuestas_correctas += 1
                     st.session_state.seccion_actual += 1
                     st.session_state.progreso_usuarios[st.session_state.cedula] = st.session_state.seccion_actual
-                    time.sleep(0.6)  # Pausa dramática para que se note el cambio de página
+                    time.sleep(0.5)  # Pausa deliberada para ver el paso de página
                     st.rerun()
                 else:
-                    st.error("Respuesta incorrecta. Revise el contenido teórico antes de continuar.")
+                    st.error("Respuesta incorrecta. Vuelva a leer el texto superior antes de intentar de nuevo.")
                     
         st.markdown("""
         <div style="background-color: #f1f5f9; border: 1px dashed #94a3b8; padding: 15px; border-radius: 8px; margin-top: 25px;">
             <h5 style="margin:0 0 5px 0;">🤖 Asistente Virtual ILEPSA</h5>
-            <p style="font-size: 13px; color: #475569; margin-bottom:10px;">¿Tiene dudas sobre esta sección? Escriba su consulta:</p>
+            <p style="font-size: 13px; color: #475569; margin-bottom:10px;">¿Tiene dudas sobre este tema? Escriba su consulta a continuación:</p>
         </div>
         """, unsafe_allow_html=True)
         
-        pregunta_ia = st.text_input("Escriba su consulta:", key=f"ia_input_{sec_idx}")
-        if st.button("Consultar Asistente", key=f"ia_btn_{sec_idx}"):
+        pregunta_ia = st.text_input("Escriba su consulta:", key=f"ia_input_sec_{sec_idx}")
+        if st.button("Consultar Asistente", key=f"ia_btn_sec_{sec_idx}"):
             if pregunta_ia.strip():
-                st.info(f"Asistente ILEPSA: Respecto a '{pregunta_ia}', recuerde que las normativas internas y el Acuerdo Ministerial MDT-2025-006 priorizan la equidad y el cumplimiento legal estricto.")
+                st.info(f"Asistente ILEPSA: Respecto a '{pregunta_ia}', el marco legal del MDT-2025-006 garantiza el cumplimiento estricto de los derechos de los colaboradores.")
             else:
-                st.warning("Ingrese una pregunta válida.")
+                st.warning("Ingrese una consulta válida.")
 
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -221,23 +252,26 @@ elif st.session_state.paso == "capacitacion":
         st.rerun()
 
 # ---------------------------------------------------------
-# FASE 4: CERTIFICADO FINAL
+# FASE 4: CERTIFICADO OFICIAL FINAL
 # ---------------------------------------------------------
 elif st.session_state.paso == "certificado":
     st.balloons()
-    st.markdown('<div class="libro-hoja" style="text-align: center;">', unsafe_allow_html=True)
+    st.markdown('<div class="hoja-libro-animada" style="text-align: center;">', unsafe_allow_html=True)
     st.markdown(f"""
         <h2>📜 CERTIFICADO OFICIAL DE APROBACIÓN</h2>
         <h3>COMPAÑÍA ILEPSA S.A.</h3>
-        <p>Se certifica formalmente que el colaborador con Cédula N° <b>{st.session_state.cedula}</b> ha completado y aprobado satisfactoriamente las <b>100 secciones</b> del Programa de Formación Integral bajo el marco del <b>Acuerdo Ministerial MDT-2025-006</b>.</p>
+        <p>Se certifica que el colaborador(a):</p>
+        <h3 style="color:#0284c7;">{st.session_state.nombre_usuario}</h3>
+        <p>Con Cédula de Identidad N° <b>{st.session_state.cedula}</b> ha completado y aprobado satisfactoriamente las <b>100 secciones</b> del Programa de Formación Integral bajo el marco del <b>Acuerdo Ministerial MDT-2025-006</b>.</p>
         <hr style="margin: 20px 0;">
-        <p><b>Evaluaciones Superadas:</b> {st.session_state.respuestas_correctas} / {len(SECCIONES)}</p>
-        <p style="color: #059669; font-weight: bold; font-size: 18px;">ESTADO: APROBADO CON ÉXITO</p>
+        <p><b>Aciertos Totales:</b> {st.session_state.respuestas_correctas} / {len(SECCIONES)}</p>
+        <p style="color: #059669; font-weight: bold; font-size: 18px;">ESTADO: CERTIFICADO EMITIDO Y REGISTRADO</p>
     """, unsafe_allow_html=True)
     
     if st.button("Finalizar y Salir del Sistema"):
         st.session_state.paso = "login"
         st.session_state.cedula = ""
+        st.session_state.nombre_usuario = ""
         st.session_state.seccion_actual = 0
         st.session_state.respuestas_correctas = 0
         st.rerun()
