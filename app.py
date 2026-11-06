@@ -3,25 +3,22 @@ import streamlit.components.v1 as components
 import time
 from datetime import datetime
 from supabase import create_client, Client
-
-# Forzamos recarga limpia de contenidos.py para evitar problemas de caché de Streamlit
-import importlib
-import contenidos
-importlib.reload(contenidos)
 from contenidos import SECCIONES
 
 st.set_page_config(
     page_title="Plataforma ILEPSA",
     page_icon="🏢",
-    layout="wide"
+    layout="wide"  # Layout ancho para aprovechar el espacio horizontal
 )
 
+# Conexión limpia y segura usando st.secrets
 @st.cache_resource
 def init_supabase() -> Client:
     return create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
 
 supabase = init_supabase()
 
+# Inicialización de estados de sesión
 if "paso" not in st.session_state:
     st.session_state.paso = "login"
 if "cedula" not in st.session_state:
@@ -37,6 +34,7 @@ if "sub_paso" not in st.session_state:
 if "respuestas_correctas" not in st.session_state:
     st.session_state.respuestas_correctas = 0
 
+# Paleta de colores rotativa por sección
 COLORES_SECCION = [
     {"borde": "#0284c7", "fondo_etiqueta": "#e0f2fe", "texto_etiqueta": "#0369a1"},
     {"borde": "#7c3aed", "fondo_etiqueta": "#ede9fe", "texto_etiqueta": "#6d28d9"},
@@ -45,10 +43,11 @@ COLORES_SECCION = [
     {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}
 ]
 
+# Estilos CSS con tipografía compacta, elegante y optimizada a lo ancho
 st.markdown("""
     <style>
     @keyframes fadeInPage {
-        0% { opacity: 0; transform: translateY(10px); }
+        0% { opacity: 0; transform: translateY(15px); }
         100% { opacity: 1; transform: translateY(0); }
     }
     .pagina-nueva-transicion {
@@ -58,7 +57,7 @@ st.markdown("""
         background: #ffffff;
         border: 1px solid #e2e8f0;
         padding: 25px 35px;
-        border-radius: 12px;
+        border-radius: 10px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
         margin-bottom: 20px;
         position: relative;
@@ -67,7 +66,7 @@ st.markdown("""
         position: absolute;
         top: 20px;
         right: 30px;
-        padding: 5px 14px;
+        padding: 4px 12px;
         border-radius: 15px;
         font-size: 12px;
         font-weight: 700;
@@ -81,16 +80,6 @@ st.markdown("""
         border-radius: 8px;
         margin-bottom: 15px;
     }
-    .sabias-que-box {
-        background-color: #f0f9ff;
-        border-left: 4px solid #0284c7;
-        padding: 12px 18px;
-        border-radius: 0 8px 8px 0;
-        margin-bottom: 15px;
-        font-size: 13.5px;
-        color: #0369a1;
-        font-weight: 500;
-    }
     .contenido-texto {
         font-size: 14.5px;
         line-height: 1.6;
@@ -99,7 +88,7 @@ st.markdown("""
     .pregunta-box {
         background-color: #f8fafc;
         border-left: 4px solid #0f172a;
-        padding: 18px;
+        padding: 20px;
         border-radius: 0 8px 8px 0;
         margin-bottom: 20px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.02);
@@ -107,6 +96,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Script para forzar el scroll al inicio absoluto (0,0)
 components.html(
     """
     <script>
@@ -126,6 +116,9 @@ components.html(
     height=0,
 )
 
+# =========================================================
+# FASE 1: LOGIN (Recupera progreso automático de Supabase)
+# =========================================================
 if st.session_state.paso == "login":
     st.markdown("""
     <div class="pagina-nueva-transicion card-principal" style="text-align: center; border-top: 5px solid #0284c7; max-width: 600px; margin: 50px auto;">
@@ -137,6 +130,7 @@ if st.session_state.paso == "login":
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         cedula_input = st.text_input("Cédula de Identidad:", max_chars=10, type="password")
+        
         if st.button("Ingresar al Sistema", type="primary", use_container_width=True):
             cedula_limpia = cedula_input.strip()
             if len(cedula_limpia) >= 10 or cedula_limpia == "1":
@@ -147,6 +141,7 @@ if st.session_state.paso == "login":
                         user_data = response.data[0]
                         st.session_state.cedula = cedula_limpia
                         st.session_state.nombre_usuario = user_data["nombres"]
+                        
                         st.session_state.seccion_actual = user_data.get("seccion_actual", 0) or 0
                         st.session_state.sub_paso = user_data.get("sub_paso", "teoria") or "teoria"
                         
@@ -163,6 +158,7 @@ if st.session_state.paso == "login":
                             except Exception:
                                 pass
                             st.session_state.paso = "instrucciones"
+                        
                         st.rerun()
                     else:
                         st.error("Cédula no registrada en la base de datos de ILEPSA.")
@@ -171,6 +167,9 @@ if st.session_state.paso == "login":
             else:
                 st.error("Ingrese un número de cédula válido.")
 
+# =========================================================
+# FASE 2: PANEL DE ADMINISTRACIÓN
+# =========================================================
 elif st.session_state.paso == "admin_dashboard":
     st.markdown(f"""
     <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #0f172a;">
@@ -211,6 +210,14 @@ elif st.session_state.paso == "admin_dashboard":
     except Exception:
         pass
         
+    st.markdown("### 👥 Listado General de Colaboradores Registrados")
+    try:
+        query_usuarios = supabase.table("usuarios").select("cedula, nombres, seccion_actual").execute()
+        if query_usuarios.data:
+            st.dataframe(query_usuarios.data, use_container_width=True)
+    except Exception:
+        pass
+        
     if st.button("Cerrar Sesión de Administrador", type="primary", use_container_width=True):
         st.session_state.paso = "login"
         st.session_state.cedula = ""
@@ -218,19 +225,19 @@ elif st.session_state.paso == "admin_dashboard":
         st.session_state.es_admin = False
         st.rerun()
 
+# =========================================================
+# FASE 3: INSTRUCCIONES (Colaboradores)
+# =========================================================
 elif st.session_state.paso == "instrucciones":
     st.markdown(f"""
     <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #0284c7;">
         <h3 style="color: #0f172a; margin-top:0;">¡Bienvenido(a), {st.session_state.nombre_usuario}!</h3>
         <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
-        <p style="font-size: 14px; color: #334155; line-height: 1.6;">
-            En cumplimiento estricto con la normativa legal vigente y el <b>Acuerdo Ministerial número MDT-2025-006</b>, este programa de formación y capacitación integral es de <b>carácter obligatorio para todos los trabajadores y colaboradores de la empresa ILEPSA S.A.</b>
+        <p style="font-size: 14.5px; color: #334155; line-height: 1.6;">
+            En cumplimiento con la normativa legal vigente y el <b>Acuerdo Ministerial MDT-2025-006</b>, este programa de formación integral es de <b>carácter obligatorio</b> para todo el personal de la Compañía ILEPSA S.A. (Certificación de 40 horas).
         </p>
-        <p style="font-size: 14px; color: #334155; line-height: 1.6;">
-            <b>¿De qué se trata este programa?</b> Está enfocado en la prevención, atención, erradicación y sanción de la violencia, el acoso laboral, la discriminación y la violencia salarial en el ámbito de trabajo, promoviendo un entorno corporativo seguro, equitativo e inclusivo.
-        </p>
-        <p style="font-size: 14px; color: #334155; line-height: 1.6; margin-bottom: 5px;">
-            <b>Persistencia Automática:</b> Su avance se guarda de manera automática en la base de datos de Supabase. Si cierra sesión, la aplicación se apaga o ingresa al día siguiente, el sistema lo ubicará exactamente en la sección donde se quedó.
+        <p style="font-size: 14.5px; color: #334155; line-height: 1.6; margin-bottom: 5px;">
+            <b>Progreso Automático:</b> Su avance se guarda de forma permanente en el sistema. Si cierra sesión o ingresa otro día, continuará exactamente desde donde se quedó.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -242,6 +249,9 @@ elif st.session_state.paso == "instrucciones":
             st.session_state.paso = "evaluacion"
         st.rerun()
 
+# =========================================================
+# FASE 4: MÓDULO DE CAPACITACIÓN (Lectura directa desde contenidos.py)
+# =========================================================
 elif st.session_state.paso == "evaluacion":
     total_secciones = len(SECCIONES)
     sec_idx = st.session_state.seccion_actual
@@ -271,6 +281,9 @@ elif st.session_state.paso == "evaluacion":
         progreso = sec_idx / total_secciones
         st.progress(progreso, text=f"Progreso actual: Sección {sec_idx + 1} de {total_secciones}")
         
+        # -------------------------------------------------
+        # PANTALLA 1: TEORÍA (Renderizado directo en Markdown de Streamlit)
+        # -------------------------------------------------
         if st.session_state.sub_paso == "teoria":
             st.markdown(f"""
             <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid {estilo_color['borde']};">
@@ -280,19 +293,18 @@ elif st.session_state.paso == "evaluacion":
                 <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 13px; text-transform: uppercase;">
                     {seccion.get('eje', '')}
                 </span>
-                <h3 style="margin-top: 6px; margin-bottom: 8px; color: #0f172a; font-size: 18px;">{seccion.get('titulo', '')}</h3>
-                <div class="sabias-que-box">
-                    💡 <b>¿Sabías tú que...</b> este módulo normativo es fundamental para consolidar nuestros valores corporativos y cumplir con las directrices del MDT?
-                </div>
+                <h3 style="margin-top: 6px; margin-bottom: 12px; color: #0f172a; font-size: 20px;">{seccion.get('titulo', '')}</h3>
+                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
             </div>
             """, unsafe_allow_html=True)
             
-            # Carga directa del contenido en Markdown desde contenidos.py
+            # Renderizamos el contenido exacto tal cual viene en contenidos.py usando st.markdown nativo
             st.markdown(seccion.get('contenido', ''), unsafe_allow_html=True)
             
             st.markdown("<br>", unsafe_allow_html=True)
             if st.button("Continuar al Cuestionario de esta Sección ➔", type="primary", key=f"btn_ir_cuestionario_{sec_idx}", use_container_width=True):
                 st.session_state.sub_paso = "cuestionario"
+                
                 try:
                     supabase.table("usuarios").update({
                         "seccion_actual": st.session_state.seccion_actual,
@@ -316,6 +328,9 @@ elif st.session_state.paso == "evaluacion":
                 )
                 st.rerun()
 
+        # -------------------------------------------------
+        # PANTALLA 2: CUESTIONARIO
+        # -------------------------------------------------
         elif st.session_state.sub_paso == "cuestionario":
             st.markdown(f"""
             <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid {estilo_color['borde']};">
@@ -325,13 +340,13 @@ elif st.session_state.paso == "evaluacion":
                 <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 13px; text-transform: uppercase;">
                     Cuestionario de Validación
                 </span>
-                <h3 style="margin-top: 6px; margin-bottom: 10px; color: #0f172a; font-size: 18px;">{seccion.get('titulo', '')}</h3>
-                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 10px 0;">
-                <p style="font-size: 13.5px; color: #475569; margin-bottom: 12px;">
+                <h3 style="margin-top: 6px; margin-bottom: 12px; color: #0f172a; font-size: 19px;">{seccion.get('titulo', '')}</h3>
+                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
+                <p style="font-size: 14px; color: #475569; margin-bottom: 15px;">
                     Responda la siguiente pregunta correspondiente al contenido que acaba de estudiar:
                 </p>
                 <div class="pregunta-box" style="border-left: 4px solid {estilo_color['borde']};">
-                    <p style="font-size: 14.5px; font-weight: 600; color: #1e293b; margin: 0;">{seccion.get('pregunta', '')}</p>
+                    <p style="font-size: 15px; font-weight: 600; color: #1e293b; margin: 0;">{seccion.get('pregunta', '')}</p>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -393,6 +408,9 @@ elif st.session_state.paso == "evaluacion":
         st.session_state.paso = "certificado"
         st.rerun()
 
+# =========================================================
+# FASE 5: CERTIFICADO OFICIAL (DIPLOMA HORIZONTAL UNIVERSITARIO)
+# =========================================================
 elif st.session_state.paso == "certificado":
     st.markdown("""
     <div style="text-align: center; margin-bottom: 15px;">
