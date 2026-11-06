@@ -1,581 +1,282 @@
-import streamlit as st
-import streamlit.components.v1 as components
-import time
-from datetime import datetime
-from supabase import create_client, Client
-from contenidos import SECCIONES
-
-st.set_page_config(
-    page_title="Plataforma ILEPSA",
-    page_icon="🏢",
-    layout="centered"
-)
-
-# Conexión limpia y segura usando st.secrets
-@st.cache_resource
-def init_supabase() -> Client:
-    return create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
-
-supabase = init_supabase()
-
-# Inicialización de estados de sesión
-if "paso" not in st.session_state:
-    st.session_state.paso = "login"
-if "cedula" not in st.session_state:
-    st.session_state.cedula = ""
-if "nombre_usuario" not in st.session_state:
-    st.session_state.nombre_usuario = ""
-if "es_admin" not in st.session_state:
-    st.session_state.es_admin = False
-if "seccion_actual" not in st.session_state:
-    st.session_state.seccion_actual = 0
-if "sub_paso" not in st.session_state:
-    st.session_state.sub_paso = "teoria"
-if "respuestas_correctas" not in st.session_state:
-    st.session_state.respuestas_correctas = 0
-
-# Paleta de colores corporativa y moderna
-COLORES_SECCION = [
-    {"borde": "#0284c7", "fondo_etiqueta": "#e0f2fe", "texto_etiqueta": "#0369a1"},
-    {"borde": "#7c3aed", "fondo_etiqueta": "#ede9fe", "texto_etiqueta": "#6d28d9"},
-    {"borde": "#059669", "fondo_etiqueta": "#d1fae5", "texto_etiqueta": "#047857"},
-    {"borde": "#d97706", "fondo_etiqueta": "#fef3c7", "texto_etiqueta": "#b45309"},
-    {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}
-]
-
-# Estilos CSS con tamaño de letra optimizado (3 niveles más grande)
-st.markdown("""
-    <style>
-    @keyframes fadeInPage {
-        0% { opacity: 0; transform: translateY(10px); }
-        100% { opacity: 1; transform: translateY(0); }
+SECCIONES = [
+    {
+        "id": 1,
+        "eje": "Módulo I: Fundamentos y Derechos Laborales",
+        "titulo": "1. El Valor del Trabajo y el Respeto a la Dignidad Humana",
+        "contenido": "El marco legal y constitucional establece de manera categórica que toda relación laboral debe desarrollarse bajo el respeto absoluto e irrestricto a la dignidad de la persona trabajadora. El trabajo no constituye una mera mercancía, un recurso intercambiable o un factor de producción secundario dentro de las organizaciones, sino que representa el medio fundamental para el sustento familiar, la realización personal y el desarrollo socioeconómico de la sociedad. Por esta razón, las condiciones cotidianas en las que se ejecuta cualquier labor deben garantizar en todo momento la integridad física, mental y emocional de cada individuo, impidiendo cualquier forma de menoscabo a su condición humana.<br><br>Las normativas nacionales e internacionales de derechos humanos coinciden en que los centros de trabajo deben ser espacios seguros, inclusivos y estrictamente libres de cualquier práctica intimidatoria, hostil, degradante o violenta. Ningún indicador de productividad, meta comercial exigente, restricción de tiempo o jerarquía institucional dentro de la empresa justifica jamás la imposición de tratos despóticos, gritos, presiones psicológicas extremas, amenazas veladas o descalificaciones personales que busquen minimizar o humillar al colaborador en su desempeño diario.<br><br>Fomentar una cultura de respeto mutuo y convivencia armónica implica reconocer de forma genuina que todas las personas que integran la estructura organizacional poseen exactamente los mismos derechos fundamentales y merecen el mismo grado de consideración. La autoridad que ostenta un cargo directivo o de supervisión nunca debe confundirse con el derecho a avasallar los derechos de los demás, sino que debe entenderse como una responsabilidad orientada a guiar, facilitar y proteger el desarrollo seguro de las actividades de todo el equipo de trabajo.<br><br>De este modo, la exigencia del cumplimiento de los deberes operativos y contractuales debe marchar siempre de la mano con un trato justo, la empatía institucional y la estricta observancia de los límites legales establecidos para proteger el bienestar integral. Cuando la empresa y sus colaboradores entienden que la dignidad no es negociable, se sientan las bases sólidas para construir un entorno de trabajo próspero, transparente y exento de conflictos destructivos.",
+        "pregunta": "¿Qué principio fundamental establece el marco legal respecto a la autoridad y la relación laboral dentro de las organizaciones?",
+        "opciones": [
+            "Que la autoridad nunca justifica tratos despóticos y la exigencia de deberes debe marchar junto al respeto a la dignidad",
+            "Que las metas comerciales y de producción están por encima del bienestar emocional de los colaboradores",
+            "Que los supervisores pueden utilizar la presión psicológica extrema para acelerar las tareas operativas",
+            "Que el trabajo es considerado una simple mercancía sujeta a las necesidades absolutas de la empresa"
+        ],
+        "correcta": "Que la autoridad nunca justifica tratos despóticos y la exigencia de deberes debe marchar junto al respeto a la dignidad"
+    },
+    {
+        "id": 2,
+        "eje": "Módulo I: Fundamentos y Derechos Laborales",
+        "titulo": "2. Alcance y Obligatoriedad del Acuerdo Ministerial MDT-2025-006",
+        "contenido": "El Acuerdo Ministerial MDT-2025-006 representa una directriz fundamental emitida por el Ministerio del Trabajo con el propósito primordial de erradicar de forma definitiva las prácticas de acoso, discriminación y violencia en los ámbitos laborales públicos y privados del país. Su contenido establece obligaciones de cumplimiento estricto para los empleadores, destacando de manera especial la implementación obligatoria de mecanismos de prevención, canales de denuncia seguros y programas de formación continua para todo el personal.<br><br>La normativa exige el desarrollo de programas de capacitación que alcancen una duración mínima de cuarenta horas anuales, orientados a concientizar a los trabajadores sobre sus derechos, obligaciones y las vías legales disponibles para su protección. Esta exigencia responde a la necesidad ineludible de transformar los entornos corporativos mediante la educación preventiva, dotando a los colaboradores de herramientas conceptuales claras para identificar, prevenir y reportar cualquier anomalía en el clima laboral.<br><br>El incumplimiento de estas disposiciones ministeriales acarrea importantes sanciones administrativas y legales para las organizaciones que omitan su deber de garante y protección. Por lo tanto, el desarrollo de estos módulos formativos no solo responde al cumplimiento de un mandato legal ineludible, sino que consolida un compromiso institucional genuino con la seguridad jurídica, la transparencia y el bienestar integral de quienes conforman la empresa.<br><br>Para los trabajadores, conocer a fondo el contenido de este acuerdo ministerial significa contar con un respaldo normativo sólido que blinda sus derechos frente a cualquier abuso de poder o práctica irregular. La formación continua se convierte así en una herramienta de empoderamiento colectivo, asegurando que el conocimiento de la ley sea el escudo más efectivo para mantener un entorno de trabajo armónico, justo y respetuoso.",
+        "pregunta": "¿Cuál es una de las obligaciones principales que impone el Acuerdo Ministerial MDT-2025-006 a las organizaciones?",
+        "opciones": [
+            "Implementar mecanismos de prevención, canales seguros de denuncia y programas de formación continua de al menos 40 horas",
+            "Sustituir los procesos de capacitación por evaluaciones trimestrales de desempeño comercial exclusivo",
+            "Delegar la responsabilidad de la seguridad laboral únicamente en los trabajadores sin apoyo institucional",
+            "Reducir las jornadas de trabajo para compensar el tiempo destinado a trámites administrativos ministeriales"
+        ],
+        "correcta": "Implementar mecanismos de prevención, canales seguros de denuncia y programas de formación continua de al menos 40 horas"
+    },
+    {
+        "id": 3,
+        "eje": "Módulo I: Fundamentos y Derechos Laborales",
+        "titulo": "3. Equidad de Género y Derechos Laborales Compartidos",
+        "contenido": "El principio de igualdad y no discriminación por razones de género constituye uno de los pilares más esenciales dentro del derecho laboral contemporáneo y de las políticas públicas actuales. Las regulaciones vigentes estipulan con absoluta claridad que tanto hombres y mujeres deben gozar exactamente de idénticas oportunidades en el acceso al empleo, la estabilidad contractual, la asignación de responsabilidades operativas y las posibilidades reales de promoción profesional dentro de la estructura empresarial.<br><br>Históricamente, los prejuicios socioculturales y los estereotipos arraigados han generado barreras invisibles que limitan el desarrollo laboral equitativo de los trabajadores según su género. La legislación correctiva actual prohíbe de manera explícita cualquier distinción, exclusión o preferencia basada en consideraciones de género que no responda de forma estricta a las capacidades técnicas, competencias profesionales y aptitudes requeridas para el desempeño eficiente de las funciones asignadas en el puesto de trabajo.<br><br>Garantizar la equidad de género en el centro de trabajo no solo cumple con una exigencia normativa, sino que fomenta un clima organizacional extraordinariamente saludable, incrementa de forma notable la competitividad institucional y aprovecha de manera óptima el talento disponible en todo el equipo. La diversidad de perspectivas enriquece la toma de decisiones y fortalece la capacidad de respuesta de la compañía ante los retos del mercado moderno.<br><br>La aplicación práctica de este principio demanda una revisión constante y objetiva de los procesos internos de gestión humana. Es deber de todos asegurar que las decisiones corporativas se fundamenten exclusivamente en méritos demostrables, profesionalismo y respeto mutuo, desterrando cualquier comentario, broma o actitud que menoscabe la capacidad de cualquier compañero por razones de género.",
+        "pregunta": "¿Qué prohíbe de manera explícita la legislación laboral actual en relación con las oportunidades de empleo y desarrollo?",
+        "opciones": [
+            "Cualquier distinción, exclusión o preferencia basada en género que no responda a capacidades técnicas y méritos profesionales",
+            "La contratación de personal que no cuente con recomendaciones directivas previas dentro de la industria",
+            "La rotación de turnos operativos entre colaboradores del mismo departamento",
+            "El establecimiento de horarios flexibles para el personal que realiza labores administrativas"
+        ],
+        "correcta": "Cualquier distinción, exclusión o preferencia basada en género que no responda a capacidades técnicas y méritos profesionales"
+    },
+    {
+        "id": 4,
+        "eje": "Módulo I: Fundamentos y Derechos Laborales",
+        "titulo": "4. La Prevención y Erradicación del Acoso Laboral",
+        "contenido": "El acoso laboral, comúnmente conocido como mobbing, representa una de las conductas más lesivas y destructivas dentro de las organizaciones modernas. Consiste en el ejercicio sistemático, repetido y deliberado de maltrato verbal, psicológico o físico hacia un trabajador por parte de superiores, compañeros e incluso subalternos, con el claro objetivo de intimidar, apocar, desestabilizar o lograr la exclusión de la persona de su entorno profesional habitual.<br><br>La legislación laboral vigente tipifica y sanciona severamente estas prácticas, dejando en claro que el acoso no es un simple malentendido personal ni una exigencia legítima de rendimiento. Las manifestaciones del acoso pueden ser muy variadas, abarcando desde la difusión de rumores malintencionados y el aislamiento deliberado hasta la sobrecarga injustificada de tareas impossibles de cumplir o la burla sistemática frente al colectivo de trabajo.<br><br>Las consecuencias del acoso laboral son devastadoras, afectando profundamente la salud mental, generando cuadros graves de estrés, ansiedad, depresión y deteriorando de manera irreversible el clima organizacional de la empresa. Por esta razón, la normativa exige a las organizaciones establecer políticas activas de prevención temprana, garantizando que ninguna denuncia sea ignorada y que existan protocolos expeditos de investigación.<br><br>Combatir el acoso laboral es una responsabilidad compartida que exige el compromiso firme de todos los niveles de la compañía. Si eres testigo de una situación de hostigamiento, tu apoyo a la víctima y tu disposición a reportar los hechos a través de los canales institucionales son vitales para erradicar este tipo de conductas abusivas de raíz.",
+        "pregunta": "¿Cómo define la normativa laboral actual el fenómeno conocido como acoso laboral o mobbing?",
+        "opciones": [
+            "El ejercicio sistemático y deliberado de maltrato verbal o psicológico para intimidar o excluir a un trabajador",
+            "Un simple desacuerdo operativo temporal que se resuelve de manera espontánea entre compañeros",
+            "Una estrategia gerencial válida para incrementar los niveles de productividad bajo presión extrema",
+            "La evaluación rigurosa del desempeño anual realizada por los jefes de departamento"
+        ],
+        "correcta": "El ejercicio sistemático y deliberado de maltrato verbal o psicológico para intimidar o excluir a un trabajador"
+    },
+    {
+        "id": 5,
+        "eje": "Módulo I: Fundamentos y Derechos Laborales",
+        "titulo": "5. Cero Tolerancia frente a toda Forma de Discriminación",
+        "contenido": "La discriminación en el ámbito laboral representa una vulneración intolerable de los derechos fundamentales y de los principios de justicia social. Ocurre cuando se otorga un trato desfavorable, despectivo o diferenciado a un colaborador basándose en motivos ajenos a su desempeño profesional, tales como su origen étnico, su filiación política, su religión, su edad, su condición socioeconómica, su estado de salud o cualquier otra característica personal protegida por la ley.<br><br>Los principios constitucionales y legales garantizan que todos los ciudadanos tengan las mismas oportunidades de inserción y desarrollo laboral en condiciones de absoluta equidad. Cualquier política interna o práctica informal que establezca privilegios o restricciones basadas en prejuicios discriminatorios es considerada nula y pasible de drásticas sanciones legales tanto para los infractores como para la institución que permita tales abusos.<br><br>La diversidad presente en un equipo de trabajo debe ser comprendida y valorada como una valiosa fuente de riqueza cultural, innovación y fortaleza institucional, y nunca como un motivo de división o conflicto. Las diferencias individuales enriquecen las perspectivas de la empresa, reflejando fielmente la pluralidad de la sociedad y permitiendo abordar los retos operativos desde múltiples ángulos creativos y constructivos.<br><br>Por todo ello, la política corporativa aplicable es de cero tolerancia frente a la discriminación en cualquiera de sus manifestaciones. Mantener un trato cordial, equitativo y respetuoso con todos los compañeros, sin excepciones de ninguna clase, constituye un deber ético ineludible y una muestra clara de madurez profesional y ciudadana dentro de nuestras instalaciones.",
+        "pregunta": "¿Cómo debe ser considerada la diversidad de características personales dentro de los equipos de trabajo según los principios corporativos?",
+        "opciones": [
+            "Como una valiosa fuente de riqueza institucional, innovación y fortaleza que enriquece las perspectivas",
+            "Como un factor de riesgo operativo que debe ser controlado mediante restricciones de contratación",
+            "Como un motivo secundario que no tiene relevancia para el desarrollo de las actividades diarias",
+            "Como una justificación válida para establecer jerarquías basadas en afinidades personales"
+        ],
+        "correcta": "Como una valiosa fuente de riqueza institucional, innovación y fortaleza que enriquece las perspectivas"
+    },
+    {
+        "id": 6,
+        "eje": "Módulo I: Fundamentos y Derechos Laborales",
+        "titulo": "6. El Principio de Trabajo de Igual Valor",
+        "contenido": "Uno de los conceptos más avanzados y necesarios incorporados en la normativa laboral moderna es el principio de 'trabajo de igual valor'. Este principio establece de manera clara que cuando dos o más colaboradores desempeñan funciones que implican similares responsabilidades, cualificaciones técnicas equivalentes, exigencias de esfuerzo comparables y condiciones ambientales semejantes, deben percibir exactamente la misma remuneración económica y los mismos beneficios laborales.<br><br>Históricamente, la falta de transparencia salarial ha permitido la persistencia de brechas injustas en las compensaciones, afectando principalmente a ciertos grupos de trabajadores bajo criterios subjetivos y prejuicios sin fundamento técnico. La legislación actual corrige estas distorsiones exigiendo a las empresas que las estructuras salariales se basen en valoraciones objetivas de los puestos de trabajo y no en características personales ajenas a la labor realizada.<br><br>La correcta aplicación del principio de trabajo de igual valor fortalece de forma directa la motivación general del personal, elimina los sentimientos de frustración e injusticia y promueve un clima de competencia sana y transparente. Saber que el esfuerzo y las responsabilidades son retribuidos de manera equitativa refuerza el compromiso del trabajador con los objetivos institucionales de la compañía.<br><br>Para la empresa, cumplir rigurosamente con esta disposición ministerial representa una muestra de responsabilidad corporativa y apego estricto a la legalidad. Como colaborador, comprender este principio te permite valorar la justicia distributiva que rige nuestra organización y exigir el respeto a las condiciones económicas que corresponden legítimamente a tu perfil profesional y responsabilidades.",
+        "pregunta": "¿Qué garantiza específicamente el principio de 'trabajo de igual valor' en las organizaciones laborales?",
+        "opciones": [
+            "Que funciones con similares responsabilidades, cualificaciones y esfuerzo reciban la misma remuneración y beneficios",
+            "Que todos los empleados de la empresa cobren exactamente el mismo sueldo básico sin importar sus funciones",
+            "Que las bonificaciones extraordinarias sean distribuidas por sorteo aleatorio entre todo el personal",
+            "Que los salarios sean definidos de forma secreta y discrecional por el departamento financiero"
+        ],
+        "correcta": "Que funciones con similares responsabilidades, cualificaciones y esfuerzo reciban la misma remuneración y beneficios"
+    },
+    {
+        "id": 7,
+        "eje": "Módulo I: Fundamentos y Derechos Laborales",
+        "titulo": "7. Responsabilidades de los Empleadores y Unidades de Talento Humano",
+        "contenido": "El cumplimiento efectivo de las normativas de prevención, equidad y capacitación no recae únicamente en la buena voluntad de los trabajadores; la ley impone obligaciones directas, intransgislables e inexcusables a los empleadores, a los representantes legales y a las unidades de Talento Humano. Estas áreas administrativas tienen la misión fundamental de diseñar, ejecutar y supervisar los programas de formación continua y velar por el mantenimiento de un entorno seguro.<br><br>Asimismo, las máximas autoridades de la empresa deben asegurar la disponibilidad permanente de los recursos logísticos, financieros y operativos necesarios para garantizar que las políticas de protección frente al acoso y la discriminación se apliquen de manera real y efectiva. Esto incluye desde la revisión constante de los reglamentos internos hasta la intervención oportuna y neutral ante cualquier indicio de conflicto laboral.<br><br>Para el colaborador, saber que la organización cuenta con instancias activas, accesibles y responsables dentro de Talento Humano brinda una profunda tranquilidad institucional. Estas unidades actúan como puentes de mediación profesional, orientación jurídica y aplicación de correctivos disciplinarios, velando siempre por el delicado equilibrio entre la eficiencia operativa y el respeto irrestricto a los derechos humanos.<br><br>De este modo, la gestión del talento humano se transforma en un pilar estratégico de apoyo y cumplimiento normativo. Conocer estas responsabilidades te otorga la certeza de que cuentas con canales institucionales formales y confiables a los cuales acudir con total seguridad cada vez que necesites orientación, mediación o protección frente a situaciones que afecten tu estabilidad laboral.",
+        "pregunta": "¿Qué rol fundamental desempeñan las unidades de Talento Humano en el marco de la normativa ministerial vigente?",
+        "opciones": [
+            "Diseñar programas de formación, mantener canales seguros de mediación y velar por un entorno laboral seguro",
+            "Imponer sanciones económicas inmediatas a los trabajadores sin realizar investigaciones previas",
+            "Ocultar los conflictos internos para evitar auditorías externas del Ministerio del Trabajo",
+            "Limitar las comunicaciones entre los empleados y la gerencia general de la compañía"
+        ],
+        "correcta": "Diseñar programas de formación, mantener canales seguros de mediación y velar por un entorno laboral seguro"
+    },
+    {
+        "id": 8,
+        "eje": "Módulo I: Fundamentos y Derechos Laborales",
+        "titulo": "8. Gestión Constructiva de Conflictos y Convivencia Armónica",
+        "contenido": "La convivencia diaria en cualquier centro de trabajo dinámico trae consigo, de manera inevitable, diferencias de criterio, divergencias en los estilos operativos o puntos de vista encontrados entre compañeros. Sin embargo, la diferencia entre una organización saludable y una conflictiva radica estrictamente en los métodos que se emplean para gestionar y resolver dichos desacuerdos antes de que escalen hacia situaciones de hostilidad o violencia formal.<br><br>La prevención de conflictos graves comienza por fomentar cotidianamente el diálogo temprano, la escucha activa, la empatía y la disposición abierta a comprender las razones del otro antes de emitir juicios precipitados. Cuando un problema menor de comunicación es ignorado o alimentado con rumores de pasillo, suele transformarse en un foco de tensión que termina afectando el rendimiento y la tranquilidad de todo el departamento de trabajo.<br><br>Por esta razón, la normativa promueve de manera decidida la resolución pacífica y colaborativa de las controversias mediante la mediación profesional y el entendimiento mutuo. Esto evita que los roces de carácter estrictamente interpersonal degeneren en conductas de acoso, exclusión o agresión verbal que perjudiquen la estabilidad emocional de los involucrados y la cohesión general del equipo.<br><br>Tu disposición personal para mantener una actitud constructiva frente a los retos operativos diarios marca una diferencia notable en el clima de la empresa. Contribuir a un ambiente armónico no requiere de acciones extraordinarias, sino de cortesía básica, disposición genuina para colaborar y un firme compromiso ético con el bienestar colectivo de toda la comunidad laboral.",
+        "pregunta": "¿Cuál es el enfoque recomendado por la normativa para gestionar las diferencias operativas y evitar conflictos graves?",
+        "opciones": [
+            "Fomentar el diálogo temprano, la escucha activa, la empatía y la resolución pacífica mediante mediación",
+            "Permitir que los malentendidos crezcan hasta que los involucrados soliciten su traslado de área",
+            "Interrumpir de forma definitiva toda interacción profesional entre los trabajadores con opiniones distintas",
+            "Aplicar amonestaciones severas de manera automática ante el primer signo de debate entre colegas"
+        ],
+        "correcta": "Fomentar el diálogo temprano, la escucha activa, la empatía y la resolución pacífica mediante mediación"
+    },
+    {
+        "id": 9,
+        "eje": "Módulo I: Fundamentos y Derechos Laborales",
+        "titulo": "9. Obligaciones y Deberes Éticos de los Trabajadores",
+        "contenido": "Así como el ordenamiento jurídico y las políticas empresariales imponen deberes estrictos a los empleadores en materia de protección y respeto, los trabajadores también asumen responsabilidades éticas y legales de gran relevancia dentro de la organización. El cumplimiento de estas obligaciones es indispensable para garantizar que el centro de trabajo funcione bajo parámetros de orden, seguridad, equidad y respeto mutuo entre todos los integrantes del equipo.<br><br>Entre los deberes fundamentales del colaborador destaca la obligación de tratar a sus superiores, compañeros y subalternos con cortesía, consideración y profesionalismo, absteniéndose por completo de participar en actos de violencia, burlas, acoso, difamación o discriminación. Asimismo, el trabajador tiene el deber ético de utilizar adecuadamente los canales institucionales cuando detecte irregularidades o situaciones que vulneren los derechos de terceros.<br><br>Otra obligación clave consiste en participar activamente y con interés genuino en los procesos de formación continua, talleres de concienciación y actividades orientadas a mejorar el clima laboral. Asistir a estas capacitaciones no representa un mero trámite burocrático, sino una oportunidad para interiorizar valores de convivencia que benefician tanto el ámbito profesional como la vida personal y familiar de cada individuo.<br><br>El compromiso ético del trabajador fortalece la confianza colectiva y consolida una cultura institucional basada en la transparencia y la responsabilidad compartida. Cuando cada miembro del equipo asume con seriedad sus deberes de respeto y colaboración, la empresa se proyecta hacia el futuro como un espacio ejemplar donde la legalidad y la calidad humana van siempre de la mano.",
+        "pregunta": "¿Cuál constituye uno de los deberes éticos y legales fundamentales de todo trabajador dentro de la organización?",
+        "opciones": [
+            "Tratar a sus colegas con cortesía y profesionalismo, absteniéndose de participar en actos de acoso o discriminación",
+            "Asumir las funciones de supervisión y control gerencial cuando el jefe inmediato se encuentre ausente",
+            "Resolver de manera individual y secreta cualquier conflicto legal que surja con la empresa",
+            "Renunciar al derecho de utilizar los canales de denuncia institucional para evitar discusiones"
+        ],
+        "correcta": "Tratar a sus colegas con cortesía y profesionalismo, absteniéndose de participar en actos de acoso o discriminación"
+    },
+    {
+        "id": 10,
+        "eje": "Módulo I: Fundamentos y Derechos Laborales",
+        "titulo": "10. El Rol Activo del Trabajador en la Seguridad Integral",
+        "contenido": "Ninguna política corporativa, por muy avanzada que sea, ni ninguna ley ministerial, por estricta que parezca, puede proteger de manera eficaz un centro de trabajo si los propios colaboradores no asumen un rol protagónico y activo en su propio cuidado y en el de sus compañeros. Tu participación constante en estas capacitaciones demuestra que la seguridad integral y el respeto no son imposiciones lejanas, sino compromisos compartidos que impactan positivamente tu rutina diaria.<br><br>Asumir un rol activo significa mantener una actitud vigilante frente a las señales de alerta tempranas, brindar apoyo solidario a los compañeros que puedan estar atravesando situaciones complejas de vulnerabilidad o estrés, reportar oportunamente cualquier anomalía ante las instancias competentes y mantener una conducta intachable fundamentada en la ética profesional y la empatía humana. La seguridad integral abarca tanto la prevención de riesgos físicos como la preservación de la salud mental.<br><br>Al concluir este primer bloque formativo, es fundamental recordar que el éxito de estas directrices normativas depende enteramente de la práctica constante y cotidiana en el puesto de trabajo. Tu esfuerzo diario por aplicar estos valores convierte a nuestra empresa en un referente indiscutible de buenas prácticas laborales, donde cada jornada se desarrolla bajo un riguroso marco de equidad, legalidad y respeto mutuo.<br><br>Te invitamos a mantener este nivel de compromiso y atención a lo largo de los siguientes módulos, donde seguiremos profundizando en herramientas prácticas para fortalecer nuestros derechos y obligaciones. Tu voz, tu criterio y tu participación activa son los motores principales que impulsan la transformación positiva de nuestra cultura organizacional en ILEPSA.",
+        "pregunta": "En el contexto de la seguridad integral, ¿qué implica que el trabajador asuma un rol protagónico y activo?",
+        "opciones": [
+            "Mantener una actitud vigilante ante alertas, apoyar a compañeros vulnerables y reportar anomalías oportunamente",
+            "Delegar absolutamente todas las labores de supervisión y control en los inspectores del Ministerio",
+            "Ignorar los problemas interpersonales del equipo para concentrarse únicamente en la producción individual",
+            "Rechazar la participación en actividades formativas que no estén directamente vinculadas con maquinarias"
+        ],
+        "correcta": "Mantener una actitud vigilante ante alertas, apoyar a compañeros vulnerables y reportar anomalías oportunamente"
     }
-    .pagina-nueva-transicion {
-        animation: fadeInPage 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+],
+{
+        "id": 11,
+        "eje": "Módulo II: Prevención y Sanción del Acoso Laboral",
+        "titulo": "11. Identificación y Tipos de Acoso en el Trabajo",
+        "contenido": "Para combatir de manera efectiva el acoso laboral, el primer paso indispensable es aprender a identificar sus diferentes manifestaciones en la dinámica diaria de las organizaciones. El hostigamiento no siempre se presenta mediante agresiones explícitas o gritos evidentes; con frecuencia adopta formas sutiles, solapadas y continuas que buscan desgastar la estabilidad emocional y la confianza profesional de la víctima sin dejar evidencias físicas directas, lo cual dificulta su detección temprana si los compañeros o supervisores no están debidamente informados.<br><br>Entre las tipologías más comunes se encuentra el acoso descendente, ejercido por un superior jerárquico que abusa de su autoridad para imponer tareas humillantes, descalificar públicamente las propuestas del colaborador o amenazar constantemente con la pérdida del empleo. También existe el acoso horizontal, que ocurre entre compañeros del mismo nivel jerárquico mediante boicots operativos, exclusión deliberada de las reuniones de trabajo, burlas constantes o la propagación malintencionada de rumores falsos orientados a destruir la reputación del afectado.<br><br>Asimismo, es necesario reconocer el acoso mixto o ascendente, donde un grupo de colaboradores hostiga a un jefe, o donde las presiones institucionales se combinan con dinámicas de aislamiento social dentro de la oficina. Cada una de estas conductas vulnera de manera flagrante los derechos fundamentales consagrados en las normativas del Ministerio del Trabajo, convirtiendo un espacio que debería ser productivo en una fuente constante de angustia y malestar psicológico para el trabajador afectado.<br><br>Comprender estas diferencias te otorga la capacidad analítica necesaria para reconocer cuándo una exigencia operativa cruza la línea y se convierte en un abuso sistemático. La empresa mantiene canales formales y estrictamente confidenciales para reportar cualquiera de estas conductas, asegurando que ningún colaborador deba enfrentar situaciones de hostigamiento en solitario ni bajo el temor de sufrir represalias por alzar la voz en defensa de sus derechos.",
+        "pregunta": "¿Qué característica principal presentan las formas más sutiles de acoso laboral dentro de las organizaciones?",
+        "opciones": [
+            "Se manifiestan mediante conductas solapadas y continuas que buscan desgastar la estabilidad emocional sin dejar rastros físicos",
+            "Consisten exclusivamente en amonestaciones escritas emitidas formalmente por el departamento de contabilidad",
+            "Aparecen de manera fortuita una sola vez al año durante las evaluaciones de desempeño general",
+            "Se limitan a desacuerdos técnicos sobre el uso de software operativo entre diferentes departamentos"
+        ],
+        "correcta": "Se manifiestan mediante conductas solapadas y continuas que buscan desgastar la estabilidad emocional sin dejar rastros físicos"
+    },
+    {
+        "id": 12,
+        "eje": "Módulo II: Prevención y Sanción del Acoso Laboral",
+        "titulo": "12. El Impacto Psicológico y Físico del Hostigamiento",
+        "contenido": "Las consecuencias derivadas del acoso laboral trascienden con creces el ámbito puramente profesional, impactando de manera profunda y destructiva la salud integral, tanto psicológica como física, de la persona que lo padece. Los estudios especializados en medicina del trabajo y psicología organizacional demuestran que las víctimas de hostigamiento prolongado experimentan niveles severos de estrés crónico, cuadros agudos de ansiedad, pérdida de autoestima, insomnio persistente y episodios recurrentes de depresión profunda que alteran por completo su calidad de vida.<br><br>A nivel físico, el desgaste constante al que se somete el organismo debido a la tensión laboral sostenida puede desencadenar patologías complejas, tales como hipertensión arterial arterial, trastornos gastrointestinales severos, fatiga crónica y debilitamiento general del sistema inmunológico. El cuerpo humano reacciona ante un entorno hostil como si estuviera enfrentando una amenaza física constante, lo que deteriora paulatinamente la vitalidad del colaborador y reduce su capacidad para desenvolverse con normalidad tanto en el trabajo como en su hogar.<br><br>Este deterioro integral evidencia la razón por la cual el Ministerio del Trabajo y las normativas vigentes consideran el acoso como una falta de extrema gravedad. Proteger la salud de los trabajadores no es un favor discrecional de la empresa, sino una obligación legal ineludible que exige la intervención inmediata de los departamentos de Talento Humano y la aplicación de protocolos estrictos de contención y sanción para neutralizar al agresor antes de que el daño sea irreversible.<br><br>Para los equipos de trabajo, ser conscientes del impacto devastador del hostigamiento fomenta una red de solidaridad y alerta temprana. Cuidar de la salud mental de tus compañeros y reportar conductas anómalas a tiempo contribuye directamente a salvar vidas, preservar carreras profesionales y mantener un ambiente donde la empatía y el respeto sean los escudos protectores frente a cualquier forma de abuso psicológico.",
+        "pregunta": "¿Qué efectos directos puede provocar en el organismo de un trabajador la tensión generada por el hostigamiento prolongado?",
+        "opciones": [
+            "Estrés crónico, ansiedad, insomnio, trastornos gastrointestinales y debilitamiento del sistema inmunológico",
+            "Un incremento notable en la concentración intelectual y la resistencia física ante las tareas rutinarias",
+            "La mejora instantánea de las relaciones interpersonales con el resto de los departamentos",
+            "Una mayor adaptabilidad a los cambios de turnos sin requerir periodos de descanso"
+        ],
+        "correcta": "Estrés crónico, ansiedad, insomnio, trastornos gastrointestinales y debilitamiento del sistema inmunológico"
+    },
+    {
+        "id": 13,
+        "eje": "Módulo II: Prevención y Sanción del Acoso Laboral",
+        "titulo": "13. Diferencia entre Presión Operativa y Acoso Sistemático",
+        "contenido": "Uno de los debates más frecuentes en la gestión del talento humano radica en saber distinguir con precisión quirúrgica entre una exigencia legítima de rendimiento o presión operativa y un caso real de acoso sistemático. Toda empresa moderna enfrenta metas exigentes, plazos ajustados y la necesidad constante de optimizar sus procesos productivos, lo cual implica que los jefes y supervisores deben coordinar, evaluar y exigir resultados a sus equipos de trabajo de manera permanente y rigurosa.<br><br>La diferencia fundamental radica en la intencionalidad, la proporcionalidad y la recurrencia del trato. Una exigencia operativa legítima se centra exclusivamente en el cumplimiento de los objetivos profesionales, se comunica con respeto, se fundamenta en criterios técnicos evaluables y se aplica por igual a todos los miembros del equipo que desempeñan funciones similares. Su propósito es productivo y respeta en todo momento la integridad y dignidad del trabajador.<br><br>En contraposición, el acoso sistemático carece de justificación técnica y apunta directamente a destruir o aislar a una persona específica. Se caracteriza por la arbitrariedad, la persecución personal continuada, la asignación deliberada de tareas imposibles diseñadas para provocar el fracaso, la descalificación constante ante los demás y la utilización de un tono humillante o amenazante. Aquí el objetivo no es mejorar la producción, sino doblegar la voluntad del colaborador.<br><br>Comprender esta distinción te permite evaluar con objetividad las situaciones cotidianas en el puesto de trabajo. Reconocer cuando una orden directiva es rigurosa pero justa, frente a cuando un superior cruza la línea hacia el abuso de poder, es vital para activar los mecanismos de defensa institucional sin malinterpretar las exigencias normales de la actividad comercial de la empresa.",
+        "pregunta": "¿Cuál es la diferencia fundamental entre una exigencia operativa legítima y un caso de acoso sistemático?",
+        "opciones": [
+            "La exigencia legítima busca resultados profesionales con respeto, mientras que el acoso busca destruir o aislar a la persona de forma arbitraria",
+            "La exigencia operativa se realiza sin notificar al trabajador, mientras que el acoso se comunica mediante memorandos oficiales",
+            "El acoso sistemático es aprobado por el Ministerio del Trabajo, mientras que las presiones operativas son ilegales",
+            "No existe ninguna diferencia, ya que cualquier presión ejercida por un jefe constituye automáticamente acoso laboral"
+        ],
+        "correcta": "La exigencia legítima busca resultados profesionales con respeto, mientras que el acoso busca destruir o aislar a la persona de forma arbitraria"
+    },
+    {
+        "id": 14,
+        "eje": "Módulo II: Prevención y Sanción del Acoso Laboral",
+        "titulo": "14. Protocolos Internos de Prevención y Denuncia Segura",
+        "contenido": "Para que las políticas de tolerancia cero frente al acoso y la violencia no se queden en meras declaraciones teóricas impresas en papel, las organizaciones tienen la obligación legal de implementar protocolos internos de prevención, investigación y sanción altamente estructurados. Estos procedimientos establecen la ruta exacta que debe seguirse desde el momento en que se identifica un factor de riesgo hasta la resolución definitiva del conflicto por parte de las autoridades competentes de la empresa.<br><br>Un protocolo eficiente debe garantizar pilares fundamentales como la absoluta confidencialidad, la imparcialidad del comité investigador, la protección inmediata de la presunta víctima frente a posibles represalias y la celeridad en la tramitación de las denuncias. Ningún trabajador debe sentir temor de utilizar estos mecanismos debido a la posibilidad de ser despedido, sancionado injustamente o marginado por haber reportado una conducta irregular dentro de su área de operaciones.<br><br>Los canales de denuncia deben ser accesibles, seguros y transparentes, permitiendo que tanto el afectado directo como cualquier testigo de los hechos puedan poner en conocimiento de Talento Humano o del comité especializado las anomalías detectadas. La existencia de estos canales formales demuestra que la organización asume con absoluta seriedad su rol protector y su compromiso inquebrantable con la legalidad vigente y el bienestar de su personal.<br><br>Como parte fundamental de esta comunidad laboral, es tu deber conocer dónde se encuentran documentados estos protocolos internos y cuáles son los pasos recomendados para activarlos en caso de ser necesario. Contar con un procedimiento claro y confiable otorga la seguridad jurídica indispensable para que el respeto y la justicia prevalezcan por encima de cualquier intento de encubrimiento o abuso de poder institucional.",
+        "pregunta": "¿Qué características fundamentales debe garantizar un protocolo interno eficiente para la gestión de denuncias por acoso?",
+        "opciones": [
+            "Confidencialidad absoluta, imparcialidad en la investigación, protección contra represalias y celeridad en el proceso",
+            "La publicación pública e inmediata de los nombres de los involucrados en las carteleras de la empresa",
+            "La desestimación automática de cualquier reporte que no cuente con la firma notariada de tres testigos",
+            "La obligación de resolver el conflicto de manera privada entre el agresor y la víctima sin intervención institucional"
+        ],
+        "correcta": "Confidencialidad absoluta, imparcialidad en la investigación, protección contra represalias y celeridad en el proceso"
+    },
+    {
+        "id": 15,
+        "eje": "Módulo II: Prevención y Sanción del Acoso Laboral",
+        "titulo": "15. El Papel Decisivo de los Testigos y la Solidaridad Laboral",
+        "contenido": "En la gran mayoría de los casos de acoso laboral, hostigamiento o discriminación, la agresión no ocurre en el vacío; casi siempre existen testigos presenciales que observan las burlas, escuchan los insultos o perciben el trato degradante al que es sometido un compañero. El silencio cómplice de quienes presencian estos abusos constituye uno de los principales obstáculos para erradicar estas malas prácticas, ya que el agresor interpreta la pasividad del grupo como una aprobación tácita de su conducta.<br><br>La solidaridad laboral y el valor civil de los testigos juegan un papel absolutamente decisivo en la defensa de los derechos humanos dentro de la empresa. Apoyar a una víctima no significa necesariamente confrontar de manera violenta al agresor, sino ofrecer un respaldo emocional sincero, documentar los hechos con objetividad y estar dispuesto a declarar con veracidad ante los comités de investigación interna cuando las autoridades competentes lo requieran para esclarecer la verdad.<br><br>Las normativas actuales protegen firmemente a los testigos que colaboran de buena fe en las investigaciones de acoso, blindándolos frente a cualquier intento de represalia por parte de los implicados. Romper el silencio institucional transforma radicalmente la dinámica de poder en el centro de trabajo, enviando un mensaje contundente de que la comunidad laboral no está dispuesta a tolerar el abuso ni la humillación hacia ninguno de sus integrantes.<br><br>Cultivar una cultura de apoyo mutuo y responsabilidad colectiva nos incumbe a todos por igual. Saber que cuentas con el respaldo de tus compañeros ante cualquier injusticia fortalece la cohesión del equipo y consolida un entorno corporativo donde la empatía, la justicia y la dignidad humana actúan como los cimientos inquebrantables de nuestra convivencia diaria en ILEPSA.",
+        "pregunta": "¿Qué impacto genera el silencio o la pasividad de los testigos frente a situaciones de acoso laboral en la empresa?",
+        "opciones": [
+            "Es interpretado por el agresor como una aprobación tácita de su conducta, convirtiéndose en un obstáculo para erradicar el abuso",
+            "Facilita la resolución espontánea del conflicto sin necesidad de que intervenga el departamento de Talento Humano",
+            "Garantiza que la víctima reciba el apoyo psicológico necesario de manera automática y sin trámites previos",
+            "Impide que el Ministerio del Trabajo aplique multas a la compañía durante las auditorías de control anual"
+        ],
+        "correcta": "Es interpretado por el agresor como una aprobación tácita de su conducta, convirtiéndose en un obstáculo para erradicar el abuso"
+    },
+    {
+        "id": 16,
+        "eje": "Módulo III: Igualdad de Género y No Discriminación",
+        "titulo": "16. Deconstrucción de Estereotipos y Roles Tradicionales",
+        "contenido": "Para alcanzar una verdadera igualdad de género en el ámbito laboral, resulta indispensable iniciar un proceso profundo de análisis y deconstrucción de los estereotipos y roles tradicionales que la sociedad ha impuesto durante generaciones. Estos prejuicios culturales sugieren falsamente que existen tareas, profesiones o niveles de liderazgo exclusivos para un determinado género, encasillando a las personas en moldes rígidos que limitan su desarrollo integral, su vocación profesional y sus aspiraciones legítimas de crecimiento dentro de la estructura corporativa.<br><br>La legislación laboral moderna y los convenios internacionales ratificados por el Estado establecen que las competencias, las habilidades técnicas, la inteligencia emocional y la capacidad de liderazgo no poseen género. Tanto los hombres como las mujeres están plenamente capacitados para desempeñar cualquier labor dentro de la organización, desde las operaciones técnicas más complejas hasta la alta dirección ejecutiva, siempre que se les brinden las mismas oportunidades de formación, confianza y desarrollo profesional sin sesgos discriminatorios.<br><br>Romper con estos esquemas obsoletos beneficia enormemente a la organización, ya que permite aprovechar el talento sin restricciones artificiales, fomenta la innovación mediante la diversidad de enfoques y crea un clima de justicia distributiva donde cada individuo es evaluado exclusivamente por sus méritos, su productividad y su contribución real a los objetivos estratégicos de la compañía. La meritocracia real es incompatible con los prejuicios culturales heredados del pasado.<br><br>Como colaborador, revisar tus propias percepciones cotidianas y desterrar comentarios basados en roles de género tradicionales constituye una aportación invaluable para la salud cultural de la empresa. Promover un trato igualitario y reconocer los logros de cada compañero basándose en su esfuerzo individual es la mejor manera de materializar el principio de equidad en cada jornada de trabajo.",
+        "pregunta": "¿Qué establece la legislación laboral moderna respecto a las capacidades profesionales en relación con el género?",
+        "opciones": [
+            "Que las competencias y habilidades no poseen género y tanto hombres como mujeres pueden desempeñar cualquier labor con igualdad de oportunidades",
+            "Que las labores operativas pesadas deben ser asignadas exclusivamente a trabajadores varones por su condición física natural",
+            "Que los cargos de alta dirección ejecutiva deben reservarse para perfiles masculinos con mayor antigüedad en la industria",
+            "Que las mujeres poseen un rendimiento superior únicamente en tareas administrativas de carácter secretarial"
+        ],
+        "correcta": "Que las competencias y habilidades no poseen género y tanto hombres como mujeres pueden desempeñar cualquier labor con igualdad de oportunidades"
+    },
+    {
+        "id": 17,
+        "eje": "Módulo III: Igualdad de Género y No Discriminación",
+        "titulo": "17. Corresponsabilidad Familiar y Bienestar del Colaborador",
+        "contenido": "El concepto de corresponsabilidad familiar representa un pilar fundamental en la conciliación moderna entre la vida laboral y el entorno personal de los trabajadores. Durante muchos años se asumió erróneamente que las responsabilidades del hogar, el cuidado de los hijos, la atención a familiares enfermos o las labores de asistencia doméstica recaían de manera exclusiva sobre las mujeres, lo cual generaba una sobrecarga invisible que afectaba gravemente sus oportunidades de desarrollo profesional y su estabilidad emocional.<br><br>Las directrices ministeriales y las políticas de bienestar corporativo promueven activamente una distribución equitativa y solidaria de las responsabilidades familiares tanto en el ámbito doméstico como en el respaldo institucional. Esto significa que los permisos, licencias y facilidades normativas están diseñados para reconocer que tanto padres como madres comparten el deber y el derecho de atender las necesidades de sus familias sin que ello represente una penalización en sus evaluaciones de desempeño, sus opciones de ascenso o su estabilidad contractual.<br><br>Fomentar la corresponsabilidad en el trabajo implica también que los jefes y compañeros respeten los tiempos de descanso y la vida privada del personal, evitando la exigencia de jornadas extraordinarias injustificadas que atropellen el tiempo de convivencia familiar. Un trabajador que cuenta con un equilibrio saludable entre sus responsabilidades laborales y su entorno afectivo demuestra mayores niveles de motivación, menor desgaste emocional y una productividad significativamente superior en su puesto.<br><br>La empresa asume este compromiso como parte de su visión humanista de la gestión empresarial, comprendiendo que el bienestar integral del colaborador es la base indispensable de la sostenibilidad institucional. Apoyar la corresponsabilidad familiar fortalece el tejido social interno y consolida un clima de respeto y empatía que enorgullece a toda la comunidad corporativa.",
+        "pregunta": "¿Qué promueven activamente las directrices ministeriales en relación con la corresponsabilidad familiar?",
+        "opciones": [
+            "Una distribución equitativa de las responsabilidades del hogar y el reconocimiento de que padres y madres comparten deberes de cuidado",
+            "Que las mujeres asuman la totalidad de las tareas domésticas para concentrar a los hombres exclusivamente en las labores de oficina",
+            "La eliminación de los permisos y licencias familiares para evitar interrupciones en la producción continua de la planta",
+            "Que la empresa intervenga directamente en la administración económica y presupuestaria de los hogares de sus trabajadores"
+        ],
+        "correcta": "Una distribución equitativa de las responsabilidades del hogar y el reconocimiento de que padres y madres comparten deberes de cuidado"
+    },
+    {
+        "id": 18,
+        "eje": "Módulo III: Igualdad de Género y No Discriminación",
+        "titulo": "18. Prevención de la Discriminación por Edad u Origen",
+        "contenido": "La no discriminación es un principio de alcance universal que abarca la protección de los trabajadores frente a cualquier forma de exclusión basada en criterios tan diversos como la edad, el origen étnico, la nacionalidad, el idioma, la condición social o la procedencia geográfica. Lamentablemente, persisten en ciertos sectores prejuicios infundados que estigmatizan a los colaboradores jóvenes por supuesta inexperiencia o a los trabajadores de mayor edad bajo falsas premisas de menor adaptabilidad tecnológica y resistencia al cambio.<br><br>El ordenamiento jurídico prohíbe de forma categórica cualquier sesgo en los procesos de contratación, remuneración y promoción que obedezca a consideraciones de edad o procedencia. La experiencia acumulada por el personal senior constituye un patrimonio de conocimiento invaluable para la compañía, del mismo modo que la energía, creatividad y visión innovadora de las nuevas generaciones aportan dinamismo y frescura a la gestión operativa diaria de la organización.<br><br>Asimismo, el respeto absoluto al origen étnico y cultural de cada individuo fortalece la integración institucional, impidiendo que expresiones despectivas, burlas sobre acentos, costumbres o tradiciones pasen desapercibidas bajo la excusa de ser bromas inofensivas. La pluralidad cultural dentro de la empresa refleja la riqueza de nuestra sociedad y exige de cada miembro un comportamiento ejemplar fundamentado en la interculturalidad y el reconocimiento de la igualdad esencial de todos los seres humanos.<br><br>Garantizar un entorno libre de discriminación por edad u origen consolida una cultura corporativa madura, justa y atractiva para los mejores talentos del mercado. Tu compromiso ético de tratar con idéntica consideración a todos los compañeros, sin importar su procedencia o los años que lleven acumulados en su trayectoria, es fundamental para mantener viva esta política institucional de respeto irrestricto.",
+        "pregunta": "¿Cómo deben ser valoradas la experiencia del personal senior y la energía de las nuevas generaciones según los principios de integración?",
+        "opciones": [
+            "Como un patrimonio de conocimiento invaluable y un aporte de dinamismo e innovación que enriquecen la gestión de la compañía",
+            "Como factores opuestos e incompatibles que obligan a separar físicamente a los trabajadores según su rango de edad",
+            "Como elementos irrelevantes que no influyen en absoluto en el rendimiento ni en el clima laboral de la empresa",
+            "Como criterios sujetos a revisión anual para determinar recortes presupuestarios en las planillas de sueldos"
+        ],
+        "correcta": "Como un patrimonio de conocimiento invaluable y un aporte de dinamismo e innovación que enriquecen la gestión de la compañía"
+    },
+    {
+        "id": 19,
+        "eje": "Módulo III: Igualdad de Género y No Discriminación",
+        "titulo": "19. El Lenguaje Inclusivo y el Respeto en la Comunicación",
+        "contenido": "La comunicación humana es la herramienta principal a través de la cual construimos la realidad institucional, expresamos nuestras ideas y establecemos los vínculos de respeto que sostienen la convivencia diaria en el centro de trabajo. Por esta razón, el uso del lenguaje dentro de la organización debe caracterizarse por ser respetuoso, integrador, profesional y estrictamente libre de expresiones despectivas, microagresiones verbales o modismos que invisibilicen o menoscaben a determinados grupos de personas.<br><br>El lenguaje inclusivo y respetuoso no representa una imposición caprichosa ni un mero formalismo gramatical, sino una manifestación concreta de empatía y reconocimiento hacia la diversidad de quienes integran el equipo. Evitar términos peyorativos, chistes de carácter sexista, comentarios racistas disfrazados de humor o apodos ofensivos basados en características físicas o personales demuestra un nivel superior de madurez ética y convivencia civilizada entre compañeros de labores.<br><br>Los líderes de equipo, supervisores y directivos tienen la responsabilidad primordial de predicar con el ejemplo en el uso de la palabra, corrigiendo de inmediato cualquier manifestación verbal inadecuada que ocurra en su presencia y fomentando un diálogo abierto donde todas las opiniones sean escuchadas con atención y valoradas con estricta equidad, sin importar quién emita el mensaje dentro de la estructura jerárquica.<br><br>Cuidar lo que decimos y cómo lo expresamos es una muestra clara de respeto por la dignidad ajena. Incorporar hábitos de comunicación constructiva previene malentendidos innecesarios, reduce drásticamente los focos de tensión interpersonal y contribuye de manera decisiva a consolidar un clima organizacional armónico, cordial y profundamente humano en todas las áreas de la compañía.",
+        "pregunta": "¿Qué propósito fundamental cumple el uso de un lenguaje respetuoso e integrador en la comunicación diaria de la empresa?",
+        "opciones": [
+            "Manifestar empatía y reconocimiento hacia la diversidad, previniendo tensiones y fomentando un clima de convivencia armónica",
+            "Cumplir con un requisito obligatorio de redacción literaria exigido exclusivamente en los manuales de marca corporativa",
+            "Sustituir los informes técnicos operacionales por escritos de carácter filosófico y poético",
+            "Garantizar que los trabajadores se abstengan por completo de emitir opiniones durante las reuniones de planificación"
+        ],
+        "correcta": "Manifestar empatía y reconocimiento hacia la diversidad, previniendo tensiones y fomentando un clima de convivencia armónica"
+    },
+    {
+        "id": 20,
+        "eje": "Módulo III: Igualdad de Género y No Discriminación",
+        "titulo": "20. Consolidación de una Cultura de Derechos y Deberes",
+        "contenido": "Al finalizar este segundo bloque formativo dedicado a la prevención del acoso, la equidad de género y la no discriminación, es fundamental reflexionar sobre la importancia de consolidar una cultura institucional donde los derechos y los deberes marchen siempre en perfecta sintonía. Las leyes ministeriales y los reglamentos internos proporcionan el marco normativo indispensable, pero su eficacia real depende enteramente de la actitud cotidiana, el compromiso ético y la convicción personal de cada uno de los colaboradores que integran la organización.<br><br>Una cultura de derechos no se sostiene únicamente exigiendo lo que nos corresponde por ley, sino asumiendo con absoluta responsabilidad el deber correlativo de respetar la integridad, el espacio y la dignidad de quienes nos rodean. Cada acción, cada decisión operativa y cada palabra emitida en el puesto de trabajo construye o debilita los cimientos de nuestra convivencia colectiva, convirtiendo a la empresa en un espacio de desarrollo seguro o en un entorno de fricción innecesaria.<br><br>La inversión que realiza la compañía al capacitar de manera continua a su personal demuestra que el capital humano es considerado el activo más valioso de la institución. Tu participación activa, tu atención a estos contenidos y tu disposición para aplicar estos principios en tu rutina diaria son la prueba más clara de que la transformación cultural impulsada por el Acuerdo Ministerial es una realidad viva y en constante evolución dentro de nuestras instalaciones.<br><br>Te invitamos a mantener este espíritu crítico, constructivo y solidario de cara a los siguientes módulos de formación. El conocimiento adquirido es tuyo, te empodera como trabajador y te convierte en un agente multiplicador de buenas prácticas laborales. Juntos seguimos construyendo el prestigio, la solidez y el excelente clima humano que caracterizan a ILEPSA.",
+        "pregunta": "¿De qué depende principalmente la eficacia real de las normativas ministeriales y los reglamentos internos en la empresa?",
+        "opciones": [
+            "De la actitud cotidiana, el compromiso ético y la convicción personal de cada colaborador al aplicar estos principios",
+            "De la cantidad de recursos financieros invertidos exclusivamente en la contratación de auditores externos",
+            "De la suspensión temporal de las actividades productivas durante los días que duren las auditorías de control",
+            "De la discreción absoluta de los gerentes para decidir qué artículos de la ley se aplican en cada departamento"
+        ],
+        "correcta": "De la actitud cotidiana, el compromiso ético y la convicción personal de cada colaborador al aplicar estos principios"
     }
-    .card-principal {
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        padding: 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
-        margin-bottom: 20px;
-        position: relative;
-    }
-    .badge-seccion-derecha {
-        position: absolute;
-        top: 20px;
-        right: 25px;
-        padding: 5px 14px;
-        border-radius: 15px;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        text-transform: uppercase;
-    }
-    .header-box {
-        background-color: #f8fafc;
-        border: 1px solid #cbd5e1;
-        padding: 12px 18px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        font-size: 15px;
-    }
-    .contenido-texto {
-        font-size: 18.5px;
-        line-height: 1.7;
-        color: #334155;
-    }
-    .pregunta-box {
-        background-color: #f8fafc;
-        border-left: 4px solid #0f172a;
-        padding: 22px;
-        border-radius: 0 8px 8px 0;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    }
-    </style>
-""", unsafe_allow_html=True)
-
-# Script para forzar scroll al inicio absoluto (0,0)
-components.html(
-    """
-    <script>
-        function forzarScrollTop() {
-            const doc = window.parent.document;
-            doc.querySelectorAll('section.main').forEach(el => {
-                el.scrollTop = 0;
-                el.scrollTo({top: 0, behavior: 'instant'});
-            });
-            window.parent.scrollTo({top: 0, behavior: 'instant'});
-        }
-        forzarScrollTop();
-        setTimeout(forzarScrollTop, 50);
-        setTimeout(forzarScrollTop, 150);
-    </script>
-    """,
-    height=0,
-)
-
-# =========================================================
-# FASE 1: LOGIN
-# =========================================================
-if st.session_state.paso == "login":
-    st.markdown("""
-    <div class="pagina-nueva-transicion card-principal" style="text-align: center; border-top: 5px solid #0284c7; max-width: 550px; margin: 40px auto;">
-        <h3 style="color: #0f172a; margin-top:0;">ACCESO COLABORADORES ILEPSA</h3>
-        <p style="color: #64748b; font-size: 15px; margin-bottom: 0;">Ingrese su número de cédula para continuar con su capacitación guardada</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        cedula_input = st.text_input("Cédula de Identidad:", max_chars=10, type="password")
-        if st.button("Ingresar al Sistema", type="primary", use_container_width=True):
-            cedula_limpia = cedula_input.strip()
-            if len(cedula_limpia) >= 10 or cedula_limpia == "1":
-                try:
-                    response = supabase.table("usuarios").select("nombres, seccion_actual, sub_paso").eq("cedula", cedula_limpia).execute()
-                    
-                    if response.data and len(response.data) > 0:
-                        user_data = response.data[0]
-                        st.session_state.cedula = cedula_limpia
-                        st.session_state.nombre_usuario = user_data["nombres"]
-                        st.session_state.seccion_actual = user_data.get("seccion_actual", 0) or 0
-                        st.session_state.sub_paso = user_data.get("sub_paso", "teoria") or "teoria"
-                        
-                        if "Administrador" in st.session_state.nombre_usuario or cedula_limpia in ["9999999999", "1"]:
-                            st.session_state.es_admin = True
-                            st.session_state.paso = "admin_dashboard"
-                        else:
-                            st.session_state.es_admin = False
-                            try:
-                                supabase.table("registro_tiempos").insert({
-                                    "cedula": cedula_limpia,
-                                    "fecha_ingreso": datetime.now().isoformat()
-                                }).execute()
-                            except Exception:
-                                pass
-                            st.session_state.paso = "instrucciones"
-                        st.rerun()
-                    else:
-                        st.error("Cédula no registrada en la base de datos de ILEPSA.")
-                except Exception as e:
-                    st.error(f"Error de conexión con Supabase: {e}")
-            else:
-                st.error("Ingrese un número de cédula válido.")
-
-# =========================================================
-# FASE 2: PANEL DE ADMINISTRACIÓN
-# =========================================================
-elif st.session_state.paso == "admin_dashboard":
-    st.markdown(f"""
-    <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #0f172a;">
-        <h3 style="color: #0f172a; margin-top:0;">📊 PANEL DE CONTROL Y ESTADÍSTICAS - ILEPSA</h3>
-        <p style="color: #64748b; font-size: 15px;"><b>Administrador en sesión:</b> {st.session_state.nombre_usuario}</p>
-        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
-        <p style="font-size: 15px; color: #334155;">
-            Monitoreo en tiempo real de accesos, tiempos de conexión y avance guardado de los colaboradores bajo la normativa MDT-2025-006.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("### 🕒 Registro de Ingresos y Tiempos de Conexión")
-    try:
-        query_tiempos = supabase.table("registro_tiempos").select("*").order("fecha_ingreso", desc=True).execute()
-        if query_tiempos.data and len(query_tiempos.data) > 0:
-            datos_tabla = []
-            for reg in query_tiempos.data:
-                cedula_reg = reg.get("cedula", "N/A")
-                fecha_reg = reg.get("fecha_ingreso", "N/A")
-                res_user = supabase.table("usuarios").select("nombres, seccion_actual").eq("cedula", cedula_reg).execute()
-                if res_user.data:
-                    nombre_reg = res_user.data[0]["nombres"]
-                    sec_progreso = res_user.data[0].get("seccion_actual", 0)
-                else:
-                    nombre_reg = "Colaborador Externo"
-                    sec_progreso = 0
-                
-                datos_tabla.append({
-                    "Colaborador": nombre_reg,
-                    "Cédula": cedula_reg,
-                    "Sección Actual": f"{sec_progreso} / {len(SECCIONES)}",
-                    "Fecha y Hora de Ingreso": fecha_reg
-                })
-            st.dataframe(datos_tabla, use_container_width=True)
-        else:
-            st.info("Aún no se registran ingresos de colaboradores.")
-    except Exception:
-        pass
-        
-    if st.button("Cerrar Sesión de Administrador", type="primary", use_container_width=True):
-        st.session_state.paso = "login"
-        st.session_state.cedula = ""
-        st.session_state.nombre_usuario = ""
-        st.session_state.es_admin = False
-        st.rerun()
-
-# =========================================================
-# FASE 3: INSTRUCCIONES / BIENVENIDA (Artículo 3 correcto)
-# =========================================================
-elif st.session_state.paso == "instrucciones":
-    st.markdown(f"""
-    <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #0284c7;">
-        <h3 style="color: #0f172a; margin-top:0;">¡Bienvenido(a), {st.session_state.nombre_usuario}!</h3>
-        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
-        <p style="font-size: 16px; color: #334155; line-height: 1.6;">
-            En cumplimiento con el <b>Artículo 3 del Acuerdo Ministerial MDT-2025-006</b>, los empleadores del sector privado y público deben llevar a cabo procesos de capacitación con una duración mínima de <b>cuarenta (40) horas anuales</b> dirigidos a todos los trabajadores.
-        </p>
-        <p style="font-size: 16px; color: #334155; line-height: 1.6;">
-            Este programa aborda los temas obligatorios normativos: <b>a) Derechos laborales de mujeres y hombres; b) Igualdad de género; c) Erradicación de violencia y no discriminación en el centro de trabajo; y d) Establecimiento de trabajo de igual valor.</b>
-        </p>
-        <p style="font-size: 16px; color: #334155; line-height: 1.6; margin-bottom: 5px;">
-            <b>Persistencia Automática:</b> Su avance se guarda de manera automática en Supabase. Si cierra sesión o ingresa otro día, continuará exactamente desde donde se quedó.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    if st.button("Continuar mi Capacitación ➔", type="primary", use_container_width=True):
-        st.session_state.paso = "evaluacion"
-        st.rerun()
-
-# =========================================================
-# FASE 4: MÓDULO DE CAPACITACIÓN
-# =========================================================
-elif st.session_state.paso == "evaluacion":
-    total_secciones = len(SECCIONES)
-    sec_idx = st.session_state.seccion_actual
-
-    if sec_idx < total_secciones:
-        seccion = SECCIONES[sec_idx]
-        estilo_color = COLORES_SECCION[sec_idx % len(COLORES_SECCION)]
-        
-        st.markdown(f"""
-        <div class="header-box">
-            <table style="width:100%; border:none; margin:0;">
-                <tr>
-                    <td style="border:none;">🏢 <b>Empresa:</b> ILEPSA S.A.</td>
-                    <td style="border:none;">👤 <b>Colaborador:</b> {st.session_state.nombre_usuario}</td>
-                    <td style="border:none;">🪪 <b>Cédula:</b> {st.session_state.cedula}</td>
-                </tr>
-            </table>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        col_s1, col_s2 = st.columns([5, 1])
-        with col_s2:
-            if st.button("Guardar y Salir"):
-                st.session_state.paso = "login"
-                st.rerun()
-                
-        progreso = sec_idx / total_secciones
-        st.progress(progreso, text=f"Progreso actual: Sección {sec_idx + 1} de {total_secciones}")
-        
-        # -------------------------------------------------
-        # PANTALLA 1: TEORÍA
-        # -------------------------------------------------
-        if st.session_state.sub_paso == "teoria":
-            st.markdown(f"""
-            <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid {estilo_color['borde']};">
-                <div class="badge-seccion-derecha" style="background-color: {estilo_color['fondo_etiqueta']}; color: {estilo_color['texto_etiqueta']};">
-                    LECTURA {sec_idx + 1} / {total_secciones}
-                </div>
-                <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 14.5px; text-transform: uppercase;">
-                    {seccion['eje']}
-                </span>
-                <h3 style="margin-top: 8px; margin-bottom: 12px; color: #0f172a; font-size: 23px;">{seccion['titulo']}</h3>
-                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 14px 0;">
-                <div class="contenido-texto">
-                    {seccion['contenido']}
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            if st.button("Continuar al Cuestionario de esta Sección ➔", type="primary", key=f"btn_ir_cuestionario_{sec_idx}", use_container_width=True):
-                st.session_state.sub_paso = "cuestionario"
-                try:
-                    supabase.table("usuarios").update({
-                        "seccion_actual": st.session_state.seccion_actual,
-                        "sub_paso": "cuestionario"
-                    }).eq("cedula", st.session_state.cedula).execute()
-                except Exception:
-                    pass
-
-                components.html(
-                    """
-                    <script>
-                        const parentDoc = window.parent.document;
-                        parentDoc.querySelectorAll('section.main').forEach(el => {
-                            el.scrollTop = 0;
-                            el.scrollTo({top: 0, behavior: 'instant'});
-                        });
-                        window.parent.scrollTo({top: 0, behavior: 'instant'});
-                    </script>
-                    """,
-                    height=0,
-                )
-                st.rerun()
-
-        # -------------------------------------------------
-        # PANTALLA 2: CUESTIONARIO
-        # -------------------------------------------------
-        elif st.session_state.sub_paso == "cuestionario":
-            st.markdown(f"""
-            <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid {estilo_color['borde']};">
-                <div class="badge-seccion-derecha" style="background-color: {estilo_color['fondo_etiqueta']}; color: {estilo_color['texto_etiqueta']};">
-                    EVALUACIÓN {sec_idx + 1} / {total_secciones}
-                </div>
-                <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 14.5px; text-transform: uppercase;">
-                    Cuestionario de Validación
-                </span>
-                <h3 style="margin-top: 8px; margin-bottom: 12px; color: #0f172a; font-size: 23px;">{seccion['titulo']}</h3>
-                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 14px 0;">
-                <p style="font-size: 16px; color: #475569; margin-bottom: 15px;">
-                    Responda la siguiente pregunta correspondiente al contenido que acaba de estudiar:
-                </p>
-                <div class="pregunta-box" style="border-left: 4px solid {estilo_color['borde']};">
-                    <p style="font-size: 18px; font-weight: 600; color: #1e293b; margin: 0;">{seccion['pregunta']}</p>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            st.markdown("""
-                <style>
-                div.stRadio > label { font-size: 17px !important; font-weight: 500 !important; color: #1e293b !important; }
-                </style>
-            """, unsafe_allow_html=True)
-            
-            respuesta = st.radio(
-                "Seleccione su respuesta:", 
-                seccion['opciones'], 
-                key=f"radio_cuestionario_{sec_idx}"
-            )
-            
-            col_btn1, col_btn2 = st.columns(2)
-            with col_btn1:
-                if st.button("⬅ Volver a leer la Teoría", use_container_width=True):
-                    st.session_state.sub_paso = "teoria"
-                    try:
-                        supabase.table("usuarios").update({
-                            "sub_paso": "teoria"
-                        }).eq("cedula", st.session_state.cedula).execute()
-                    except Exception:
-                        pass
-                    st.rerun()
-            with col_btn2:
-                btn_siguiente = st.button("Enviar Respuesta y Siguiente ➔", type="primary", key=f"btn_enviar_{sec_idx}", use_container_width=True)
-            
-            if btn_siguiente:
-                if respuesta == seccion['correcta']:
-                    st.session_state.respuestas_correctas += 1
-                    st.session_state.seccion_actual += 1
-                    st.session_state.sub_paso = "teoria"
-                    
-                    try:
-                        supabase.table("usuarios").update({
-                            "seccion_actual": st.session_state.seccion_actual,
-                            "sub_paso": "teoria"
-                        }).eq("cedula", st.session_state.cedula).execute()
-                    except Exception:
-                        pass
-                    
-                    components.html(
-                        """
-                        <script>
-                            const parentDoc = window.parent.document;
-                            parentDoc.querySelectorAll('section.main').forEach(el => {
-                                el.scrollTop = 0;
-                                el.scrollTo({top: 0, behavior: 'instant'});
-                            });
-                            window.parent.scrollTo({top: 0, behavior: 'instant'});
-                        </script>
-                        """,
-                        height=0,
-                    )
-                    
-                    with st.spinner(f"¡Respuesta correcta! Guardando avance y cargando siguiente sección..."):
-                        time.sleep(0.3)
-                    st.rerun()
-                else:
-                    st.error("Respuesta incorrecta. Debe revisar nuevamente la teoría de esta sección para poder avanzar.")
-    else:
-        st.session_state.paso = "certificado"
-        st.rerun()
-
-# =========================================================
-# FASE 5: CERTIFICADO OFICIAL CORPORATIVO (Diseño Elegante y PDF nativo)
-# =========================================================
-elif st.session_state.paso == "certificado":
-    st.markdown("""
-    <div style="text-align: center; margin-bottom: 20px;">
-        <span style="font-size: 28px;">🎓 ✨</span>
-        <h3 style="color: #059669; margin: 5px 0; font-size: 22px;">¡CAPACITACIÓN APROBADA CON ÉXITO!</h3>
-        <p style="color: #64748b; font-size: 15px;">Su certificado oficial de cumplimiento ha sido emitido satisfactoriamente.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    html_certificado = f"""
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-    <meta charset="UTF-8">
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Lora:ital,wght@0,400;0,600;1,400&family=Open+Sans:wght@400;600&display=swap');
-      
-      body {{
-          font-family: 'Open Sans', sans-serif;
-          background-color: #e2e8f0;
-          margin: 0;
-          padding: 20px;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-      }}
-      .diploma-marco {{
-          background: #fffdf9;
-          border: 12px double #1e3a8a;
-          width: 900px;
-          padding: 50px 70px;
-          text-align: center;
-          box-sizing: border-box;
-          box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-          position: relative;
-          margin: 0 auto;
-      }}
-      .institucion-sup {{
-          font-family: 'Cinzel', serif;
-          font-size: 16px;
-          letter-spacing: 5px;
-          color: #475569;
-          text-transform: uppercase;
-          font-weight: 700;
-          margin-bottom: 10px;
-      }}
-      h1 {{
-          font-family: 'Cinzel', serif;
-          color: #1e3a8a;
-          font-size: 36px;
-          margin: 0 0 8px 0;
-          letter-spacing: 2px;
-      }}
-      .normativa {{
-          font-family: 'Open Sans', sans-serif;
-          color: #0284c7;
-          font-size: 13px;
-          text-transform: uppercase;
-          letter-spacing: 2px;
-          margin-bottom: 35px;
-          font-weight: 600;
-      }}
-      .otorga-texto {{
-          font-family: 'Lora', serif;
-          font-size: 17px;
-          color: #334155;
-          font-style: italic;
-          margin-bottom: 5px;
-      }}
-      .nombre-persona {{
-          font-family: 'Lora', serif;
-          color: #0f172a;
-          font-size: 34px;
-          font-weight: bold;
-          border-bottom: 2px solid #cbd5e1;
-          display: inline-block;
-          padding-bottom: 6px;
-          margin: 10px 0 15px 0;
-      }}
-      .cedula-texto {{
-          font-family: 'Open Sans', sans-serif;
-          font-size: 15px;
-          color: #475569;
-          margin-bottom: 30px;
-      }}
-      .cuerpo-texto {{
-          font-family: 'Lora', serif;
-          font-size: 15.5px;
-          color: #334155;
-          line-height: 1.8;
-          max-width: 740px;
-          margin: 0 auto 50px auto;
-          text-align: justify;
-      }}
-      .firmas-area {{
-          display: flex;
-          justify-content: center;
-          margin-top: 20px;
-      }}
-      .firma-caja {{
-          text-align: center;
-          width: 300px;
-      }}
-      .linea-firma {{
-          border-top: 1px solid #1e3a8a;
-          margin-bottom: 8px;
-      }}
-      .cargo-titulo {{
-          font-family: 'Open Sans', sans-serif;
-          font-weight: 700;
-          color: #0f172a;
-          font-size: 15px;
-      }}
-      .empresa-sub {{
-          font-family: 'Open Sans', sans-serif;
-          font-size: 13px;
-          color: #64748b;
-      }}
-      
-      @media print {{
-          body {{ background: transparent; padding: 0; }}
-          .diploma-marco {{ box-shadow: none; border: 10px double #1e3a8a; width: 100%; }}
-      }}
-    </style>
-    </head>
-    <body>
-      <div class="diploma-marco">
-        <div class="institucion-sup">COMPAÑÍA ILEPSA S.A.</div>
-        <h1>CERTIFICADO DE APROBACIÓN</h1>
-        <div class="normativa">Acuerdo Ministerial MDT-2025-006 • Capacitación de 40 Horas</div>
-        
-        <div class="otorga-texto">Se otorga el presente reconocimiento oficial a:</div>
-        <div class="nombre-colaborador">{st.session_state.nombre_usuario}</div>
-        <div class="cedula-texto">Cédula de Identidad N° <b>{st.session_state.cedula}</b></div>
-        
-        <div class="cuerpo-texto">
-          Por haber cumplido y aprobado satisfactoriamente el programa de formación corporativa en cumplimiento del <b>Artículo 3 del Acuerdo Ministerial MDT-2025-006</b>, abordando los ejes de derechos laborales de mujeres y hombres, igualdad de género, erradicación de violencia y no discriminación en el centro de trabajo, y trabajo de igual valor, con una intensidad de <b>40 horas académicas</b>.
-        </div>
-        
-        <div class="firmas-area">
-          <div class="firma-caja">
-            <div class="linea-firma"></div>
-            <div class="cargo-titulo">Gerencia General</div>
-            <div class="empresa-sub">ILEPSA S.A.</div>
-          </div>
-        </div>
-      </div>
-    </body>
-    </html>
-    """
-    
-    components.html(html_certificado, height=620, scrolling=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    
-    # Botón directo para imprimir / guardar como PDF
-    st.markdown("""
-        <script>
-        function imprimirPDF() {
-            window.parent.print();
-        }
-        </script>
-    """, unsafe_allow_html=True)
-    
-    if st.button("🖨️ Imprimir y Guardar Certificado en PDF", type="primary", use_container_width=True):
-        components.html("<script>window.parent.print();</script>", height=0)
-    
-    if st.button("Finalizar y Salir del Sistema"):
-        st.session_state.paso = "login"
-        st.session_state.cedula = ""
-        st.session_state.nombre_usuario = ""
-        st.session_state.es_admin = False
-        st.session_state.seccion_actual = 0
-        st.session_state.sub_paso = "teoria"
-        st.rerun()
