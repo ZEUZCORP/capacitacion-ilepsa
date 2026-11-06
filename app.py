@@ -3,11 +3,12 @@ from datetime import datetime
 from contenidos import SECCIONES
 
 st.set_page_config(
-    page_title="Programa de Formación Integral y Obligatoria",
-    page_icon="🎓",
+    page_title="Plataforma de Capacitación - ILEPSA",
+    page_icon="🏢",
     layout="centered"
 )
 
+# Inicializar estados
 if "iniciado" not in st.session_state:
     st.session_state.iniciado = False
 if "cedula" not in st.session_state:
@@ -16,247 +17,181 @@ if "seccion_actual" not in st.session_state:
     st.session_state.seccion_actual = 0
 if "respuestas_correctas" not in st.session_state:
     st.session_state.respuestas_correctas = 0
+if "progreso_usuarios" not in st.session_state:
+    st.session_state.progreso_usuarios = {}  # {cedula: seccion_actual}
 if "chat_ia" not in st.session_state:
     st.session_state.chat_ia = []
 
-if "registro_usuarios" not in st.session_state:
-    st.session_state.registro_usuarios = {}
-
+# Estilo corporativo elegante y formal
 st.markdown("""
     <style>
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-    .fade-in {
-        animation: fadeIn 0.6s ease-out forwards;
-    }
-    .main-header {
-        font-size: 28px;
-        font-weight: 800;
-        color: #1b365d;
+    .main-title {
+        font-size: 26px;
+        font-weight: 700;
+        color: #0f172a;
         text-align: center;
-        margin-bottom: 5px;
+        margin-bottom: 0px;
     }
-    .sub-header {
+    .company-subtitle {
         font-size: 16px;
-        color: #5c768d;
+        font-weight: 600;
+        color: #0284c7;
         text-align: center;
-        margin-bottom: 25px;
-    }
-    .hero-card {
-        background: linear-gradient(135deg, #1b365d 0%, #2c5282 100%);
-        color: white;
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 10px 25px rgba(27, 54, 93, 0.2);
-        margin-bottom: 25px;
-    }
-    .info-box {
-        background-color: #f8fafc;
-        border-left: 5px solid #2b6cb0;
-        padding: 20px;
-        border-radius: 8px;
         margin-bottom: 20px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.02);
     }
-    .admin-box {
-        background-color: #eef2f7;
-        padding: 20px;
+    .exam-card {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        padding: 25px;
         border-radius: 12px;
-        border-left: 5px solid #319795;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+    }
+    .question-box {
+        background-color: #f8fafc;
+        border-left: 4px solid #0284c7;
+        padding: 20px;
+        border-radius: 0 8px 8px 0;
+        margin-top: 20px;
         margin-bottom: 20px;
     }
     .ia-box {
-        background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-        border: 2px dashed #cbd5e0;
-        padding: 20px;
-        border-radius: 12px;
-        margin-top: 25px;
+        background-color: #f1f5f9;
+        border: 1px dashed #cbd5e1;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
     }
     </style>
 """, unsafe_allow_html=True)
 
+# ---------------------------------------------------------
+# PANTALLA DE ACCESO / PORTADA OFICIAL ILEPSA
+# ---------------------------------------------------------
 if not st.session_state.iniciado:
-    st.markdown('<div class="fade-in">', unsafe_allow_html=True)
+    st.markdown('<div class="main-title">PROGRAMA DE FORMACIÓN INTEGRAL Y OBLIGATORIA</div>', unsafe_allow_html=True)
+    st.markdown('<div class="company-subtitle">COMPAÑÍA ILEPSA</div>', unsafe_allow_html=True)
     
     st.markdown("""
-    <div class="hero-card">
-        <h1 style="color: white; margin-top: 0; font-size: 26px;">🎓 Programa de Formación Integral y Obligatoria</h1>
-        <p style="font-size: 16px; opacity: 0.9;">Capacitación general y corporativa orientada a la excelencia en el lugar de trabajo.</p>
-        <hr style="border-color: rgba(255,255,255,0.2); margin: 15px 0;">
-        <p style="font-size: 14px; margin-bottom: 0;">🛡️ Desarrollado en estricto cumplimiento con el <b>Acuerdo Ministerial MDT-2025-006</b>.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div class="info-box fade-in">
-        <h3>📌 Indicaciones Importantes para el Personal:</h3>
+    <div class="exam-card">
+        <h3>Bienvenido al Sistema de Capacitación</h3>
+        <p>En cumplimiento con la normativa legal vigente y el <b>Acuerdo Ministerial MDT-2025-006</b>, este programa de capacitación está diseñado para promover un entorno laboral seguro, equitativo y libre de violencia.</p>
+        <hr style="margin: 15px 0; border: none; border-top: 1px solid #e2e8f0;">
         <ul>
-            <li><b>Estructura Completa:</b> El programa consta de <b>100 secciones formativas</b> divididas en cuatro ejes fundamentales (Derechos Laborales, Género, Erradicación de Violencia y Trabajo de Igual Valor).</li>
-            <li><b>Dedicación Diaria:</b> Se recomienda un tiempo mínimo de estudio de <b>30 minutos diarios</b> para un correcto aprendizaje y retención.</li>
-            <li><b>Aprobación y Certificado:</b> Al culminar y aprobar las evaluaciones de todas las secciones, se desbloqueará de forma inmediata tu <b>certificado oficial de aprobación</b>.</li>
+            <li><b>Estructura:</b> 100 Secciones evaluadas en 4 ejes fundamentales.</li>
+            <li><b>Guardado Automático:</b> Su progreso se almacena de forma automática por cada sección completada. Si sale y vuelve a ingresar con su cédula, continuará exactamente donde se quedó.</li>
+            <li><b>Certificación:</b> Al completar el 100% de las secciones, el sistema emitirá su certificado oficial.</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
     
-    st.subheader("🔑 Acceso al Sistema")
-    cedula_input = st.text_input("Ingrese su número de Cédula de Identidad:", max_chars=10, type="password")
+    cedula_input = st.text_input("Ingrese su Cédula de Identidad para iniciar:", max_chars=10, type="password")
     
-    col_btn1, col_btn2 = st.columns([1, 3])
-    with col_btn1:
-        iniciar_btn = st.button("Iniciar Capacitación", type="primary")
-        
-    if iniciar_btn:
+    if st.button("Iniciar / Continuar Sesión", type="primary"):
         cedula_limpia = cedula_input.strip()
         if len(cedula_limpia) >= 10:
             st.session_state.iniciado = True
             st.session_state.cedula = cedula_limpia
-            st.session_state.tiempo_inicio = datetime.now()
-            
-            if cedula_limpia != "9999999999":
-                if cedula_limpia not in st.session_state.registro_usuarios:
-                    st.session_state.registro_usuarios[cedula_limpia] = {
-                        "nombre": f"Colaborador",
-                        "progreso": 0,
-                        "estado": "Iniciado",
-                        "tiempo_min": 1,
-                        "ultimo_acceso": "Justo ahora"
-                    }
+            # Recuperar progreso guardado del usuario si existe
+            if cedula_limpia in st.session_state.progreso_usuarios:
+                st.session_state.seccion_actual = st.session_state.progreso_usuarios[cedula_limpia]
+            else:
+                st.session_state.seccion_actual = 0
             st.rerun()
         else:
-            st.error("⚠️ Por favor, ingrese un número de cédula válido.")
-            
-    st.markdown('</div>', unsafe_allow_html=True)
+            st.error("Por favor ingrese un número de cédula válido.")
 
-elif st.session_state.cedula == "9999999999":
-    st.markdown('<div class="main-header">📊 Panel de Monitoreo y Control Gerencial</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sub-header">Consola de Auditoría en Vivo - Acuerdo Ministerial MDT-2025-006</div>', unsafe_allow_html=True)
-    
-    st.markdown("""
-    <div class="admin-box fade-in">
-        <h4>Panel de Control Administrativo</h4>
-        <p>Desde este entorno exclusivo, el superadministrador tiene visibilidad en tiempo real sobre la conectividad, tiempos de dedicación diarios, avance de secciones de los colaboradores y el registro de certificados emitidos en la plataforma.</p>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    col_m1, col_m2, col_m3 = st.columns(3)
-    col_m1.metric("👥 Usuarios Registrados", len(st.session_state.registro_usuarios))
-    col_m2.metric("📜 Certificados Emitidos", sum(1 for u in st.session_state.registro_usuarios.values() if u["progreso"] == 100))
-    col_m3.metric("⏱️ Tiempo Promedio", "35 minutos")
-    
-    st.divider()
-    st.subheader("🔍 Monitoreo de Colaboradores Conectados")
-    
-    if st.session_state.registro_usuarios:
-        for ced, datos in st.session_state.registro_usuarios.items():
-            with st.expander(f"Usuario registrado — [Progreso: {datos['progreso']}%]"):
-                st.write(f"**Estado del Colaborador:** {datos['estado']}")
-                st.write(f"**Tiempo de Sesión Invertido:** {datos['tiempo_min']} minutos")
-                st.write(f"**Última Actividad Registrada:** {datos['ultimo_acceso']}")
-                st.progress(datos['progreso'] / 100.0, text=f"Avance actual: {datos['progreso']}%")
-    else:
-        st.info("No hay registros activos de otros colaboradores en este momento.")
-            
-    st.divider()
-    if st.button("Cerrar Sesión de Administrador", type="primary"):
-        st.session_state.iniciado = False
-        st.session_state.cedula = ""
-        st.rerun()
-
+# ---------------------------------------------------------
+# DESARROLLO DE LA EVALUACIÓN (EXAMEN SECCIÓN POR SECCIÓN)
+# ---------------------------------------------------------
 else:
     total_secciones = len(SECCIONES)
     sec_idx = st.session_state.seccion_actual
     
-    if st.session_state.cedula in st.session_state.registro_usuarios:
-        progreso_pct = int((sec_idx / total_secciones) * 100)
-        st.session_state.registro_usuarios[st.session_state.cedula]["progreso"] = progreso_pct
-        st.session_state.registro_usuarios[st.session_state.cedula]["estado"] = "En progreso"
-        st.session_state.registro_usuarios[st.session_state.cedula]["ultimo_acceso"] = "Activo ahora"
+    # Barra superior de navegación y estado
+    col_info1, col_info2, col_info3 = st.columns([2, 2, 1])
+    col_info1.write(f"**Compañía:** ILEPSA")
+    col_info2.write(f"**Usuario (Cédula):** {st.session_state.cedula}")
+    if col_info3.button("Guardar y Salir"):
+        st.session_state.iniciado = False
+        st.session_state.cedula = ""
+        st.rerun()
+        
+    st.divider()
     
-    progreso_val = (sec_idx / total_secciones)
+    # Barra de progreso limpia
+    progreso_val = sec_idx / total_secciones
     st.progress(progreso_val, text=f"Progreso General: Sección {sec_idx + 1} de {total_secciones} ({int(progreso_val*100)}%)")
     
     if sec_idx < total_secciones:
         seccion = SECCIONES[sec_idx]
         
-        st.markdown(f"### 🏷️ {seccion['eje']}")
-        st.markdown(f"## 📌 {seccion['titulo']}")
+        st.markdown(f"### {seccion['eje']}")
+        st.markdown(f"## {seccion['titulo']}")
         
+        # Tarjeta de Lectura de la Sección
         st.markdown(f"""
-        <div class="info-box fade-in">
+        <div class="exam-card">
             {seccion['contenido']}
         </div>
         """, unsafe_allow_html=True)
         
-        st.divider()
+        # Tarjeta de Pregunta tipo Examen
+        st.markdown(f"""
+        <div class="question-box">
+            <h4>Evaluación de la Sección {sec_idx + 1}</h4>
+            <p><b>{seccion['pregunta']}</b></p>
+        </div>
+        """, unsafe_allow_html=True)
         
-        st.markdown("#### 📝 Evaluación de Aprendizaje")
-        respuesta_usuario = st.radio(seccion['pregunta'], seccion['opciones'], key=f"p_{sec_idx}")
+        respuesta_usuario = st.radio("Seleccione la respuesta correcta:", seccion['opciones'], key=f"eval_p_{sec_idx}")
         
-        col_env, col_esp = st.columns([1, 4])
-        with col_env:
-            if st.button("Enviar Respuesta", type="primary"):
+        col_btn1, col_btn2 = st.columns([1, 4])
+        with col_btn1:
+            if st.button("Continuar Sección", type="primary"):
                 if respuesta_usuario == seccion['correcta']:
-                    st.success("¡Respuesta correcta! Avanzando a la siguiente sección...")
+                    st.success("¡Respuesta correcta registrada con éxito!")
                     st.session_state.respuestas_correctas += 1
                     st.session_state.seccion_actual += 1
+                    # Guardar progreso automático
+                    st.session_state.progreso_usuarios[st.session_state.cedula] = st.session_state.seccion_actual
                     st.rerun()
                 else:
-                    st.error("Respuesta incorrecta. Lee detenidamente el contenido y vuelve a intentarlo.")
+                    st.error("Respuesta incorrecta. Por favor revise nuevamente el contenido teórico de la sección.")
                     
+        # Asistente IA de apoyo en la parte inferior
         st.markdown("""
         <div class="ia-box">
-            <h4>🤖 Asistente Virtual de Capacitación (IA)</h4>
-            <p style="font-size: 14px; color: #4a5568;">¿Tienes alguna duda sobre esta sección o sobre tus derechos laborales? Pregúntale a nuestro asistente integrado.</p>
+            <h5 style="margin:0 0 5px 0;">🤖 Asistente de Consulta ILEPSA</h5>
+            <p style="font-size: 13px; color: #475569; margin-bottom:10px;">¿Tiene alguna duda sobre el contenido de esta sección? Realice su consulta:</p>
         </div>
         """, unsafe_allow_html=True)
         
-        pregunta_ia = st.text_input("Escribe tu pregunta sobre el contenido o la ley:", key=f"input_ia_{sec_idx}")
-        if st.button("Consultar con la IA", key=f"btn_ia_{sec_idx}"):
+        pregunta_ia = st.text_input("Escriba su consulta:", key=f"ia_q_{sec_idx}")
+        if st.button("Consultar Asistente", key=f"ia_btn_{sec_idx}"):
             if pregunta_ia.strip():
-                if "Derechos" in seccion['eje']:
-                    resp_ia = f"Respecto a tu consulta sobre '{pregunta_ia}', recuerda que la Constitución y el Código del Trabajo garantizan la irrenunciabilidad de derechos y la intangibilidad del sueldo en todo momento."
-                elif "Género" in seccion['eje']:
-                    resp_ia = f"Analizando tu pregunta sobre '{pregunta_ia}', la organización promueve activamente la igualdad de oportunidades, la eliminación de sesgos inconscientes y la paridad en el liderazgo."
-                elif "Violencia" in seccion['eje']:
-                    resp_ia = f"Sobre tu duda referente a '{pregunta_ia}', la empresa mantiene cero tolerancia al acoso laboral, garantizando absoluta confidencialidad en los canales de denuncia y protección contra represalias."
-                else:
-                    resp_ia = f"En relación con tu pregunta sobre '{pregunta_ia}', la ley exige transparencia salarial estricta y bandas de remuneración basadas en la valoración objetiva de puestos de trabajo."
-                
-                st.session_state.chat_ia.append({"pregunta": pregunta_ia, "respuesta": resp_ia})
-                st.rerun()
+                st.info(f"Asistente ILEPSA: En relación con su consulta sobre '{pregunta_ia}', recuerde que las normativas internas y el marco del Acuerdo Ministerial MDT-2025-006 priorizan siempre el respeto, la equidad y el cumplimiento legal estricto.")
             else:
-                st.warning("Por favor, escribe una pregunta válida antes de consultar.")
-                
-        if st.session_state.chat_ia:
-            with st.expander("💬 Historial de consultas a la IA en esta sesión"):
-                for chat in reversed(st.session_state.chat_ia[-3:]):
-                    st.markdown(f"**Tú:** {chat['pregunta']}")
-                    st.markdown(f"**Asistente IA:** {chat['respuesta']}")
-                    st.markdown("---")
-    
+                st.warning("Ingrese un texto para consultar.")
+
+    # ---------------------------------------------------------
+    # PANTALLA FINAL - CERTIFICADO
+    # ---------------------------------------------------------
     else:
-        if st.session_state.cedula in st.session_state.registro_usuarios:
-            st.session_state.registro_usuarios[st.session_state.cedula]["progreso"] = 100
-            st.session_state.registro_usuarios[st.session_state.cedula]["estado"] = "Certificado Emitido"
-        
         st.balloons()
-        st.markdown('<div class="main-header">🎉 ¡Felicitaciones! Has Culminado con Éxito las 100 Secciones</div>', unsafe_allow_html=True)
-        
-        st.markdown(f"""
-        <div class="hero-card fade-in" style="text-align: center;">
-            <h2>📜 Certificado Oficial de Aprobación</h2>
-            <p>Se certifica formalmente que el colaborador ha completado satisfactoriamente las <b>100 secciones formativas</b> del Programa Integral bajo el marco normativo del <b>Acuerdo Ministerial MDT-2025-006</b>.</p>
-            <hr style="border-color: rgba(255,255,255,0.2); margin: 20px 0;">
-            <p><b>Evaluaciones Superadas con Éxito:</b> {st.session_state.respuestas_correctas} / {total_secciones}</p>
-            <p style="font-size: 13px; opacity: 0.8;">Estado: Validado y Registrado en el Sistema</p>
+        st.markdown("""
+        <div class="exam-card" style="text-align: center; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
+            <h2>📜 CERTIFICADO OFICIAL DE APROBACIÓN</h2>
+            <p><b>COMPAÑÍA ILEPSA</b></p>
+            <p>Se certifica que el colaborador con Cédula N° <b>{cedula}</b> ha completado y aprobado satisfactoriamente las <b>100 secciones</b> del Programa de Formación Integral bajo el marco del <b>Acuerdo Ministerial MDT-2025-006</b>.</p>
+            <hr style="margin: 20px 0;">
+            <p><b>Calificación Final / Aciertos:</b> {correctas} / {total}</p>
+            <p style="color: #059669; font-weight: bold;">ESTADO: APROBADO CON ÉXITO</p>
         </div>
-        """, unsafe_allow_html=True)
+        """.format(cedula=st.session_state.cedula, correctas=st.session_state.respuestas_correctas, total=total_secciones), unsafe_allow_html=True)
         
-        if st.button("Finalizar y Salir del Sistema", type="primary"):
+        if st.button("Finalizar y Salir del Sistema"):
             st.session_state.iniciado = False
+            st.session_state.cedula = ""
             st.session_state.seccion_actual = 0
-            st.session_state.respuestas_correctas = 0
-            st.session_state.chat_ia = []
             st.rerun()
