@@ -43,7 +43,7 @@ COLORES_SECCION = [
     {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}
 ]
 
-# Estilos CSS con tipografía compacta, elegante y estructurada
+# Estilos CSS optimizados para ancho y lectura cómoda sin scroll excesivo
 st.markdown("""
     <style>
     @keyframes fadeInPage {
@@ -80,26 +80,28 @@ st.markdown("""
         border-radius: 8px;
         margin-bottom: 15px;
     }
+    .sabias-que-box {
+        background-color: #f0f9ff;
+        border-left: 4px solid #0284c7;
+        padding: 12px 16px;
+        border-radius: 0 8px 8px 0;
+        margin-bottom: 15px;
+        font-size: 13.5px;
+        color: #0369a1;
+        font-weight: 500;
+    }
     .contenido-texto {
-        font-size: 14.5px;
-        line-height: 1.6;
+        font-size: 14px;
+        line-height: 1.55;
         color: #334155;
     }
     .pregunta-box {
         background-color: #f8fafc;
         border-left: 4px solid #0f172a;
-        padding: 20px;
+        padding: 18px;
         border-radius: 0 8px 8px 0;
         margin-bottom: 20px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    }
-    .certificado-container {
-        background: #fff;
-        border: 8px double #0f172a;
-        padding: 40px;
-        border-radius: 8px;
-        text-align: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     </style>
 """, unsafe_allow_html=True)
@@ -125,7 +127,7 @@ components.html(
 )
 
 # =========================================================
-# FASE 1: LOGIN (Recupera progreso automático de Supabase)
+# FASE 1: LOGIN
 # =========================================================
 if st.session_state.paso == "login":
     st.markdown("""
@@ -141,15 +143,12 @@ if st.session_state.paso == "login":
         cedula_limpia = cedula_input.strip()
         if len(cedula_limpia) >= 10 or cedula_limpia == "1":
             try:
-                # Consultamos datos, incluyendo la sección y sub_paso guardados en Supabase
                 response = supabase.table("usuarios").select("nombres, seccion_actual, sub_paso").eq("cedula", cedula_limpia).execute()
                 
                 if response.data and len(response.data) > 0:
                     user_data = response.data[0]
                     st.session_state.cedula = cedula_limpia
                     st.session_state.nombre_usuario = user_data["nombres"]
-                    
-                    # Recuperar progreso guardado en la base de datos (siempre que existan)
                     st.session_state.seccion_actual = user_data.get("seccion_actual", 0) or 0
                     st.session_state.sub_paso = user_data.get("sub_paso", "teoria") or "teoria"
                     
@@ -234,24 +233,26 @@ elif st.session_state.paso == "admin_dashboard":
         st.rerun()
 
 # =========================================================
-# FASE 3: INSTRUCCIONES (Colaboradores)
+# FASE 3: INSTRUCCIONES / BIENVENIDA (Restaurado al 100%)
 # =========================================================
 elif st.session_state.paso == "instrucciones":
     st.markdown(f"""
     <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #0284c7;">
         <h3 style="color: #0f172a; margin-top:0;">¡Bienvenido(a), {st.session_state.nombre_usuario}!</h3>
         <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
-        <p style="font-size: 14.5px; color: #334155; line-height: 1.6;">
-            En cumplimiento con la normativa legal vigente y el <b>Acuerdo Ministerial MDT-2025-006</b>, este programa de formación integral es de <b>carácter obligatorio</b> para todo el personal de la Compañía ILEPSA S.A. (Certificación de 40 horas).
+        <p style="font-size: 14px; color: #334155; line-height: 1.6;">
+            En cumplimiento estricto con la normativa legal vigente y el <b>Acuerdo Ministerial número MDT-2025-006</b>, este programa de formación y capacitación integral es de <b>carácter obligatorio para todos los trabajadores y colaboradores de la empresa ILEPSA S.A.</b>
         </p>
-        <p style="font-size: 14.5px; color: #334155; line-height: 1.6; margin-bottom: 5px;">
-            <b>Progreso Automático:</b> Su avance se guarda de forma permanente en el sistema. Si cierra sesión o ingresa otro día, continuará exactamente desde donde se quedó.
+        <p style="font-size: 14px; color: #334155; line-height: 1.6;">
+            <b>¿De qué se trata este programa?</b> Está enfocado en la prevención, atención, erradicación y sanción de la violencia, el acoso laboral, la discriminación y la violencia salarial en el ámbito de trabajo, promoviendo un entorno corporativo seguro, equitativo e inclusivo.
+        </p>
+        <p style="font-size: 14px; color: #334155; line-height: 1.6; margin-bottom: 5px;">
+            <b>Persistencia Automática:</b> Su avance se guarda de manera automática en la base de datos de Supabase. Si cierra sesión, la aplicación se apaga o ingresa al día siguiente, el sistema lo ubicará exactamente en la sección donde se quedó.
         </p>
     </div>
     """, unsafe_allow_html=True)
     
     if st.button("Continuar mi Capacitación ➔", type="primary", use_container_width=True):
-        # Si ya completó todas las secciones, salta directo al certificado
         if st.session_state.seccion_actual >= len(SECCIONES):
             st.session_state.paso = "certificado"
         else:
@@ -259,7 +260,7 @@ elif st.session_state.paso == "instrucciones":
         st.rerun()
 
 # =========================================================
-# FASE 4: MÓDULO DE CAPACITACIÓN (Con guardado automático en Supabase)
+# FASE 4: MÓDULO DE CAPACITACIÓN (Optimizado en ancho)
 # =========================================================
 elif st.session_state.paso == "evaluacion":
     total_secciones = len(SECCIONES)
@@ -291,7 +292,7 @@ elif st.session_state.paso == "evaluacion":
         st.progress(progreso, text=f"Progreso actual: Sección {sec_idx + 1} de {total_secciones}")
         
         # -------------------------------------------------
-        # PANTALLA 1: TEORÍA
+        # PANTALLA 1: TEORÍA COMPACTA
         # -------------------------------------------------
         if st.session_state.sub_paso == "teoria":
             st.markdown(f"""
@@ -302,8 +303,10 @@ elif st.session_state.paso == "evaluacion":
                 <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 13px; text-transform: uppercase;">
                     {seccion['eje']}
                 </span>
-                <h3 style="margin-top: 6px; margin-bottom: 12px; color: #0f172a; font-size: 20px;">{seccion['titulo']}</h3>
-                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
+                <h3 style="margin-top: 6px; margin-bottom: 8px; color: #0f172a; font-size: 18px;">{seccion['titulo']}</h3>
+                <div class="sabias-que-box">
+                    💡 <b>¿Sabías tú que...</b> este módulo normativo es fundamental para consolidar nuestros valores corporativos y cumplir con las directrices del MDT?
+                </div>
                 <div class="contenido-texto">
                     {seccion['contenido']}
                 </div>
@@ -312,8 +315,6 @@ elif st.session_state.paso == "evaluacion":
             
             if st.button("Continuar al Cuestionario de esta Sección ➔", type="primary", key=f"btn_ir_cuestionario_{sec_idx}", use_container_width=True):
                 st.session_state.sub_paso = "cuestionario"
-                
-                # GUARDADO AUTOMÁTICO EN SUPABASE DEL SUB-PASO
                 try:
                     supabase.table("usuarios").update({
                         "seccion_actual": st.session_state.seccion_actual,
@@ -349,13 +350,13 @@ elif st.session_state.paso == "evaluacion":
                 <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 13px; text-transform: uppercase;">
                     Cuestionario de Validación
                 </span>
-                <h3 style="margin-top: 6px; margin-bottom: 12px; color: #0f172a; font-size: 19px;">{seccion['titulo']}</h3>
-                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
-                <p style="font-size: 14px; color: #475569; margin-bottom: 15px;">
+                <h3 style="margin-top: 6px; margin-bottom: 10px; color: #0f172a; font-size: 18px;">{seccion['titulo']}</h3>
+                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 10px 0;">
+                <p style="font-size: 13.5px; color: #475569; margin-bottom: 12px;">
                     Responda la siguiente pregunta correspondiente al contenido que acaba de estudiar:
                 </p>
                 <div class="pregunta-box" style="border-left: 4px solid {estilo_color['borde']};">
-                    <p style="font-size: 15px; font-weight: 600; color: #1e293b; margin: 0;">{seccion['pregunta']}</p>
+                    <p style="font-size: 14.5px; font-weight: 600; color: #1e293b; margin: 0;">{seccion['pregunta']}</p>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -386,7 +387,6 @@ elif st.session_state.paso == "evaluacion":
                     st.session_state.seccion_actual += 1
                     st.session_state.sub_paso = "teoria"
                     
-                    # GUARDADO AUTOMÁTICO EN SUPABASE DEL AVANCE DE SECCIÓN
                     try:
                         supabase.table("usuarios").update({
                             "seccion_actual": st.session_state.seccion_actual,
@@ -419,50 +419,75 @@ elif st.session_state.paso == "evaluacion":
         st.rerun()
 
 # =========================================================
-# FASE 5: CERTIFICADO OFICIAL (40 HORAS - ACUERDO MDT-2025-006)
+# FASE 5: CERTIFICADO OFICIAL (Diploma Formal de 40 Horas)
 # =========================================================
 elif st.session_state.paso == "certificado":
     st.markdown("""
     <div style="text-align: center; margin-bottom: 15px;">
-        <span style="font-size: 24px;">✨ 🏆 ✨</span>
+        <span style="font-size: 26px;">✨ 🏆 ✨</span>
         <h3 style="color: #059669; margin: 5px 0; font-size: 20px;">¡CAPACITACIÓN APROBADA CON ÉXITO!</h3>
-        <p style="color: #64748b; font-size: 13.5px;">Su aprobación ha sido procesada y registrada en el sistema de ILEPSA.</p>
+        <p style="color: #64748b; font-size: 13.5px;">Has culminado satisfactoriamente el programa bajo el Acuerdo Ministerial MDT-2025-006.</p>
     </div>
     """, unsafe_allow_html=True)
     
     html_certificado = f"""
-    <div class="certificado-container">
-        <h2 style="color: #0f172a; letter-spacing: 2px; margin-bottom: 5px; font-family: serif; font-size: 24px;">CERTIFICADO DE APROBACIÓN</h2>
-        <p style="color: #64748b; font-size: 12px; text-transform: uppercase; letter-spacing: 1px;">Acuerdo Ministerial MDT-2025-006</p>
+    <html>
+    <head>
+    <style>
+      body {{ font-family: 'Times New Roman', serif; background-color: #f8fafc; padding: 20px; }}
+      .diploma {{
+          background: #fffdf9;
+          border: 12px double #1e3a8a;
+          padding: 50px;
+          text-align: center;
+          max-width: 800px;
+          margin: 0 auto;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      }}
+      h1 {{ color: #1e3a8a; font-size: 32px; margin-bottom: 5px; letter-spacing: 2px; }}
+      .subtitulo {{ color: #475569; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; }}
+      .nombre {{ color: #0284c7; font-size: 30px; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 5px; margin: 15px 0; font-weight: bold; }}
+      .texto {{ font-size: 16px; color: #334155; line-height: 1.6; margin: 25px auto; max-width: 650px; }}
+      .firmas {{ margin-top: 60px; display: flex; justify-content: space-around; }}
+      .firma-box {{ text-align: center; width: 220px; }}
+      .linea-firma {{ border-top: 1px solid #1e3a8a; margin-bottom: 8px; }}
+    </style>
+    </head>
+    <body>
+      <div class="diploma">
+        <h1>CERTIFICADO DE APROBACIÓN</h1>
+        <div class="subtitulo">Acuerdo Ministerial MDT-2025-006 - ILEPSA S.A.</div>
         
-        <p style="margin: 25px 0 10px 0; font-size: 15px; color: #334155;">Se otorga el presente reconocimiento a:</p>
-        <h1 style="color: #0284c7; font-size: 28px; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 5px; margin: 10px 0; font-family: serif;">{st.session_state.nombre_usuario}</h1>
-        <p style="font-size: 14px; color: #334155;">Con Cédula de Identidad N° <b>{st.session_state.cedula}</b></p>
+        <p style="font-size: 16px; color: #334155;">Se otorga el presente reconocimiento oficial a:</p>
+        <div class="nombre">{st.session_state.nombre_usuario}</div>
+        <p style="font-size: 15px; color: #334155;">Cédula de Identidad N° <b>{st.session_state.cedula}</b></p>
         
-        <p style="font-size: 14px; color: #334155; line-height: 1.6; max-width: 600px; margin: 20px auto;">
-            Por haber completado y aprobado satisfactoriamente el programa de formación integral en prevención de riesgos laborales, equidad y no discriminación, con una intensidad de <b>40 horas académicas</b>, cumpliendo a cabalidad con las normativas vigentes de la compañía ILEPSA S.A.
-        </p>
-        
-        <div style="margin-top: 40px; display: flex; justify-content: space-around;">
-            <div style="text-align: center;">
-                <div style="border-top: 1px solid #0f172a; width: 180px; margin: 0 auto 5px auto;"></div>
-                <b style="color: #0f172a; font-size: 13px;">Gerencia General</b><br>
-                <span style="color: #64748b; font-size: 11px;">ILEPSA S.A.</span>
-            </div>
-            <div style="text-align: center;">
-                <div style="border-top: 1px solid #0f172a; width: 180px; margin: 0 auto 5px auto;"></div>
-                <b style="color: #0f172a; font-size: 13px;">Dirección de Talento Humano</b><br>
-                <span style="color: #64748b; font-size: 11px;">Validado y Registrado</span>
-            </div>
+        <div class="texto">
+          Por haber completado y aprobado satisfactoriamente el programa de formación integral en prevención de riesgos laborales, equidad y no discriminación, con una intensidad de <b>40 horas académicas</b>, cumpliendo a cabalidad con las normativas vigentes de la compañía ILEPSA S.A.
         </div>
-    </div>
+        
+        <div class="firmas">
+          <div class="firma-box">
+            <div class="linea-firma"></div>
+            <b>Gerencia General</b><br>
+            <span style="font-size: 12px; color: #64748b;">ILEPSA S.A.</span>
+          </div>
+          <div class="firma-box">
+            <div class="linea-firma"></div>
+            <b>Talento Humano</b><br>
+            <span style="font-size: 12px; color: #64748b;">Validado y Registrado</span>
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
     """
     
-    st.markdown(html_certificado, unsafe_allow_html=True)
+    components.html(html_certificado, height=580, scrolling=True)
     st.markdown("<br>", unsafe_allow_html=True)
     
     st.download_button(
-        label="📥 Descargar Certificado Oficial en HTML / Imprimir PDF",
+        label="📥 Descargar Diploma Oficial en Formato HTML / Imprimir PDF",
         data=html_certificado,
         file_name=f"Certificado_ILEPSA_{st.session_state.cedula}.html",
         mime="text/html",
