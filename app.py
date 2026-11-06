@@ -18,7 +18,7 @@ if "seccion_actual" not in st.session_state:
 if "respuestas_correctas" not in st.session_state:
     st.session_state.respuestas_correctas = 0
 if "progreso_usuarios" not in st.session_state:
-    st.session_state.progreso_usuarios = {}  # {cedula: seccion_actual}
+    st.session_state.progreso_usuarios = {}
 if "chat_ia" not in st.session_state:
     st.session_state.chat_ia = []
 
@@ -65,6 +65,13 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Script de JavaScript para regresar la pantalla hacia arriba automáticamente al recargar
+st.markdown("""
+    <script>
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    </script>
+""", unsafe_allow_html=True)
+
 # ---------------------------------------------------------
 # PANTALLA DE ACCESO / PORTADA OFICIAL ILEPSA
 # ---------------------------------------------------------
@@ -75,12 +82,12 @@ if not st.session_state.iniciado:
     st.markdown("""
     <div class="exam-card">
         <h3>Bienvenido al Sistema de Capacitación</h3>
-        <p>En cumplimiento con la normativa legal vigente y el <b>Acuerdo Ministerial MDT-2025-006</b>, este programa de capacitación está diseñado para promover un entorno laboral seguro, equitativo y libre de violencia.</p>
+        <p>En cumplimiento con la normativa legal vigente y el Acuerdo Ministerial MDT-2025-006, este programa de capacitación está diseñado para promover un entorno laboral seguro, equitativo y libre de violencia.</p>
         <hr style="margin: 15px 0; border: none; border-top: 1px solid #e2e8f0;">
         <ul>
-            <li><b>Estructura:</b> 100 Secciones evaluadas en 4 ejes fundamentales.</li>
-            <li><b>Guardado Automático:</b> Su progreso se almacena de forma automática por cada sección completada. Si sale y vuelve a ingresar con su cédula, continuará exactamente donde se quedó.</li>
-            <li><b>Certificación:</b> Al completar el 100% de las secciones, el sistema emitirá su certificado oficial.</li>
+            <li>Estructura: 100 Secciones evaluadas en 4 ejes fundamentales.</li>
+            <li>Guardado Automático: Su progreso se almacena de forma automática por cada sección completada. Si sale y vuelve a ingresar con su cédula, continuará exactamente donde se quedó.</li>
+            <li>Certificación: Al completar el 100% de las secciones, el sistema emitirá su certificado oficial.</li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
@@ -92,7 +99,6 @@ if not st.session_state.iniciado:
         if len(cedula_limpia) >= 10:
             st.session_state.iniciado = True
             st.session_state.cedula = cedula_limpia
-            # Recuperar progreso guardado del usuario si existe
             if cedula_limpia in st.session_state.progreso_usuarios:
                 st.session_state.seccion_actual = st.session_state.progreso_usuarios[cedula_limpia]
             else:
@@ -108,10 +114,9 @@ else:
     total_secciones = len(SECCIONES)
     sec_idx = st.session_state.seccion_actual
     
-    # Barra superior de navegación y estado
     col_info1, col_info2, col_info3 = st.columns([2, 2, 1])
-    col_info1.write(f"**Compañía:** ILEPSA")
-    col_info2.write(f"**Usuario (Cédula):** {st.session_state.cedula}")
+    col_info1.write("Compañía: ILEPSA")
+    col_info2.write(f"Usuario (Cédula): {st.session_state.cedula}")
     if col_info3.button("Guardar y Salir"):
         st.session_state.iniciado = False
         st.session_state.cedula = ""
@@ -119,7 +124,6 @@ else:
         
     st.divider()
     
-    # Barra de progreso limpia
     progreso_val = sec_idx / total_secciones
     st.progress(progreso_val, text=f"Progreso General: Sección {sec_idx + 1} de {total_secciones} ({int(progreso_val*100)}%)")
     
@@ -129,18 +133,16 @@ else:
         st.markdown(f"### {seccion['eje']}")
         st.markdown(f"## {seccion['titulo']}")
         
-        # Tarjeta de Lectura de la Sección
         st.markdown(f"""
         <div class="exam-card">
             {seccion['contenido']}
         </div>
         """, unsafe_allow_html=True)
         
-        # Tarjeta de Pregunta tipo Examen
         st.markdown(f"""
         <div class="question-box">
             <h4>Evaluación de la Sección {sec_idx + 1}</h4>
-            <p><b>{seccion['pregunta']}</b></p>
+            <p>{seccion['pregunta']}</p>
         </div>
         """, unsafe_allow_html=True)
         
@@ -153,16 +155,14 @@ else:
                     st.success("¡Respuesta correcta registrada con éxito!")
                     st.session_state.respuestas_correctas += 1
                     st.session_state.seccion_actual += 1
-                    # Guardar progreso automático
                     st.session_state.progreso_usuarios[st.session_state.cedula] = st.session_state.seccion_actual
                     st.rerun()
                 else:
                     st.error("Respuesta incorrecta. Por favor revise nuevamente el contenido teórico de la sección.")
                     
-        # Asistente IA de apoyo en la parte inferior
         st.markdown("""
         <div class="ia-box">
-            <h5 style="margin:0 0 5px 0;">🤖 Asistente de Consulta ILEPSA</h5>
+            <h5 style="margin:0 0 5px 0;">Asistente de Consulta ILEPSA</h5>
             <p style="font-size: 13px; color: #475569; margin-bottom:10px;">¿Tiene alguna duda sobre el contenido de esta sección? Realice su consulta:</p>
         </div>
         """, unsafe_allow_html=True)
@@ -181,11 +181,11 @@ else:
         st.balloons()
         st.markdown("""
         <div class="exam-card" style="text-align: center; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
-            <h2>📜 CERTIFICADO OFICIAL DE APROBACIÓN</h2>
-            <p><b>COMPAÑÍA ILEPSA</b></p>
-            <p>Se certifica que el colaborador con Cédula N° <b>{cedula}</b> ha completado y aprobado satisfactoriamente las <b>100 secciones</b> del Programa de Formación Integral bajo el marco del <b>Acuerdo Ministerial MDT-2025-006</b>.</p>
+            <h2>CERTIFICADO OFICIAL DE APROBACIÓN</h2>
+            <p>COMPAÑÍA ILEPSA</p>
+            <p>Se certifica que el colaborador con Cédula N° {cedula} ha completado y aprobado satisfactoriamente las 100 secciones del Programa de Formación Integral bajo el marco del Acuerdo Ministerial MDT-2025-006.</p>
             <hr style="margin: 20px 0;">
-            <p><b>Calificación Final / Aciertos:</b> {correctas} / {total}</p>
+            <p>Calificación Final / Aciertos: {correctas} / {total}</p>
             <p style="color: #059669; font-weight: bold;">ESTADO: APROBADO CON ÉXITO</p>
         </div>
         """.format(cedula=st.session_state.cedula, correctas=st.session_state.respuestas_correctas, total=total_secciones), unsafe_allow_html=True)
