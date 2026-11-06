@@ -6,7 +6,7 @@ SECCIONES = [
         "contenido": """
         ### 1. El Significado Real del Trabajo Humano
         El trabajo no es un simple intercambio mercantil ni una transacción de horas por dinero. En el marco de la Constitución de la República del Ecuador, el trabajo constituye un derecho y un deber social, así como el eje fundamental sobre el cual las personas construyen su proyecto de vida y su desarrollo integral.
-        En cualquier centro de trabajo de ILEPSA —ya sea en oficinas, áreas técnicas, laboratorios o zonas operativas—, cada labor es ejecutada por personas dignas que merecen un trato respetuoso, empático y profesional en todo momento.
+        En cualquier centro de trabajo de ILEPSA, cada labor es ejecutada por personas dignas que merecen un trato respetuoso, empático y profesional en todo momento.
 
         ### 2. Prohibición Absoluta de Tratos Deshumanizadores
         El ordenamiento jurídico protege al trabajador contra cualquier abuso, coacción o trato degradante. Ningún superior puede menoscabar la dignidad de un colaborador mediante gritos, humillaciones públicas o exigencias fuera de toda lógica operativa y humana.
@@ -298,7 +298,7 @@ SECCIONES = [
         Al concluir la licencia de maternidad, la madre trabajadora tiene derecho a una jornada especial reducida de 6 horas diarias durante los primeros 12 meses de vida del infante. 
 
         ### 2. Intangibilidad del Sueldo
-        De las 8 horas habituales, la colaboradora destina 2 horas diarias exclusivas para la lactancia y cuidado del recién nacido, **sin que esto implique ninguna reducción en su remuneración mensual**.
+        De las 8 horas habituales, la colaboradora destina 2 horas diarias exclusivas para la lactancia y cuidado del recién nacido, sin que esto implique ninguna reducción en su remuneración mensual.
         """,
         "pregunta": "¿Cómo opera el derecho a la reducción de jornada por lactancia durante el primer año de vida del hijo?",
         "opciones": [
@@ -352,7 +352,7 @@ SECCIONES = [
         "titulo": "Sección 19: El Derecho a la Desconexión Digital y Descanso Efectivo",
         "contenido": """
         ### 1. Protección de la Vida Privada y Familiar
-        Fuera de la jornada ordinaria, en días libres, fines de semana o periodos de vacaciones, rige el **derecho a la desconexión digital**. El personal no tiene la obligación de responder llamadas operativas, mensajes corporativos o correos que no constituyan una emergencia extrema justificada.
+        Fuera de la jornada ordinaria, en días libres, fines de semana o periodos de vacaciones, rige el derecho a la desconexión digital. El personal no tiene la obligación de responder llamadas operativas, mensajes corporativos o correos que no constituyan una emergencia extrema justificada.
 
         ### 2. Respeto de los Mandos
         Los supervisores y directivos deben respetar escrupulosamente los momentos de descanso de sus equipos, evitando saturar la comunicación personal fuera de turno.
@@ -469,7 +469,7 @@ SECCIONES = [
         Al completar estas primeras 25 secciones, has interiorizado los cimientos constitucionales, legales y normativos que rigen los derechos laborales, los contratos, las jornadas, las remuneraciones y la protección social en el Ecuador.
 
         ### 2. Siguiente Paso
-        Continuaremos de inmediato con el **Eje 2: Igualdad de Género**, profundizando en la erradicación de sesgos y techos de cristal en todo el lugar de trabajo.
+        Continuaremos de inmediato con el Eje 2: Igualdad de Género, profundizando en la erradicación de sesgos y techos de cristal en todo el lugar de trabajo.
         """,
         "pregunta": "¿Qué representa haber finalizado este primer bloque de 25 secciones sobre derechos laborales y Constitución?",
         "opciones": [
