@@ -6,15 +6,15 @@ SECCIONES = [
         "contenido": """
         ### 1. El Significado Real del Trabajo Humano
         El trabajo no es un simple intercambio mercantil ni una transacción de horas por dinero. En el marco de la Constitución de la República del Ecuador, el trabajo constituye un derecho y un deber social, así como el eje fundamental sobre el cual las personas construyen su proyecto de vida y su desarrollo integral.
-        En cualquier centro de trabajo —ya sea en oficinas, áreas técnicas, laboratorios o zonas operativas—, cada labor es ejecutada por personas dignas que merecen un trato respetuoso, empático y profesional en todo momento.
+        En cualquier centro de trabajo de ILEPSA —ya sea en oficinas, áreas técnicas, laboratorios o zonas operativas—, cada labor es ejecutada por personas dignas que merecen un trato respetuoso, empático y profesional en todo momento.
 
         ### 2. Prohibición Absoluta de Tratos Deshumanizadores
         El ordenamiento jurídico protege al trabajador contra cualquier abuso, coacción o trato degradante. Ningún superior puede menoscabar la dignidad de un colaborador mediante gritos, humillaciones públicas o exigencias fuera de toda lógica operativa y humana.
         """,
         "pregunta": "¿Cómo se define el trabajo humano dentro del marco constitucional y social en el Ecuador?",
         "opciones": [
-            "Como un derecho, deber social y eje fundamental para construir el proyecto de vida y la dignidad.",
             "Como un mero intercambio comercial exento de cualquier protección legal o de derechos humanos.",
+            "Como un derecho, deber social y eje fundamental para construir el proyecto de vida y la dignidad.",
             "Como una obligación sujeta exclusivamente a la discreción temporal de los supervisores."
         ],
         "correcta": "Como un derecho, deber social y eje fundamental para construir el proyecto de vida y la dignidad."
@@ -51,9 +51,9 @@ SECCIONES = [
         """,
         "pregunta": "¿Qué validez legal posee un documento firmado donde un trabajador renuncia a sus derechos mínimos de ley?",
         "opciones": [
-            "Es nulo y carece de validez jurídica, ya que los derechos laborales son irrenunciables e intangibles.",
             "Es plenamente válido siempre que cuente con la firma y rúbrica del colaborador.",
-            "Tiene validez únicamente si el departamento financiero lo aprueba por escrito."
+            "Tiene validez únicamente si el departamento financiero lo aprueba por escrito.",
+            "Es nulo y carece de validez jurídica, ya que los derechos laborales son irrenunciables e intangibles."
         ],
         "correcta": "Es nulo y carece de validez jurídica, ya que los derechos laborales son irrenunciables e intangibles."
     },
@@ -89,8 +89,8 @@ SECCIONES = [
         """,
         "pregunta": "¿Cuál es el propósito central de los convenios internacionales de la OIT ratificados por el Estado?",
         "opciones": [
-            "Establecer estándares obligatorios sobre libertad, erradicación del trabajo forzoso y no discriminación en el empleo.",
             "Sustituir por completo las leyes internas del Código del Trabajo en las entidades privadas.",
+            "Establecer estándares obligatorios sobre libertad, erradicación del trabajo forzoso y no discriminación en el empleo.",
             "Regular de manera exclusiva los volúmenes de producción y comercialización industrial."
         ],
         "correcta": "Establecer estándares obligatorios sobre libertad, erradicación del trabajo forzoso y no discriminación en el empleo."
@@ -108,9 +108,9 @@ SECCIONES = [
         """,
         "pregunta": "¿En qué momento exacto debe realizarse el registro de entrada al IESS para un nuevo colaborador?",
         "opciones": [
-            "Desde el primer día laborable de ingreso del colaborador a la organización.",
             "Al finalizar satisfactoriamente el periodo de prueba de noventa días.",
-            "Únicamente cuando el trabajador cumpla su primer año de servicio continuo."
+            "Únicamente cuando el trabajador cumpla su primer año de servicio continuo.",
+            "Desde el primer día laborable de ingreso del colaborador a la organización."
         ],
         "correcta": "Desde el primer día laborable de ingreso del colaborador a la organización."
     },
@@ -146,8 +146,8 @@ SECCIONES = [
         """,
         "pregunta": "¿Cuáles son los límites máximos establecidos para la jornada ordinaria de trabajo en la legislación ecuatoriana?",
         "opciones": [
-            "8 horas diarias y 40 horas semanales, con dos días consecutivos de descanso.",
             "12 horas diarias y 60 horas semanales sin derecho a descanso dominical.",
+            "8 horas diarias y 40 horas semanales, con dos días consecutivos de descanso.",
             "6 horas diarias de lunes a domingo de forma ininterrumpida."
         ],
         "correcta": "8 horas diarias y 40 horas semanales, con dos días consecutivos de descanso."
@@ -167,9 +167,9 @@ SECCIONES = [
         """,
         "pregunta": "¿Cómo deben compensarse las horas laboradas excediendo la jornada ordinaria durante un día laborable normal?",
         "opciones": [
-            "Como horas suplementarias, pagadas con un recargo del 50% sobre el valor de la hora ordinaria.",
             "Como horas voluntarias sin remuneración que el personal aporta por lealtad institucional.",
-            "Como tiempo libre acumulable obligatorio a discreción exclusiva del supervisor."
+            "Como tiempo libre acumulable obligatorio a discreción exclusiva del supervisor.",
+            "Como horas suplementarias, pagadas con un recargo del 50% sobre el valor de la hora ordinaria."
         ],
         "correcta": "Como horas suplementarias, pagadas con un recargo del 50% sobre el valor de la hora ordinaria."
     },
@@ -178,7 +178,7 @@ SECCIONES = [
         "eje": "Eje 1: Derechos Laborales, Constitución y OIT",
         "titulo": "Sección 10: Ley de Igualdad Salarial y Transparencia en la Remuneración",
         "contenido": """
-        ### 1. El Marco de la Igualdade Salarial
+        ### 1. El Marco de la Igualdad Salarial
         La normativa orientada a la igualdad salarial exige mantener políticas claras, transparentes y auditables que garanticen que la remuneración se fije estrictamente en función de las competencias, responsabilidades y méritos, erradicando brechas.
 
         ### 2. Compromiso Institucional
@@ -205,8 +205,8 @@ SECCIONES = [
         """,
         "pregunta": "¿Es legal que una empresa descuente del sueldo de un trabajador el costo de insumos dañados por accidente?",
         "opciones": [
-            "No, la remuneración es intangible y los riesgos operativos corren por cuenta del empleador.",
             "Sí, siempre que el supervisor directo firme una orden interna el mismo día del incidente.",
+            "No, la remuneración es intangible y los riesgos operativos corren por cuenta del empleador.",
             "Sí, descontar del sueldo es el mecanismo autorizado para corregir errores operativos."
         ],
         "correcta": "No, la remuneración es intangible y los riesgos operativos corren por cuenta del empleador."
@@ -226,8 +226,8 @@ SECCIONES = [
         """,
         "pregunta": "¿Cuál es la fecha límite establecida por la ley en la Región Sierra para el pago acumulado del décimo cuarto sueldo?",
         "opciones": [
-            "Hasta el 15 de marzo de cada año.",
             "Hasta el 24 de diciembre de cada año.",
+            "Hasta el 15 de marzo de cada año.",
             "Hasta el 31 de julio de cada año."
         ],
         "correcta": "Hasta el 15 de marzo de cada año."
@@ -245,9 +245,9 @@ SECCIONES = [
         """,
         "pregunta": "¿Qué porcentaje mensual se calcula sobre la remuneración para determinar el valor de los fondos de reserva?",
         "opciones": [
-            "El 8.33% de la remuneración aportada.",
             "El 15.00% de las utilidades anuales de la entidad.",
-            "El 9.45% destinado exclusivamente para prestaciones de salud."
+            "El 9.45% destinado exclusivamente para prestaciones de salud.",
+            "El 8.33% de la remuneración aportada."
         ],
         "correcta": "El 8.33% de la remuneración aportada."
     },
@@ -283,8 +283,8 @@ SECCIONES = [
         """,
         "pregunta": "¿Qué establece la normativa vigente acerca de solicitar pruebas de embarazo para contratar o mantener a una trabajadora?",
         "opciones": [
-            "Está totalmente prohibido por constituir un acto discriminatorio y violatorio de los derechos fundamentales.",
             "Es un requisito obligatorio para laborar en cualquier entidad del sector privado.",
+            "Está totalmente prohibido por constituir un acto discriminatorio y violatorio de los derechos fundamentales.",
             "Es opcional y queda a criterio de los supervisores en los procesos de entrevista."
         ],
         "correcta": "Está totalmente prohibido por constituir un acto discriminatorio y violatorio de los derechos fundamentales."
@@ -296,14 +296,15 @@ SECCIONES = [
         "contenido": """
         ### 1. Jornada Especial para Madres en Lactancia
         Al concluir la licencia de maternidad, la madre trabajadora tiene derecho a una jornada especial reducida de 6 horas diarias durante los primeros 12 meses de vida del infante. 
+
         ### 2. Intangibilidad del Sueldo
         De las 8 horas habituales, la colaboradora destina 2 horas diarias exclusivas para la lactancia y cuidado del recién nacido, **sin que esto implique ninguna reducción en su remuneración mensual**.
         """,
         "pregunta": "¿Cómo opera el derecho a la reducción de jornada por lactancia durante el primer año de vida del hijo?",
         "opciones": [
-            "Se labora una jornada especial de 6 horas diarias con 2 horas destinadas a la lactancia, sin reducción de sueldo.",
             "Se trabajan las 8 horas completas y las horas de lactancia se acumulan para cobrarse en dinero.",
-            "Se concede un permiso de 6 meses de ausencia total remunerada al 50% del sueldo."
+            "Se concede un permiso de 6 meses de ausencia total remunerada al 50% del sueldo.",
+            "Se labora una jornada especial de 6 horas diarias con 2 horas destinadas a la lactancia, sin reducción de sueldo."
         ],
         "correcta": "Se labora una jornada especial de 6 horas diarias con 2 horas destinadas a la lactancia, sin reducción de sueldo."
     },
@@ -333,13 +334,14 @@ SECCIONES = [
         "contenido": """
         ### 1. Atención a Imprevistos de Salud y Familia
         Ante emergencias médicas, quebrantos graves de salud o calamidades domésticas (fallecimientos de familiares cercanos), el colaborador tiene derecho a permisos justificados conforme a la ley.
+
         ### 2. Obligación de Notificación y Respaldo
         El trabajador debe notificar con la mayor prontitud posible a su superior y presentar los certificados médicos oficiales del IESS o los respaldos documentales correspondientes en los plazos previstos.
         """,
         "pregunta": "¿Cómo debe proceder un colaborador ante una calamidad doméstica grave o una enfermedad que requiera ausencia justificada?",
         "opciones": [
-            "Avisar oportunamente a su jefatura y presentar los certificados de respaldo oficial (como el del IESS) en los plazos legales.",
             "Dejar de asistir al centro de trabajo durante dos semanas completas sin notificar a nadie.",
+            "Avisar oportunamente a su jefatura y presentar los certificados de respaldo oficial (como el del IESS) en los plazos legales.",
             "Solicitar a un compañero que marque su asistencia biométrica en el dispositivo de control."
         ],
         "correcta": "Avisar oportunamente a su jefatura y presentar los certificados de respaldo oficial (como el del IESS) en los plazos legales."
@@ -357,9 +359,9 @@ SECCIONES = [
         """,
         "pregunta": "¿Qué implica el derecho a la desconexión digital fuera del horario oficial de trabajo?",
         "opciones": [
-            "Que el trabajador tiene derecho a no responder asuntos operativos en su tiempo libre, protegiendo su descanso y familia.",
             "Que el personal puede apagar sus teléfonos durante las horas obligatorias de turno en la empresa.",
-            "Que la entidad está obligada a pagar horas extra por cada mensaje leído en días domingos."
+            "Que la entidad está obligada a pagar horas extra por cada mensaje leído en días domingos.",
+            "Que el trabajador tiene derecho a no responder asuntos operativos en su tiempo libre, protegiendo su descanso y familia."
         ],
         "correcta": "Que el trabajador tiene derecho a no responder asuntos operativos en su tiempo libre, protegiendo su descanso y familia."
     },
@@ -376,8 +378,8 @@ SECCIONES = [
         """,
         "pregunta": "¿Cómo se denomina legalmente a la desvinculación unilateral ejecutada por el empleador sin que medie una causal justa contemplada en la ley?",
         "opciones": [
-            "Despido intempestivo.",
             "Visto bueno administrativo.",
+            "Despido intempestivo.",
             "Calamidad doméstica temporal."
         ],
         "correcta": "Despido intempestivo."
@@ -414,8 +416,8 @@ SECCIONES = [
         """,
         "pregunta": "¿Qué finalidad cumple el Reglamento Interno de Trabajo aprobado por las autoridades ministeriales?",
         "opciones": [
-            "Regular de manera clara la convivencia, deberes, derechos y el régimen disciplinario aplicable en la organización.",
             "Sustituir los derechos consagrados en la Constitución y en el Código del Trabajo vigente.",
+            "Regular de manera clara la convivencia, deberes, derechos y el régimen disciplinario aplicable en la organización.",
             "Establecer multas económicas directas descontadas del sueldo por cualquier error operativo."
         ],
         "correcta": "Regular de manera clara la convivencia, deberes, derechos y el régimen disciplinario aplicable en la organización."
@@ -433,9 +435,9 @@ SECCIONES = [
         """,
         "pregunta": "¿Qué impacto genera el fomento de la estabilidad y el empleo digno en los colaboradores de la organización?",
         "opciones": [
-            "Estimula la lealtad, el sentido de pertenencia, la especialización y la tranquilidad en el desarrollo personal.",
             "Incentiva la rotación masiva de personal cada tres meses para contratar nuevos postulantes.",
-            "Permite que el personal reduzca su rendimiento operativo al contar con un contrato fijo."
+            "Permite que el personal reduzca su rendimiento operativo al contar con un contrato fijo.",
+            "Estimula la lealtad, el sentido de pertenencia, la especialización y la tranquilidad en el desarrollo personal."
         ],
         "correcta": "Estimula la lealtad, el sentido de pertenencia, la especialización y la tranquilidad en el desarrollo personal."
     },
@@ -471,10 +473,9 @@ SECCIONES = [
         """,
         "pregunta": "¿Qué representa haber finalizado este primer bloque de 25 secciones sobre derechos laborales y Constitución?",
         "opciones": [
-            "Haber consolidado los conocimientos fundamentales sobre leyes, contratos, remuneraciones y protecciones legales vigentes.",
             "La exoneración total de cumplir con las evaluaciones de desempeño en las oficinas administrativas.",
+            "Haber consolidado los conocimientos fundamentales sobre leyes, contratos, remuneraciones y protecciones legales vigentes.",
             "La autorización para ausentarse de las labores institucionales durante la mitad de la semana."
         ],
         "correcta": "Haber consolidado los conocimientos fundamentales sobre leyes, contratos, remuneraciones y protecciones legales vigentes."
     }
-]
