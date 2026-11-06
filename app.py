@@ -47,11 +47,10 @@ st.markdown("""
         0% { opacity: 0; transform: translateY(10px); }
         100% { opacity: 1; transform: translateY(0); }
     }
-    /* Animación para que el mensaje rojo se desvanezca suavemente */
     @keyframes fadeOutMsg {
         0% { opacity: 1; }
-        70% { opacity: 1; }
-        100% { opacity: 0; display: none; }
+        60% { opacity: 1; }
+        100% { opacity: 0; }
     }
     .alerta-desvanecer {
         animation: fadeOutMsg 3.5s ease-out forwards;
@@ -359,8 +358,11 @@ elif st.session_state.paso == "evaluacion":
             """, unsafe_allow_html=True)
             
             key_estado_msg = f"estado_msg_{sec_idx}"
+            key_contador_error = f"cont_error_{sec_idx}"
             if key_estado_msg not in st.session_state:
                 st.session_state[key_estado_msg] = ""
+            if key_contador_error not in st.session_state:
+                st.session_state[key_contador_error] = 0
 
             col_lbl1, col_lbl2 = st.columns([2, 3])
             with col_lbl1:
@@ -368,9 +370,10 @@ elif st.session_state.paso == "evaluacion":
             with col_lbl2:
                 msg = st.session_state[key_estado_msg]
                 if msg == "error":
-                    st.markdown("<p class='alerta-desvanecer' style='color: #dc2626; font-weight: 700; font-size: 14px; background-color: #fee2e2; padding: 8px 12px; border-radius: 6px; border: 1px solid #fca5a5; margin: 0;'>❌ Respuesta incorrecta. Debe revisar nuevamente la teoría.</p>", unsafe_allow_html=True)
+                    contador_actual = st.session_state[key_contador_error]
+                    st.markdown(f"<p key='error_anim_{contador_actual}' class='alerta-desvanecer' style='color: #dc2626; font-weight: 700; font-size: 13.5px; background-color: #fee2e2; padding: 8px 12px; border-radius: 6px; border: 1px solid #fca5a5; margin: 0;'>❌ Respuesta incorrecta. Debe revisar nuevamente la teoría.</p>", unsafe_allow_html=True)
                 elif msg == "exito":
-                    st.markdown("<p style='color: #059669; font-weight: 700; font-size: 14px; background-color: #d1fae5; padding: 8px 12px; border-radius: 6px; border: 1px solid #a7f3d0; margin: 0;'>✔ ¡Respuesta correcta! Avanzando...</p>", unsafe_allow_html=True)
+                    st.markdown("<p style='color: #059669; font-weight: 700; font-size: 13.5px; background-color: #d1fae5; padding: 8px 12px; border-radius: 6px; border: 1px solid #a7f3d0; margin: 0;'>✔ ¡Respuesta correcta!</p>", unsafe_allow_html=True)
 
             key_opciones_mix = f"opciones_mix_{sec_idx}"
             if key_opciones_mix not in st.session_state:
@@ -397,45 +400,49 @@ elif st.session_state.paso == "evaluacion":
                         pass
                     st.rerun()
             with col_btn2:
-                btn_siguiente = st.button("Enviar Respuesta y Siguiente ➔", type="primary", key=f"btn_enviar_{sec_idx}", use_container_width=True)
-            
-            if btn_siguiente:
-                if respuesta == seccion['correcta']:
-                    st.session_state[key_estado_msg] = "exito"
-                    st.session_state.respuestas_correctas += 1
-                    st.session_state.seccion_actual += 1
-                    st.session_state.sub_paso = "teoria"
-                    
-                    if key_opciones_mix in st.session_state:
-                        del st.session_state[key_opciones_mix]
-                    
-                    try:
-                        supabase.table("usuarios").update({
-                            "seccion_actual": st.session_state.seccion_actual,
-                            "sub_paso": "teoria"
-                        }).eq("cedula", st.session_state.cedula).execute()
-                    except Exception:
-                        pass
-                    
-                    components.html(
-                        """
-                        <script>
-                            const parentDoc = window.parent.document;
-                            parentDoc.querySelectorAll('section.main').forEach(el => {
-                                el.scrollTop = 0;
-                                el.scrollTo({top: 0, behavior: 'instant'});
-                            });
-                            window.parent.scrollTo({top: 0, behavior: 'instant'});
-                        </script>
-                        """,
-                        height=0,
-                    )
-                    
-                    time.sleep(0.7)
-                    st.rerun()
+                if st.session_state[key_estado_msg] == "exito":
+                    # Botón con formato primario oficial de Streamlit
+                    if st.button(f"Continuar Sección {sec_idx + 1} de Capacitación ➔", type="primary", key=f"btn_continuar_sec_{sec_idx}", use_container_width=True):
+                        st.session_state[key_estado_msg] = ""
+                        st.session_state.respuestas_correctas += 1
+                        st.session_state.seccion_actual += 1
+                        st.session_state.sub_paso = "teoria"
+                        
+                        if key_opciones_mix in st.session_state:
+                            del st.session_state[key_opciones_mix]
+                        
+                        try:
+                            supabase.table("usuarios").update({
+                                "seccion_actual": st.session_state.seccion_actual,
+                                "sub_paso": "teoria"
+                            }).eq("cedula", st.session_state.cedula).execute()
+                        except Exception:
+                            pass
+                        
+                        components.html(
+                            """
+                            <script>
+                                const parentDoc = window.parent.document;
+                                parentDoc.querySelectorAll('section.main').forEach(el => {
+                                    el.scrollTop = 0;
+                                    el.scrollTo({top: 0, behavior: 'instant'});
+                                });
+                                window.parent.scrollTo({top: 0, behavior: 'instant'});
+                            </script>
+                            """,
+                            height=0,
+                        )
+                        st.rerun()
                 else:
-                    st.session_state[key_estado_msg] = "error"
-                    st.rerun()
+                    btn_siguiente = st.button("Enviar Respuesta y Siguiente ➔", type="primary", key=f"btn_enviar_{sec_idx}", use_container_width=True)
+                    if btn_siguiente:
+                        if respuesta == seccion['correcta']:
+                            st.session_state[key_estado_msg] = "exito"
+                            st.rerun()
+                        else:
+                            st.session_state[key_contador_error] += 1
+                            st.session_state[key_estado_msg] = "error"
+                            st.rerun()
     else:
         st.session_state.paso = "certificado"
         st.rerun()
