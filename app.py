@@ -11,7 +11,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# Conexión limpia y segura usando st.secrets como lo configuramos
+# Conexión limpia y segura usando st.secrets
 @st.cache_resource
 def init_supabase() -> Client:
     return create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
@@ -25,6 +25,8 @@ if "cedula" not in st.session_state:
     st.session_state.cedula = ""
 if "nombre_usuario" not in st.session_state:
     st.session_state.nombre_usuario = ""
+if "es_admin" not in st.session_state:
+    st.session_state.es_admin = False
 if "seccion_actual" not in st.session_state:
     st.session_state.seccion_actual = 0
 if "respuestas_correctas" not in st.session_state:
@@ -80,7 +82,7 @@ components.html(
 )
 
 # =========================================================
-# FASE 1: LOGIN (Consulta directa a la tabla 'usuarios')
+# FASE 1: LOGIN (Validación de rol Admin vs Colaborador)
 # =========================================================
 if st.session_state.paso == "login":
     st.markdown("""
@@ -94,35 +96,103 @@ if st.session_state.paso == "login":
     
     if st.button("Ingresar al Sistema", type="primary", use_container_width=True):
         cedula_limpia = cedula_input.strip()
-        if len(cedula_limpia) >= 10:
+        if len(cedula_limpia) >= 10 or cedula_limpia == "1":
             try:
-                # Consulta real a Supabase trayendo el campo 'nombres' desde la tabla 'usuarios'
+                # Consulta real a Supabase en la tabla 'usuarios'
                 response = supabase.table("usuarios").select("nombres").eq("cedula", cedula_limpia).execute()
                 
                 if response.data and len(response.data) > 0:
                     st.session_state.cedula = cedula_limpia
                     st.session_state.nombre_usuario = response.data[0]["nombres"]
                     
-                    # Traqueo y registro de horas en la tabla 'registro_tiempos'
-                    try:
-                        supabase.table("registro_tiempos").insert({
-                            "cedula": cedula_limpia,
-                            "fecha_ingreso": datetime.now().isoformat()
-                        }).execute()
-                    except Exception:
-                        pass
+                    # Detectar si es el administrador (basado en el nombre o cédula)
+                    if "Administrador" in st.session_state.nombre_usuario or cedula_limpia in ["9999999999", "1"]:
+                        st.session_state.es_admin = True
+                        st.session_state.paso = "admin_dashboard"
+                    else:
+                        st.session_state.es_admin = False
+                        # Registrar el ingreso del colaborador en 'registro_tiempos'
+                        try:
+                            supabase.table("registro_tiempos").insert({
+                                "cedula": cedula_limpia,
+                                "fecha_ingreso": datetime.now().isoformat()
+                            }).execute()
+                        except Exception:
+                            pass
+                        st.session_state.paso = "instrucciones"
                     
-                    st.session_state.paso = "instrucciones"
                     st.rerun()
                 else:
                     st.error("Cédula no registrada en la base de datos de ILEPSA.")
             except Exception as e:
                 st.error(f"Error de conexión con Supabase: {e}")
         else:
-            st.error("Ingrese un número de cédula válido de 10 dígitos.")
+            st.error("Ingrese un número de cédula válido.")
 
 # =========================================================
-# FASE 2: INSTRUCCIONES Y MARCO LEGAL (Bienvenida)
+# FASE 2: PANEL DE ADMINISTRACIÓN Y ESTADÍSTICAS
+# =========================================================
+elif st.session_state.paso == "admin_dashboard":
+    st.markdown(f"""
+    <div class="nueva-pagina card-principal">
+        <h2 style="color: #0f172a; margin-top:0;">📊 PANEL DE CONTROL Y ESTADÍSTICAS - ILEPSA</h2>
+        <p style="color: #64748b;"><b>Administrador en sesión:</b> {st.session_state.nombre_usuario}</p>
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 15px 0;">
+        <p style="font-size: 15px; color: #334155;">
+            Desde este panel de supervisión puede visualizar el monitoreo de accesos, el metraje de tiempo de conexión y el registro detallado de los colaboradores en cumplimiento con el Acuerdo Ministerial MDT-2025-006.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("### 🕒 Registro de Ingresos y Tiempos de Conexión")
+    
+    try:
+        # Consultar los datos de la tabla 'registro_tiempos' y hacer JOIN lógico con 'usuarios'
+        query_tiempos = supabase.table("registro_tiempos").select("*").order("fecha_ingreso", desc=True).execute()
+        
+        if query_tiempos.data and len(query_tiempos.data) > 0:
+            registros = query_tiempos.data
+            
+            # Formatear datos para mostrar en una tabla limpia
+            datos_tabla = []
+            for reg in registros:
+                cedula_reg = reg.get("cedula", "N/A")
+                fecha_reg = reg.get("fecha_ingreso", "N/A")
+                
+                # Buscar el nombre correspondiente a la cédula
+                res_user = supabase.table("usuarios").select("nombres").eq("cedula", cedula_reg).execute()
+                nombre_reg = res_user.data[0]["nombres"] if res_user.data else "Colaborador Externo"
+                
+                datos_tabla.append({
+                    "Colaborador": nombre_reg,
+                    "Cédula": cedula_reg,
+                    "Fecha y Hora de Ingreso": fecha_reg
+                })
+            
+            st.dataframe(datos_tabla, use_container_width=True)
+        else:
+            st.info("Aún no se registran ingresos de colaboradores en la base de datos.")
+            
+    except Exception as e:
+        st.warning("No se pudo cargar la tabla de tiempos en este momento. Verifique la conexión con Supabase.")
+        
+    st.markdown("### 👥 Listado General de Colaboradores Registrados")
+    try:
+        query_usuarios = supabase.table("usuarios").select("*").execute()
+        if query_usuarios.data:
+            st.dataframe(query_usuarios.data, use_container_width=True)
+    except Exception:
+        pass
+        
+    if st.button("Cerrar Sesión de Administrador", type="primary", use_container_width=True):
+        st.session_state.paso = "login"
+        st.session_state.cedula = ""
+        st.session_state.nombre_usuario = ""
+        st.session_state.es_admin = False
+        st.rerun()
+
+# =========================================================
+# FASE 3: INSTRUCCIONES (Colaboradores)
 # =========================================================
 elif st.session_state.paso == "instrucciones":
     st.markdown(f"""
@@ -153,7 +223,7 @@ elif st.session_state.paso == "instrucciones":
         st.rerun()
 
 # =========================================================
-# FASE 3: MÓDULO DE CAPACITACIÓN (SECCIÓN POR SECCIÓN RECREADA)
+# FASE 4: MÓDULO DE CAPACITACIÓN (SECCIÓN POR SECCIÓN)
 # =========================================================
 elif st.session_state.paso == "evaluacion":
     total_secciones = len(SECCIONES)
@@ -183,7 +253,6 @@ elif st.session_state.paso == "evaluacion":
         progreso = sec_idx / total_secciones
         st.progress(progreso, text=f"Progreso actual: Sección {sec_idx + 1} de {total_secciones}")
         
-        # CONTENEDOR RECREADO COMO UNA PÁGINA TOTALMENTE NUEVA
         st.markdown(f"""
         <div class="nueva-pagina card-principal">
             <span style="color: #0284c7; font-weight: bold; font-size: 14px;">{seccion['eje']}</span>
@@ -223,7 +292,7 @@ elif st.session_state.paso == "evaluacion":
         st.rerun()
 
 # =========================================================
-# FASE 4: CERTIFICADO FINAL
+# FASE 5: CERTIFICADO FINAL
 # =========================================================
 elif st.session_state.paso == "certificado":
     st.balloons()
@@ -246,5 +315,6 @@ elif st.session_state.paso == "certificado":
         st.session_state.paso = "login"
         st.session_state.cedula = ""
         st.session_state.nombre_usuario = ""
+        st.session_state.es_admin = False
         st.session_state.seccion_actual = 0
         st.rerun()
