@@ -9,6 +9,15 @@ st.set_page_config(
     layout="centered"
 )
 
+# Base de datos simulada de nombres de colaboradores asociados a su cédula
+# Puedes actualizar o ampliar este diccionario con los nombres reales de ILEPSA
+NOMBRES_COLABORADORES = {
+    "9999999999": "Super Administrador ILEPSA",
+    # Ejemplos de cédulas (puedes agregar más aquí):
+    "1712345678": "Juan Carlos Pérez",
+    "1787654321": "María Fernanda Andrade",
+}
+
 # Inicializar estados de sesión
 if "paso" not in st.session_state:
     st.session_state.paso = "login"  # login, cargando, capacitacion, certificado
@@ -85,7 +94,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# FASE 1: INGRESO DE DATOS (NOMBRE Y CÉDULA)
+# FASE 1: INGRESO DE CÉDULA ÚNICAMENTE
 # ---------------------------------------------------------
 if st.session_state.paso == "login":
     st.markdown("""
@@ -98,25 +107,28 @@ if st.session_state.paso == "login":
     
     st.markdown("""
     <div class="hoja-libro-animada">
-        <h4 style="margin-top:0; color: #0f172a;">📋 Registro de Ingreso al Sistema</h4>
-        <p style="color: #475569; font-size: 14px;">Ingrese sus nombres completos y cédula de identidad para iniciar la sesión personalizada y registrar su avance.</p>
+        <h4 style="margin-top:0; color: #0f172a;">📋 Acceso al Sistema de Capacitación</h4>
+        <p style="color: #475569; font-size: 14px;">Ingrese su número de Cédula de Identidad para iniciar la sesión y recuperar su progreso guardado automáticamente.</p>
     </div>
     """, unsafe_allow_html=True)
     
-    nombre_input = st.text_input("Ingrese sus Nombres y Apellidos Completos:", placeholder="Ej. Juan Carlos Pérez")
     cedula_input = st.text_input("Ingrese su Cédula de Identidad:", max_chars=10, type="password")
     
-    if st.button("Iniciar Capacitación", type="primary"):
-        nombre_limpio = nombre_input.strip()
+    if st.button("Ingresar al Sistema", type="primary"):
         cedula_limpia = cedula_input.strip()
         
-        if len(nombre_limpio) > 2 and len(cedula_limpia) >= 10:
-            st.session_state.nombre_usuario = nombre_limpio
+        if len(cedula_limpia) >= 10:
             st.session_state.cedula = cedula_limpia
+            # Buscar el nombre correspondiente o asignar uno genérico si es nuevo colaborador
+            if cedula_limpia in NOMBRES_COLABORADORES:
+                st.session_state.nombre_usuario = NOMBRES_COLABORADORES[cedula_limpia]
+            else:
+                st.session_state.nombre_usuario = f"Colaborador ILEPSA (C.I. {cedula_limpia})"
+                
             st.session_state.paso = "cargando"
             st.rerun()
         else:
-            st.error("Por favor ingrese su nombre completo y un número de cédula válido de 10 dígitos.")
+            st.error("Por favor ingrese un número de cédula válido de 10 dígitos.")
 
 # ---------------------------------------------------------
 # FASE 2: PANTALLA DE BIENVENIDA Y CARGA DE PÁGINA
@@ -168,14 +180,14 @@ elif st.session_state.paso == "capacitacion":
         height=0,
     )
     
-    # Barra con Nombre y Cédula
+    # Barra superior mostrando claramente la empresa, el NOMBRE y la CÉDULA
     st.markdown(f"""
     <div class="header-info-box">
-        <table style="width:100%; border:none;">
+        <table style="width:100%; border:none; margin:0;">
             <tr>
-                <td style="border:none;">🏢 <b>Empresa:</b> COMPAÑÍA ILEPSA S.A.</td>
-                <td style="border:none;">👤 <b>Colaborador:</b> {st.session_state.nombre_usuario}</td>
-                <td style="border:none;">🪪 <b>Cédula:</b> {st.session_state.cedula}</td>
+                <td style="border:none; font-size:14px;">🏢 <b>Empresa:</b> ILEPSA S.A.</td>
+                <td style="border:none; font-size:14px;">👤 <b>Colaborador:</b> {st.session_state.nombre_usuario}</td>
+                <td style="border:none; font-size:14px;">🪪 <b>Cédula:</b> {st.session_state.cedula}</td>
             </tr>
         </table>
     </div>
