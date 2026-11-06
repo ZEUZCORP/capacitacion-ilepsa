@@ -1,5 +1,4 @@
 import streamlit as st
-import streamlit.components.v1 as components
 import time
 from contenidos import SECCIONES
 
@@ -9,14 +8,12 @@ st.set_page_config(
     layout="centered"
 )
 
-# Diccionario de nombres por cédula
 NOMBRES_COLABORADORES = {
     "9999999999": "Super Administrador ILEPSA",
     "1712345678": "Juan Carlos Pérez",
     "1787654321": "María Fernanda Andrade",
 }
 
-# Inicializar memoria de sesión
 if "paso" not in st.session_state:
     st.session_state.paso = "login"
 if "cedula" not in st.session_state:
@@ -30,31 +27,17 @@ if "respuestas_correctas" not in st.session_state:
 if "progreso_usuarios" not in st.session_state:
     st.session_state.progreso_usuarios = {}
 
-# Estilos CSS con animación de entrada (transición visual de página nueva)
 st.markdown("""
     <style>
-    @keyframes entradaPagina {
-        0% {
-            opacity: 0;
-            transform: translateY(25px);
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .card-animada {
-        animation: entradaPagina 0.45s ease-out forwards;
+    .card-principal {
         background: #ffffff;
         border: 1px solid #e2e8f0;
         border-top: 5px solid #0284c7;
         padding: 30px;
         border-radius: 10px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
         margin-bottom: 20px;
     }
-
     .header-box {
         background-color: #f8fafc;
         border: 1px solid #cbd5e1;
@@ -62,7 +45,6 @@ st.markdown("""
         border-radius: 8px;
         margin-bottom: 20px;
     }
-
     .pregunta-box {
         background-color: #f1f5f9;
         border-left: 4px solid #0284c7;
@@ -74,12 +56,10 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ---------------------------------------------------------
-# 1. PANTALLA DE LOGIN
-# ---------------------------------------------------------
+# 1. LOGIN
 if st.session_state.paso == "login":
     st.markdown("""
-    <div class="card-animada" style="text-align: center;">
+    <div class="card-principal" style="text-align: center;">
         <h2 style="color: #0f172a; margin-top:0;">ACCESO COLABORADORES ILEPSA</h2>
         <p style="color: #64748b; margin-bottom: 0;">Ingrese su número de documento para continuar</p>
     </div>
@@ -103,12 +83,10 @@ if st.session_state.paso == "login":
         else:
             st.error("Ingrese un número de cédula válido de 10 dígitos.")
 
-# ---------------------------------------------------------
-# 2. PANTALLA DE INSTRUCCIONES Y MARCO LEGAL
-# ---------------------------------------------------------
+# 2. INSTRUCCIONES Y MARCO LEGAL
 elif st.session_state.paso == "instrucciones":
     st.markdown(f"""
-    <div class="card-animada">
+    <div class="card-principal">
         <h3 style="color: #0f172a; margin-top:0;">¡Bienvenido(a), {st.session_state.nombre_usuario}!</h3>
         <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 15px 0;">
         <p style="font-size: 15px; color: #334155; line-height: 1.6;">
@@ -133,74 +111,65 @@ elif st.session_state.paso == "instrucciones":
         st.session_state.paso = "evaluacion"
         st.rerun()
 
-# ---------------------------------------------------------
-# 3. PANTALLA DE CAPACITACIÓN CON TRANSICIÓN VISUAL Y SCROLL
-# ---------------------------------------------------------
+# 3. EVALUACIÓN Y CAPACITACIÓN CON CONTENEDOR LIMPIO
 elif st.session_state.paso == "evaluacion":
     total_secciones = len(SECCIONES)
     sec_idx = st.session_state.seccion_actual
 
-    # Inyección JS para asegurar que el navegador suba al inicio en cada sección
-    components.html(
-        """
-        <script>
-            window.parent.document.querySelector('section.main').scrollTo({top: 0, behavior: 'instant'});
-            window.parent.scrollTo({top: 0, behavior: 'instant'});
-        </script>
-        """,
-        height=0,
-    )
-
-    # Encabezado con datos del participante
-    st.markdown(f"""
-    <div class="header-box">
-        <table style="width:100%; border:none; margin:0;">
-            <tr>
-                <td style="border:none;">🏢 <b>Empresa:</b> ILEPSA S.A.</td>
-                <td style="border:none;">👤 <b>Colaborador:</b> {st.session_state.nombre_usuario}</td>
-                <td style="border:none;">🪪 <b>Cédula:</b> {st.session_state.cedula}</td>
-            </tr>
-        </table>
-    </div>
-    """, unsafe_allow_html=True)
+    # Usar un contenedor st.empty principal que se destruye y rehace en cada rerun
+    main_placeholder = st.empty()
     
-    col_s1, col_s2 = st.columns([5, 1])
-    with col_s2:
-        if st.button("Salir"):
-            st.session_state.paso = "login"
-            st.rerun()
-            
-    progreso = sec_idx / total_secciones
-    st.progress(progreso, text=f"Progreso actual: Sección {sec_idx + 1} de {total_secciones}")
-    
-    if sec_idx < total_secciones:
-        seccion = SECCIONES[sec_idx]
-        
-        # Tarjeta principal con animación CSS por cada paso de página
+    with main_placeholder.container():
         st.markdown(f"""
-        <div class="card-animada" key="sec_card_{sec_idx}">
-            <span style="color: #0284c7; font-weight: bold; font-size: 14px;">{seccion['eje']}</span>
-            <h2 style="margin-top: 5px; color: #0f172a;">{seccion['titulo']}</h2>
-            <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 15px 0;">
-            <div style="font-size: 16px; line-height: 1.6; color: #334155;">
-                {seccion['contenido']}
+        <div class="header-box">
+            <table style="width:100%; border:none; margin:0;">
+                <tr>
+                    <td style="border:none;">🏢 <b>Empresa:</b> ILEPSA S.A.</td>
+                    <td style="border:none;">👤 <b>Colaborador:</b> {st.session_state.nombre_usuario}</td>
+                    <td style="border:none;">🪪 <b>Cédula:</b> {st.session_state.cedula}</td>
+                </tr>
+            </table>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        col_s1, col_s2 = st.columns([5, 1])
+        with col_s2:
+            if st.button("Salir"):
+                st.session_state.paso = "login"
+                st.rerun()
+                
+        progreso = sec_idx / total_secciones
+        st.progress(progreso, text=f"Progreso actual: Sección {sec_idx + 1} de {total_secciones}")
+        
+        if sec_idx < total_secciones:
+            seccion = SECCIONES[sec_idx]
+            
+            st.markdown(f"""
+            <div class="card-principal">
+                <span style="color: #0284c7; font-weight: bold; font-size: 14px;">{seccion['eje']}</span>
+                <h2 style="margin-top: 5px; color: #0f172a;">{seccion['titulo']}</h2>
+                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 15px 0;">
+                <div style="font-size: 16px; line-height: 1.6; color: #334155;">
+                    {seccion['contenido']}
+                </div>
             </div>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        # Pregunta de evaluación
-        st.markdown(f"""
-        <div class="pregunta-box">
-            <h4 style="margin-top:0; color: #0f172a;">Evaluación Obligatoria</h4>
-            <p style="font-size: 16px; font-weight: 600; color: #1e293b;">{seccion['pregunta']}</p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        with st.form(key=f"form_seccion_{sec_idx}"):
-            respuesta = st.radio("Seleccione la respuesta correcta:", seccion['opciones'])
+            """, unsafe_allow_html=True)
             
-            submitted = st.form_submit_button("Siguiente Sección ➔", type="primary")
-            if submitted:
+            st.markdown(f"""
+            <div class="pregunta-box">
+                <h4 style="margin-top:0; color: #0f172a;">Evaluación Obligatoria</h4>
+                <p style="font-size: 16px; font-weight: 600; color: #1e293b;">{seccion['pregunta']}</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            # Botones de opción fuera de un st.form para permitir actualización inmediata
+            respuesta = st.radio(
+                "Seleccione la respuesta correcta:", 
+                seccion['opciones'], 
+                key=f"radio_sec_{sec_idx}"
+            )
+            
+            if st.button("Siguiente Sección ➔", type="primary", key=f"btn_sec_{sec_idx}"):
                 if respuesta == seccion['correcta']:
                     st.session_state.respuestas_correctas += 1
                     st.session_state.seccion_actual += 1
@@ -209,18 +178,16 @@ elif st.session_state.paso == "evaluacion":
                     time.sleep(0.2)
                     st.rerun()
                 else:
-                    st.error("Respuesta incorrecta. Revise detenidamente la lectura teórica superior e intente de nuevo.")
-    else:
-        st.session_state.paso = "certificado"
-        st.rerun()
+                    st.error("Respuesta incorrecta. Revise la lectura teórica antes de avanzar.")
+        else:
+            st.session_state.paso = "certificado"
+            st.rerun()
 
-# ---------------------------------------------------------
 # 4. CERTIFICADO FINAL
-# ---------------------------------------------------------
 elif st.session_state.paso == "certificado":
     st.balloons()
     st.markdown(f"""
-    <div class="card-animada" style="text-align: center;">
+    <div class="card-principal" style="text-align: center;">
         <h2 style="color: #0f172a;">📜 CERTIFICADO OFICIAL DE APROBACIÓN</h2>
         <h4 style="color: #0284c7;">COMPAÑÍA ILEPSA S.A.</h4>
         <p>Se otorga el presente certificado oficial bajo el marco del <b>Acuerdo Ministerial MDT-2025-006</b> a:</p>
