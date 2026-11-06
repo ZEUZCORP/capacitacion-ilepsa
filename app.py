@@ -93,4 +93,170 @@ if not st.session_state.iniciado:
     <div class="info-box fade-in">
         <h3>📌 Indicaciones Importantes para el Personal:</h3>
         <ul>
-            <li><b>Estructura Completa:</b> El programa consta de <b>1
+            <li><b>Estructura Completa:</b> El programa consta de <b>100 secciones formativas</b> divididas en cuatro ejes fundamentales (Derechos Laborales, Género, Erradicación de Violencia y Trabajo de Igual Valor).</li>
+            <li><b>Dedicación Diaria:</b> Se recomienda un tiempo mínimo de estudio de <b>30 minutos diarios</b> para un correcto aprendizaje y retención.</li>
+            <li><b>Aprobación y Certificado:</b> Al culminar y aprobar las evaluaciones de todas las secciones, se desbloqueará de forma inmediata tu <b>certificado oficial de aprobación</b>.</li>
+        </ul>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.subheader("🔑 Acceso al Sistema")
+    cedula_input = st.text_input("Ingrese su número de Cédula de Identidad:", max_chars=10, type="password")
+    
+    col_btn1, col_btn2 = st.columns([1, 3])
+    with col_btn1:
+        iniciar_btn = st.button("Iniciar Capacitación", type="primary")
+        
+    if iniciar_btn:
+        cedula_limpia = cedula_input.strip()
+        if len(cedula_limpia) >= 10:
+            st.session_state.iniciado = True
+            st.session_state.cedula = cedula_limpia
+            st.session_state.tiempo_inicio = datetime.now()
+            
+            if cedula_limpia != "9999999999":
+                if cedula_limpia not in st.session_state.registro_usuarios:
+                    st.session_state.registro_usuarios[cedula_limpia] = {
+                        "nombre": f"Colaborador",
+                        "progreso": 0,
+                        "estado": "Iniciado",
+                        "tiempo_min": 1,
+                        "ultimo_acceso": "Justo ahora"
+                    }
+            st.rerun()
+        else:
+            st.error("⚠️ Por favor, ingrese un número de cédula válido.")
+            
+    st.markdown('</div>', unsafe_allow_html=True)
+
+elif st.session_state.cedula == "9999999999":
+    st.markdown('<div class="main-header">📊 Panel de Monitoreo y Control Gerencial</div>', unsafe_allow_html=True)
+    st.markdown('<div class="sub-header">Consola de Auditoría en Vivo - Acuerdo Ministerial MDT-2025-006</div>', unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="admin-box fade-in">
+        <h4>Panel de Control Administrativo</h4>
+        <p>Desde este entorno exclusivo, el superadministrador tiene visibilidad en tiempo real sobre la conectividad, tiempos de dedicación diarios, avance de secciones de los colaboradores y el registro de certificados emitidos en la plataforma.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    col_m1, col_m2, col_m3 = st.columns(3)
+    col_m1.metric("👥 Usuarios Registrados", len(st.session_state.registro_usuarios))
+    col_m2.metric("📜 Certificados Emitidos", sum(1 for u in st.session_state.registro_usuarios.values() if u["progreso"] == 100))
+    col_m3.metric("⏱️ Tiempo Promedio", "35 minutos")
+    
+    st.divider()
+    st.subheader("🔍 Monitoreo de Colaboradores Conectados")
+    
+    if st.session_state.registro_usuarios:
+        for ced, datos in st.session_state.registro_usuarios.items():
+            with st.expander(f"Usuario registrado — [Progreso: {datos['progreso']}%]"):
+                st.write(f"**Estado del Colaborador:** {datos['estado']}")
+                st.write(f"**Tiempo de Sesión Invertido:** {datos['tiempo_min']} minutos")
+                st.write(f"**Última Actividad Registrada:** {datos['ultimo_acceso']}")
+                st.progress(datos['progreso'] / 100.0, text=f"Avance actual: {datos['progreso']}%")
+    else:
+        st.info("No hay registros activos de otros colaboradores en este momento.")
+            
+    st.divider()
+    if st.button("Cerrar Sesión de Administrador", type="primary"):
+        st.session_state.iniciado = False
+        st.session_state.cedula = ""
+        st.rerun()
+
+else:
+    total_secciones = len(SECCIONES)
+    sec_idx = st.session_state.seccion_actual
+    
+    if st.session_state.cedula in st.session_state.registro_usuarios:
+        progreso_pct = int((sec_idx / total_secciones) * 100)
+        st.session_state.registro_usuarios[st.session_state.cedula]["progreso"] = progreso_pct
+        st.session_state.registro_usuarios[st.session_state.cedula]["estado"] = "En progreso"
+        st.session_state.registro_usuarios[st.session_state.cedula]["ultimo_acceso"] = "Activo ahora"
+    
+    progreso_val = (sec_idx / total_secciones)
+    st.progress(progreso_val, text=f"Progreso General: Sección {sec_idx + 1} de {total_secciones} ({int(progreso_val*100)}%)")
+    
+    if sec_idx < total_secciones:
+        seccion = SECCIONES[sec_idx]
+        
+        st.markdown(f"### 🏷️ {seccion['eje']}")
+        st.markdown(f"## 📌 {seccion['titulo']}")
+        
+        st.markdown(f"""
+        <div class="info-box fade-in">
+            {seccion['contenido']}
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.divider()
+        
+        st.markdown("#### 📝 Evaluación de Aprendizaje")
+        respuesta_usuario = st.radio(seccion['pregunta'], seccion['opciones'], key=f"p_{sec_idx}")
+        
+        col_env, col_esp = st.columns([1, 4])
+        with col_env:
+            if st.button("Enviar Respuesta", type="primary"):
+                if respuesta_usuario == seccion['correcta']:
+                    st.success("¡Respuesta correcta! Avanzando a la siguiente sección...")
+                    st.session_state.respuestas_correctas += 1
+                    st.session_state.seccion_actual += 1
+                    st.rerun()
+                else:
+                    st.error("Respuesta incorrecta. Lee detenidamente el contenido y vuelve a intentarlo.")
+                    
+        st.markdown("""
+        <div class="ia-box">
+            <h4>🤖 Asistente Virtual de Capacitación (IA)</h4>
+            <p style="font-size: 14px; color: #4a5568;">¿Tienes alguna duda sobre esta sección o sobre tus derechos laborales? Pregúntale a nuestro asistente integrado.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        pregunta_ia = st.text_input("Escribe tu pregunta sobre el contenido o la ley:", key=f"input_ia_{sec_idx}")
+        if st.button("Consultar con la IA", key=f"btn_ia_{sec_idx}"):
+            if pregunta_ia.strip():
+                if "Derechos" in seccion['eje']:
+                    resp_ia = f"Respecto a tu consulta sobre '{pregunta_ia}', recuerda que la Constitución y el Código del Trabajo garantizan la irrenunciabilidad de derechos y la intangibilidad del sueldo en todo momento."
+                elif "Género" in seccion['eje']:
+                    resp_ia = f"Analizando tu pregunta sobre '{pregunta_ia}', la organización promueve activamente la igualdad de oportunidades, la eliminación de sesgos inconscientes y la paridad en el liderazgo."
+                elif "Violencia" in seccion['eje']:
+                    resp_ia = f"Sobre tu duda referente a '{pregunta_ia}', la empresa mantiene cero tolerancia al acoso laboral, garantizando absoluta confidencialidad en los canales de denuncia y protección contra represalias."
+                else:
+                    resp_ia = f"En relación con tu pregunta sobre '{pregunta_ia}', la ley exige transparencia salarial estricta y bandas de remuneración basadas en la valoración objetiva de puestos de trabajo."
+                
+                st.session_state.chat_ia.append({"pregunta": pregunta_ia, "respuesta": resp_ia})
+                st.rerun()
+            else:
+                st.warning("Por favor, escribe una pregunta válida antes de consultar.")
+                
+        if st.session_state.chat_ia:
+            with st.expander("💬 Historial de consultas a la IA en esta sesión"):
+                for chat in reversed(st.session_state.chat_ia[-3:]):
+                    st.markdown(f"**Tú:** {chat['pregunta']}")
+                    st.markdown(f"**Asistente IA:** {chat['respuesta']}")
+                    st.markdown("---")
+    
+    else:
+        if st.session_state.cedula in st.session_state.registro_usuarios:
+            st.session_state.registro_usuarios[st.session_state.cedula]["progreso"] = 100
+            st.session_state.registro_usuarios[st.session_state.cedula]["estado"] = "Certificado Emitido"
+        
+        st.balloons()
+        st.markdown('<div class="main-header">🎉 ¡Felicitaciones! Has Culminado con Éxito las 100 Secciones</div>', unsafe_allow_html=True)
+        
+        st.markdown(f"""
+        <div class="hero-card fade-in" style="text-align: center;">
+            <h2>📜 Certificado Oficial de Aprobación</h2>
+            <p>Se certifica formalmente que el colaborador ha completado satisfactoriamente las <b>100 secciones formativas</b> del Programa Integral bajo el marco normativo del <b>Acuerdo Ministerial MDT-2025-006</b>.</p>
+            <hr style="border-color: rgba(255,255,255,0.2); margin: 20px 0;">
+            <p><b>Evaluaciones Superadas con Éxito:</b> {st.session_state.respuestas_correctas} / {total_secciones}</p>
+            <p style="font-size: 13px; opacity: 0.8;">Estado: Validado y Registrado en el Sistema</p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        if st.button("Finalizar y Salir del Sistema", type="primary"):
+            st.session_state.iniciado = False
+            st.session_state.seccion_actual = 0
+            st.session_state.respuestas_correctas = 0
+            st.session_state.chat_ia = []
+            st.rerun()
