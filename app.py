@@ -41,24 +41,35 @@ COLORES_SECCION = [
     {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}
 ]
 
-st.markdown("""
+# Revisar si ya acertó en la sección actual para bloquear dinámicamente las opciones con CSS
+sec_actual_idx = st.session_state.get("seccion_actual", 0)
+bloqueo_css = ""
+if st.session_state.get(f"estado_msg_{sec_actual_idx}", "") == "exito":
+    bloqueo_css = """
+    div.stRadio div[role="radiogroup"] {
+        opacity: 0.45 !important;
+        pointer-events: none !important;
+    }
+    """
+
+st.markdown(f"""
     <style>
-    @keyframes fadeInPage {
-        0% { opacity: 0; transform: translateY(10px); }
-        100% { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeOutMsg {
-        0% { opacity: 1; }
-        60% { opacity: 1; }
-        100% { opacity: 0; }
-    }
-    .alerta-desvanecer {
+    @keyframes fadeInPage {{
+        0% {{ opacity: 0; transform: translateY(10px); }}
+        100% {{ opacity: 1; transform: translateY(0); }}
+    }}
+    @keyframes fadeOutMsg {{
+        0% {{ opacity: 1; }}
+        60% {{ opacity: 1; }}
+        100% {{ opacity: 0; }}
+    }}
+    .alerta-desvanecer {{
         animation: fadeOutMsg 3.5s ease-out forwards;
-    }
-    .pagina-nueva-transicion {
+    }}
+    .pagina-nueva-transicion {{
         animation: fadeInPage 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    .card-principal {
+    }}
+    .card-principal {{
         background: #ffffff;
         border: 1px solid #e2e8f0;
         padding: 30px;
@@ -67,7 +78,7 @@ st.markdown("""
         margin-bottom: 20px;
         position: relative;
     }
-    .badge-seccion-derecha {
+    .badge-seccion-derecha {{
         position: absolute;
         top: 20px;
         right: 25px;
@@ -77,46 +88,48 @@ st.markdown("""
         font-weight: 700;
         letter-spacing: 0.5px;
         text-transform: uppercase;
-    }
-    .header-box {
+    }}
+    .header-box {{
         background-color: #f8fafc;
         border: 1px solid #cbd5e1;
         padding: 12px 18px;
         border-radius: 8px;
         margin-bottom: 20px;
         font-size: 15px;
-    }
-    .contenido-texto {
+    }}
+    .contenido-texto {{
         font-size: 18.5px;
         line-height: 1.8;
         color: #334155;
         text-align: justify;
-    }
-    .pregunta-box {
+    }}
+    .pregunta-box {{
         background-color: #f8fafc;
         border-left: 4px solid #0f172a;
         padding: 22px;
         border-radius: 0 8px 8px 0;
         margin-bottom: 20px;
         box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-    }
+    }}
     
-    .stRadio > label {
+    .stRadio > label {{
         font-size: 20px !important;
         font-weight: 700 !important;
         color: #0f172a !important;
         margin-bottom: 12px !important;
-    }
-    div.stRadio div[role="radiogroup"] label p {
+    }}
+    div.stRadio div[role="radiogroup"] label p {{
         font-size: 17.5px !important;
         color: #1e293b !important;
         line-height: 1.5 !important;
-    }
-    div.stRadio div[role="radiogroup"] label {
+    }}
+    div.stRadio div[role="radiogroup"] label {{
         font-size: 17.5px !important;
         padding-top: 6px !important;
         padding-bottom: 6px !important;
-    }
+    }}
+    
+    {bloqueo_css}
     </style>
 """, unsafe_allow_html=True)
 
@@ -401,7 +414,6 @@ elif st.session_state.paso == "evaluacion":
                     st.rerun()
             with col_btn2:
                 if st.session_state[key_estado_msg] == "exito":
-                    # Botón con formato primario oficial de Streamlit
                     if st.button(f"Continuar Sección {sec_idx + 1} de Capacitación ➔", type="primary", key=f"btn_continuar_sec_{sec_idx}", use_container_width=True):
                         st.session_state[key_estado_msg] = ""
                         st.session_state.respuestas_correctas += 1
