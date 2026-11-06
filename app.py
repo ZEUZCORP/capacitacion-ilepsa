@@ -90,7 +90,7 @@ if st.session_state.paso == "login":
             st.error("Ingrese un número de cédula válido de 10 dígitos.")
 
 # ---------------------------------------------------------
-# 2. MENSAJE OBLIGATORIO Y DE DIRECTRICES
+# 2. MENSAJE OBLIGATORIO, MARCO LEGAL Y DIRECTRICES
 # ---------------------------------------------------------
 elif st.session_state.paso == "instrucciones":
     st.markdown(f"""
@@ -98,15 +98,19 @@ elif st.session_state.paso == "instrucciones":
         <h3 style="color: #0f172a; margin-top:0;">¡Bienvenido(a), {st.session_state.nombre_usuario}!</h3>
         <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 15px 0;">
         <p style="font-size: 15px; color: #334155; line-height: 1.6;">
-            Este programa de formación corporativa es de <b>carácter obligatorio</b> para todo el personal de la compañía. Su cumplimiento y aprobación forman parte de las directrices institucionales vigentes.
+            En cumplimiento con la normativa legal vigente y el <b>Acuerdo Ministerial MDT-2025-006</b>, este programa de formación integral es de <b>carácter obligatorio</b> para todo el personal de la Compañía ILEPSA S.A.
         </p>
         <p style="font-size: 15px; color: #334155; line-height: 1.6;">
-            <b>Instrucciones importantes:</b>
+            <b>¿De qué se trata?</b> El programa está diseñado para promover un entorno laboral seguro, equitativo, inclusivo y estrictamente libre de violencia y discriminación en el ámbito de trabajo.
+        </p>
+        <p style="font-size: 15px; color: #334155; line-height: 1.6;">
+            <b>Directrices importantes:</b>
         </p>
         <ul style="color: #334155; font-size: 15px;">
-            <li>Debe completar las secciones diarias establecidas en su cronograma.</li>
-            <li>Cada sección cuenta con una lectura teórica y una evaluación obligatoria al finalizar.</li>
-            <li>Su avance se guarda de forma automática; si sale, podrá retomar exactamente donde se quedó.</li>
+            <li>Debe completar obligatoriamente las secciones diarias establecidas en el cronograma.</li>
+            <li>Cada sección consta de contenido teórico modular y una evaluación de validación.</li>
+            <li>Su progreso se guarda de manera automática; si sale del sistema, podrá retomar exactamente donde se quedó.</li>
+            <li><b>Al completar el 100% de las secciones y evaluaciones del programa, el sistema le habilitará de forma automática su certificado oficial de aprobación para su respectiva descarga.</b></li>
         </ul>
     </div>
     """, unsafe_allow_html=True)
@@ -157,7 +161,7 @@ elif st.session_state.paso == "evaluacion":
     if sec_idx < total_secciones:
         seccion = SECCIONES[sec_idx]
         
-        # Contenido teórico limpio sin etiquetas rotas
+        # Contenido teórico limpio
         st.markdown(f"""
         <div class="card-principal">
             <span style="color: #0284c7; font-weight: bold; font-size: 14px;">{seccion['eje']}</span>
@@ -204,14 +208,16 @@ elif st.session_state.paso == "certificado":
     <div class="card-principal" style="text-align: center;">
         <h2 style="color: #0f172a;">📜 CERTIFICADO OFICIAL DE APROBACIÓN</h2>
         <h4 style="color: #0284c7;">COMPAÑÍA ILEPSA S.A.</h4>
-        <p>Se otorga el presente certificado a:</p>
+        <p>Se otorga el presente certificado oficial bajo el marco del <b>Acuerdo Ministerial MDT-2025-006</b> a:</p>
         <h3 style="color: #0f172a; text-decoration: underline;">{st.session_state.nombre_usuario}</h3>
-        <p>Con Cédula N° <b>{st.session_state.cedula}</b> por haber completado y aprobado con éxito las 100 secciones del programa de formación obligatoria.</p>
+        <p>Con Cédula N° <b>{st.session_state.cedula}</b> por haber completado y aprobado satisfactoriamente las 100 secciones del programa de formación obligatoria.</p>
         <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;">
         <p><b>Calificación Final:</b> {st.session_state.respuestas_correctas} / {len(SECCIONES)} aciertos.</p>
-        <p style="color: #059669; font-weight: bold;">ESTADO: APROBADO CON ÉXITO</p>
+        <p style="color: #059669; font-weight: bold; font-size: 18px;">ESTADO: APROBADO CON ÉXITO</p>
     </div>
     """, unsafe_allow_html=True)
+    
+    st.success("¡Felicitaciones! Su certificado ha sido emitido con éxito y está listo para guardarse.")
     
     if st.button("Finalizar y Salir"):
         st.session_state.paso = "login"
