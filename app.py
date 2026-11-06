@@ -1,319 +1,199 @@
 import streamlit as st
-import datetime
-from supabase import create_client, Client
-from fpdf import FPDF
+from contenidos import SECCIONES
+import random
+from datetime import datetime
 
-# Configuración de página
-st.set_page_config(page_title="Capacitación ILEPSA", page_icon="🏢", layout="wide")
+# Configuración de la página
+st.set_page_config(
+    page_title="Plataforma de Capacitación y Cumplimiento Normativo",
+    page_icon="🛡️",
+    layout="wide"
+)
 
-# Inicialización de Supabase
-@st.cache_resource
-def init_supabase() -> Client:
-    url = st.secrets["SUPABASE_URL"]
-    key = st.secrets["SUPABASE_KEY"]
-    return create_client(url, key)
+# Inicialización de estados de sesión
+if "usuario" not in st.session_state:
+    st.session_state.usuario = ""
+if "cedula" not in st.session_state:
+    st.session_state.cedula = ""
+if "empresa" not in st.session_state:
+    st.session_state.empresa = ""
+if "logueado" not in st.session_state:
+    st.session_state.logueado = False
+if "seccion_actual" not in st.session_state:
+    st.session_state.seccion_actual = 1
+if "respuestas_usuario" not in st.session_state:
+    st.session_state.respuestas_usuario = {}
+if "secciones_completadas" not in st.session_state:
+    st.session_state.secciones_completadas = set()
 
-supabase = init_supabase()
+TOTAL_SECCIONES = len(SECCIONES)
 
-# Contenido de los 4 Ejes Temáticos (40 Horas / MDT-2025-006)
-EJES = {
-    1: {
-        "titulo": "Eje 1: Derechos Laborales, Igualdad y No Discriminación (10 Horas)",
-        "modulos": {
-            "1.1": {
-                "titulo": "Módulo 1.1: Marco Legal Nacional e Internacional",
-                "contenido": """
-                #### 1. Constitución de la República del Ecuador
-                * **Art. 33:** El trabajo es un derecho y un deber social, y un derecho económico, fuente de realización personal y base de la economía. El Estado garantizará la dignidad y retribuciones justas.
-                * **Art. 329:** Garantía de igualdad de oportunidades y no discriminación en el acceso, permanencia y ascenso laboral.
-
-                #### 2. Convenios OIT
-                * **Convenio 100:** Igualdad de remuneración entre hombres y mujeres por trabajo de igual valor.
-                * **Convenio 111:** Eliminación de toda discriminación en materia de empleo y ocupación.
-                """,
-                "pregunta": "¿Qué establece el Art. 329 de la Constitución?",
-                "opciones": ["Igualdad de oportunidades y no discriminación laboral.", "Jornada laboral sin límites.", "Jubilación obligatoria a los 40 años."],
-                "correcta": "Igualdad de oportunidades y no discriminación laboral."
-            },
-            "1.2": {
-                "titulo": "Módulo 1.2: Código del Trabajo e Igualdad Salarial",
-                "contenido": """
-                #### 1. Código del Trabajo del Ecuador
-                * Los derechos laborales son intangibles e irrenunciables.
-                * Prohibición de diferencias salariales por motivo de género o condición social.
-                """,
-                "pregunta": "¿Cuál es la característica principal de los derechos laborales en Ecuador?",
-                "opciones": ["Son intangibles e irrenunciables.", "Son modificables libremente por el empleador.", "Son opcionales."],
-                "correcta": "Son intangibles e irrenunciables."
-            }
-        }
-    },
-    2: {
-        "titulo": "Eje 2: Prevención del Acoso Laboral y Violencia de Género (10 Horas)",
-        "modulos": {
-            "2.1": {
-                "titulo": "Módulo 2.1: Definición y Protocolos de Acoso",
-                "contenido": """
-                #### 1. Acoso Laboral
-                * Comportamiento reiterado atentatorio a la dignidad de la persona que genera un entorno hostil.
-                * Procedimiento confidencial de denuncia y protección dentro de ILEPSA.
-                """,
-                "pregunta": "¿Qué define al acoso laboral?",
-                "opciones": ["Comportamiento reiterado atentatorio a la dignidad.", "Una diferencia de opinión laboral puntual.", "La asignación regular de tareas."],
-                "correcta": "Comportamiento reiterado atentatorio a la dignidad."
-            }
-        }
-    },
-    3: {
-        "titulo": "Eje 3: Conciliación de la Vida Laboral, Familiar y Personal (10 Horas)",
-        "modulos": {
-            "3.1": {
-                "titulo": "Módulo 3.1: Maternidad, Paternidad y Lactancia",
-                "contenido": """
-                #### 1. Corresponsabilidad y Licencias
-                * Licencias pagadas por maternidad y paternidad.
-                * Permiso de lactancia materna: 2 horas diarias durante los primeros 12 meses.
-                """,
-                "pregunta": "¿Cuál es la duración del permiso de lactancia materna diaria?",
-                "opciones": ["2 horas diarias por 12 meses.", "30 minutos diarios por 6 meses.", "1 hora diaria por 3 meses."],
-                "correcta": "2 horas diarias por 12 meses."
-            }
-        }
-    },
-    4: {
-        "titulo": "Eje 4: Salud Ocupacional y Riesgos Psicosociales (10 Horas)",
-        "modulos": {
-            "4.1": {
-                "titulo": "Módulo 4.1: Entornos de Trabajo Seguros",
-                "contenido": """
-                #### 1. Salud Mental y Prevención
-                * Evaluación de riesgos psicosociales y clima laboral en la planta y administración.
-                """,
-                "pregunta": "¿Cuál es el objetivo de evaluar los riesgos psicosociales?",
-                "opciones": ["Garantizar un ambiente de trabajo sano y seguro.", "Eliminar los días de vacaciones.", "Aumentar la carga horaria."],
-                "correcta": "Garantizar un ambiente de trabajo sano y seguro."
-            }
-        }
-    }
-}
-
-# Generación de PDF
-def generar_certificado_pdf(nombre_usuario, cedula_usuario, cargo_usuario):
-    pdf = FPDF(orientation='L', unit='mm', format='A4')
-    pdf.add_page()
+# ----------------- PANTALLA DE ACCESO / LOGIN -----------------
+if not st.session_state.logueado:
+    st.title("🛡️ Sistema de Gestión y Capacitación Integral Corporativa")
+    st.markdown("### Programa de Formación Obligatorio (40 Horas Académicas)")
+    st.markdown("---")
     
-    pdf.set_line_width(2)
-    pdf.set_draw_color(180, 140, 40)
-    pdf.rect(10, 10, 277, 190)
-    pdf.set_line_width(0.5)
-    pdf.rect(13, 13, 271, 184)
+    col1, col2 = st.columns([2, 1])
+    with col1:
+        st.info("Por favor, ingrese sus datos institucionales para registrar su avance en el sistema de cumplimiento normativo.")
+        
+        with st.form("form_login"):
+            nombre_input = st.text_input("Nombre y Apellido Completo:")
+            cedula_input = st.text_input("Número de Cédula / Identificación:")
+            empresa_input = st.text_input("Nombre de la Empresa u Organización:", value="Corporación / Empresa")
+            
+            submitted = st.form_submit_button("Ingresar a la Plataforma")
+            
+            if submitted:
+                if nombre_input.strip() and cedula_input.strip():
+                    st.session_state.usuario = nombre_input.strip()
+                    st.session_state.cedula = cedula_input.strip()
+                    st.session_state.empresa = empresa_input.strip()
+                    st.session_state.logueado = True
+                    st.rerun()
+                else:
+                    st.error("Por favor, complete su nombre y número de identificación para continuar.")
+    with col2:
+        st.markdown("#### 📋 Estructura del Programa:")
+        st.markdown(f"- **Módulos Totales:** {TOTAL_SECCIONES} Secciones.")
+        st.markdown("- **Ejes:** Derechos Laborales, Seguridad, Calidad, y **Módulo Adicional Obligatorio** (Igualdad de Género, No Violencia, Trabajo de Igual Valor).")
+        st.markdown("- **Certificación:** Válida al completar el 100% de las evaluaciones.")
 
-    pdf.set_font("Helvetica", 'B', 18)
-    pdf.set_text_color(30, 30, 30)
-    pdf.cell(0, 15, "INDUSTRIA LICORERA EMBOTELLADORA DE PICHINCHA S.A. ILEPSA", ln=True, align='C')
-    
-    pdf.set_font("Helvetica", 'I', 12)
-    pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 8, "Cumplimiento Formativo Anual - Normativa MDT-2025-006", ln=True, align='C')
-    
-    pdf.ln(4)
-    pdf.set_font("Helvetica", 'B', 28)
-    pdf.set_text_color(180, 140, 40)
-    pdf.cell(0, 16, "CERTIFICADO DE APROBACIÓN", ln=True, align='C')
-    
-    pdf.set_font("Helvetica", '', 12)
-    pdf.set_text_color(50, 50, 50)
-    pdf.cell(0, 8, "Otorgado a:", ln=True, align='C')
-    
-    pdf.set_font("Helvetica", 'B', 22)
-    pdf.set_text_color(10, 30, 80)
-    pdf.cell(0, 14, nombre_usuario.upper(), ln=True, align='C')
-    
-    pdf.set_font("Helvetica", '', 11)
-    pdf.set_text_color(60, 60, 60)
-    pdf.cell(0, 6, f"C.I.: {cedula_usuario} | Cargo: {cargo_usuario}", ln=True, align='C')
-    
-    pdf.ln(4)
-    texto_cuerpo = (
-        "Por haber completado y aprobado satisfactoriamente los 4 Ejes de Capacitación Obligatoria en "
-        "Derechos Laborales, Prevención del Acoso, Conciliación Familiar y Salud Ocupacional, alcanzando un "
-        "total acumulado de 40 HORAS ACADÉMICAS conforme a lo establecido por el Ministerio del Trabajo."
-    )
-    pdf.set_font("Helvetica", '', 11)
-    pdf.multi_cell(0, 6, texto_cuerpo, align='C')
-    
-    pdf.ln(8)
-    fecha_actual = datetime.date.today().strftime("%d de %B de %Y")
-    pdf.set_font("Helvetica", 'I', 10)
-    pdf.cell(0, 6, f"Quito, Ecuador, {fecha_actual}", ln=True, align='C')
-    
-    pdf.ln(12)
-    pdf.set_draw_color(50, 50, 50)
-    pdf.line(98, 165, 198, 165)
-    
-    pdf.set_font("Helvetica", 'B', 11)
-    pdf.set_text_color(20, 20, 20)
-    pdf.cell(0, 5, "OSWALDO FERNANDO GÓMEZ DE LA TORRE REYES", ln=True, align='C')
-    pdf.set_font("Helvetica", '', 10)
-    pdf.set_text_color(80, 80, 80)
-    pdf.cell(0, 5, "Gerente General", ln=True, align='C')
-    pdf.cell(0, 5, "INDUSTRIA LICORERA EMBOTELLADORA DE PICHINCHA S.A. ILEPSA", ln=True, align='C')
-    
-    return bytes(pdf.output())
-
-# Control de Sesión
-if "authenticated" not in st.session_state:
-    st.session_state.authenticated = False
-if "user_data" not in st.session_state:
-    st.session_state.user_data = None
-
-# --- LOGIN ---
-if not st.session_state.authenticated:
-    st.title("Plataforma de Capacitación Obligatoria")
-    st.subheader("INDUSTRIA LICORERA EMBOTELLADORA DE PICHINCHA S.A. ILEPSA")
-    st.caption("Cumplimiento MDT-2025-006")
-
-    cedula_input = st.text_input("Ingrese su Cédula de Identidad:")
-
-    if st.button("Iniciar Sesión"):
-        if cedula_input.strip():
-            res = supabase.table("usuarios").select("*").eq("cedula", cedula_input.strip()).execute()
-            if res.data:
-                st.session_state.authenticated = True
-                st.session_state.user_data = res.data[0]
-                st.rerun()
-            else:
-                st.error("Cédula no registrada. Contacte a Talento Humano.")
-        else:
-            st.warning("Ingrese su cédula.")
-
-# --- PLATAFORMA ---
 else:
-    user = st.session_state.user_data
-    is_admin = user["cedula"] == "9999999999"
+    # ----------------- PLATAFORMA PRINCIPAL -----------------
     
-    st.sidebar.title(f"Usuario: {user['nombres']}")
-    st.sidebar.write(f"**Cargo:** {user['cargo']}")
+    # Barra lateral de navegación y progreso
+    st.sidebar.title("Panel de Control")
+    st.sidebar.markdown(f"**Colaborador(a):** {st.session_state.usuario}")
+    st.sidebar.markdown(f"**Cédula:** {st.session_state.cedula}")
+    st.sidebar.markdown(f"**Organización:** {st.session_state.empresa}")
+    st.sidebar.markdown("---")
     
-    if st.sidebar.button("Cerrar Sesión"):
-        st.session_state.authenticated = False
-        st.session_state.user_data = None
+    # Cálculo de progreso
+    completadas = len(st.session_state.secciones_completadas)
+    progreso = completadas / TOTAL_SECCIONES
+    
+    st.sidebar.markdown(f"### Progreso General: {completadas} / {TOTAL_SECCIONES}")
+    st.sidebar.progress(progreso)
+    
+    menu = st.sidebar.radio(
+        "Navegación:",
+        ["📚 Módulo de Estudio y Evaluaciones", "🏆 Certificado Oficial", "🚪 Cerrar Sesión"]
+    )
+    
+    if menu == "🚪 Cerrar Sesión":
+        st.session_state.logueado = False
+        st.session_state.usuario = ""
+        st.session_state.cedula = ""
         st.rerun()
 
-    if is_admin:
-        st.title("🛡️ Panel de Control y Monitoreo en Tiempo Real (ADMINISTRADOR)")
+    # ----------------- VISTA DE ESTUDIO Y EVALUACIONES -----------------
+    if menu == "📚 Módulo de Estudio y Evaluaciones":
+        st.title("📖 Programa de Capacitación y Cumplimiento Normativo")
+        st.markdown("Lea detenidamente el contenido de la sección y responda la evaluación para registrar su avance en el centro de trabajo.")
+        st.markdown("---")
         
-        tab_envivo, tab_usuarios = st.tabs(["⚡ Actividad en Tiempo Real", "👥 Lista de Usuarios"])
+        # Selector rápido de sección
+        ids_secciones = [s["id"] for s in SECCIONES]
+        seleccion_idx = st.selectbox(
+            "Seleccione la Sección a cursar:",
+            options=ids_secciones,
+            index=ids_secciones.index(st.session_state.seccion_actual),
+            format_func=lambda x: f"Sección {x}: {SECCIONES[x-1]['titulo']}"
+        )
+        st.session_state.seccion_actual = seleccion_idx
         
-        with tab_envivo:
-            st.subheader("Registros de Tiempos Guardados")
-            tiempos_all = supabase.table("registro_tiempos").select("*").order("id", desc=True).execute()
-            if tiempos_all.data:
-                st.dataframe(tiempos_all.data, use_container_width=True)
-            else:
-                st.info("Aún ningún usuario ha guardado minutos de estudio hoy.")
-
-            st.subheader("Evaluaciones Presentadas")
-            evals_all = supabase.table("evaluaciones").select("*").order("id", desc=True).execute()
-            if evals_all.data:
-                st.dataframe(evals_all.data, use_container_width=True)
-            else:
-                st.info("No hay evaluaciones registradas en el sistema.")
-                
-        with tab_usuarios:
-            st.subheader("Personal Registrado en ILEPSA")
-            users_all = supabase.table("usuarios").select("*").execute()
-            if users_all.data:
-                st.dataframe(users_all.data, use_container_width=True)
-
-    else:
-        st.title("Programa Anual de Capacitación Continua (40 Horas)")
-        st.info("⏱️ Recuerda cumplir con el límite máximo de 30 minutos diarios de estudio.")
-
-        eje_sel = st.sidebar.selectbox("Seleccionar Eje:", list(EJES.keys()), format_func=lambda x: f"Eje {x}")
-        modulos_dict = EJES[eje_sel]["modulos"]
-        mod_sel = st.sidebar.selectbox("Seleccionar Módulo:", list(modulos_dict.keys()), format_func=lambda x: modulos_dict[x]["titulo"])
-        modulo_actual = modulos_dict[mod_sel]
-
-        tab_modulo, tab_evaluacion, tab_progreso, tab_certificado = st.tabs([
-            "📖 Módulo de Estudio", 
-            "📝 Evaluación", 
-            "📊 Mi Progreso",
-            "🎓 Certificado (40 Horas)"
-        ])
-
-        with tab_modulo:
-            st.header(EJES[eje_sel]["titulo"])
-            st.subheader(modulo_actual["titulo"])
-            st.markdown(modulo_actual["contenido"])
+        seccion_actual_data = SECCIONES[st.session_state.seccion_actual - 1]
+        
+        # Mostrar metadatos de la sección
+        st.markdown(f"### `{seccion_actual_data['eje']}`")
+        st.markdown(f"## {seccion_actual_data['titulo']}")
+        
+        # Contenido principal
+        st.markdown(seccion_actual_data["contenido"])
+        st.markdown("---")
+        
+        # Sección de Pregunta y Evaluación
+        st.markdown("### ✍️ Evaluación de Comprensión")
+        st.markdown(f"**Pregunta:** {seccion_actual_data['pregunta']}")
+        
+        # Opciones de respuesta
+        opciones = seccion_actual_data["opciones"]
+        respuesta_key = f"resp_{seccion_actual_data['id']}"
+        
+        seleccion_usuario = st.radio(
+            "Seleccione la respuesta correcta:",
+            options=opciones,
+            key=respuesta_key,
+            index=None if respuesta_key not in st.session_state.respuestas_usuario else opciones.index(st.session_state.respuestas_usuario.get(respuesta_key))
+        )
+        
+        col_btn1, col_btn2 = st.columns([1, 4])
+        with col_btn1:
+            enviar_resp = st.button("Verificar Respuesta")
             
-            st.divider()
-            st.subheader("Registro Auditable de Tiempo")
-            tiempo_estudio = st.number_input("Minutos dedicados hoy (máx 30 min):", min_value=1, max_value=30, value=30)
-            
-            if st.button("Guardar Mi Tiempo de Lectura"):
-                hora_actual = datetime.datetime.now()
-                registro = {
-                    "cedula": user["cedula"],
-                    "eje": eje_sel,
-                    "modulo": mod_sel,
-                    "minutos_acumulados": tiempo_estudio,
-                    "hora_inicio": hora_actual.isoformat(),
-                    "hora_fin": hora_actual.isoformat()
-                }
-                res = supabase.table("registro_tiempos").insert(registro).execute()
-                if res.data:
-                    st.success(f"¡Se han registrado {tiempo_estudio} minutos exitosamente!")
-
-        with tab_evaluacion:
-            st.header(f"Evaluación del Módulo {mod_sel}")
-            st.write(modulo_actual["pregunta"])
-            resp = st.radio("Respuesta:", modulo_actual["opciones"])
-            
-            if st.button("Enviar Respuestas"):
-                aprobado = resp == modulo_actual["correcta"]
-                puntaje = 100 if aprobado else 0
-                
-                eval_data = {
-                    "cedula": user["cedula"],
-                    "eje": eje_sel,
-                    "puntaje": puntaje,
-                    "aprobado": aprobado
-                }
-                supabase.table("evaluaciones").insert(eval_data).execute()
-                
-                if aprobado:
-                    st.balloons()
-                    st.success("¡Respuesta Correcta! Módulo aprobado.")
+        if enviar_resp:
+            if seleccion_usuario is not None:
+                st.session_state.respuestas_usuario[respuesta_key] = seleccion_usuario
+                if seleccion_usuario == seccion_actual_data["correcta"]:
+                    st.success("¡Respuesta Correcta! Has demostrado comprensión clave de este estándar corporativo.")
+                    st.session_state.secciones_completadas.add(seccion_actual_data["id"])
+                    st.rerun()
                 else:
-                    st.error("Respuesta incorrecta. Inténtalo de nuevo.")
-
-        with tab_progreso:
-            st.header("Mi Avance de Horas Auditables")
-            tiempos = supabase.table("registro_tiempos").select("*").eq("cedula", user["cedula"]).execute()
-            minutos_totales = sum([item["minutos_acumulados"] for item in tiempos.data]) if tiempos.data else 0
-            horas_totales = round(minutos_totales / 60, 2)
-            
-            st.metric(label="Horas Acumuladas", value=f"{horas_totales} / 40.0 hrs")
-            st.progress(min(horas_totales / 40.0, 1.0))
-            
-            if tiempos.data:
-                st.dataframe(tiempos.data, use_container_width=True)
-
-        with tab_certificado:
-            st.header("Certificado de Aprobación (40 Horas)")
-            tiempos = supabase.table("registro_tiempos").select("*").eq("cedula", user["cedula"]).execute()
-            minutos_totales = sum([item["minutos_acumulados"] for item in tiempos.data]) if tiempos.data else 0
-            horas_totales = minutos_totales / 60
-            
-            if horas_totales >= 0.5:
-                st.success("🎉 Has cumplido con los requisitos formativos de ILEPSA.")
-                pdf_bytes = generar_certificado_pdf(user["nombres"], user["cedula"], user["cargo"])
-                st.download_button(
-                    label="📥 Descargar Diploma Oficial PDF (40 Horas)",
-                    data=pdf_bytes,
-                    file_name=f"Certificado_ILEPSA_{user['cedula']}.pdf",
-                    mime="application/pdf"
-                )
+                    st.error("Respuesta incorrecta. Revise nuevamente el contenido de la sección e intente otra opción.")
             else:
-                st.warning("Debes guardar tu primer registro de lectura para probar el diploma.")
+                st.warning("Por favor, seleccione una opción antes de verificar.")
+                
+        # Controles de navegación inferior
+        st.markdown("---")
+        col_nav1, col_nav2 = st.columns(2)
+        with col_nav1:
+            if st.session_state.seccion_actual > 1:
+                if st.button("⬅️ Sección Anterior"):
+                    st.session_state.seccion_actual -= 1
+                    st.rerun()
+        with col_nav2:
+            if st.session_state.seccion_actual < TOTAL_SECCIONES:
+                if st.button("Siguiente Sección ➡️"):
+                    st.session_state.seccion_actual += 1
+                    st.rerun()
+
+    # ----------------- VISTA DE CERTIFICADO OFICIAL -----------------
+    elif menu == "🏆 Certificado Oficial":
+        st.title("🏆 Certificado de Aprobación del Programa")
+        st.markdown("---")
+        
+        if len(st.session_state.secciones_completadas) == TOTAL_SECCIONES:
+            st.success("¡Felicitaciones! Has completado exitosamente las 150 secciones del programa de capacitación y cumplimiento normativo.")
+            
+            # Plantilla visual del Certificado
+            st.markdown(
+                f"""
+                <div style="border: 5px solid #2e7d32; padding: 40px; border-radius: 15px; background-color: #f9fbf9; text-align: center; color: #333;">
+                    <h1 style="color: #1b5e20; font-family: serif;">CERTIFICADO DE APROBACIÓN</h1>
+                    <p style="font-size: 18px; color: #555;">Este reconocimiento se otorga a:</p>
+                    <h2 style="color: #0d47a1; text-decoration: underline;">{st.session_state.usuario}</h2>
+                    <p style="font-size: 16px;"><b>Identificación (Cédula):</b> {st.session_state.cedula} | <b>Organización:</b> {st.session_state.empresa}</p>
+                    <hr style="width: 50%; margin: 20px auto; border: 1px solid #c8e6c9;">
+                    <p style="font-size: 16px; line-height: 1.6;">
+                        Por haber cursado, superado y aprobado satisfactoriamente las <b>150 secciones especializadas</b> (40 horas académicas auditadas) 
+                        en materia de Derechos Laborales, Seguridad, Prevención de Riesgos, Igualdad de Género, No Discriminación y Trabajo de Igual Valor en todo el centro de trabajo.
+                    </p>
+                    <p style="font-size: 14px; color: #666; margin-top: 30px;">Fecha de Emisión: {datetime.now().strftime('%d/%m/%Y')}</p>
+                    <br>
+                    <div style="display: inline-block; border-top: 2px solid #333; padding-top: 5px; width: 250px;">
+                        <b>Gerencia General / Dirección</b><br>
+                        <span>Representación Legal Autorizada</span>
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+            
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.button("🖨️ Imprimir / Guardar Certificado"):
+                st.info("Utilice la función de su navegador (Ctrl+P / Cmd+P) para exportar este certificado en formato PDF o imprimirlo físicamente.")
+        else:
+            st.warning(f"Aún tienes secciones pendientes. Has completado **{len(st.session_state.secciones_completadas)} de {TOTAL_SECCIONES}** secciones.")
+            st.info("Para desbloquear y visualizar tu certificado oficial, debes completar el 100% de las evaluaciones en el 'Módulo de Estudio'.")
