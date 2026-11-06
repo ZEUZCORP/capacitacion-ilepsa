@@ -41,7 +41,6 @@ COLORES_SECCION = [
     {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}
 ]
 
-# Revisar si ya acertó en la sección actual para bloquear dinámicamente las opciones con CSS
 sec_actual_idx = st.session_state.get("seccion_actual", 0)
 bloqueo_css = ""
 if st.session_state.get(f"estado_msg_{sec_actual_idx}", "") == "exito":
@@ -119,6 +118,13 @@ st.markdown("""
         font-size: 17.5px !important;
         padding-top: 6px !important;
         padding-bottom: 6px !important;
+    }
+    
+    /* Personalizar el botón rojo cuando la respuesta es correcta */
+    button[kind="secondaryFormSubmit"], div.stButton > button[data-baseweb="button"]:has(div:contains("Continuar")) {
+        background-color: #dc2626 !important;
+        color: white !important;
+        border: none !important;
     }
     """ + bloqueo_css + """
     </style>
@@ -401,7 +407,9 @@ elif st.session_state.paso == "evaluacion":
                     st.rerun()
             with col_btn2:
                 if st.session_state[key_estado_msg] == "exito":
-                    if st.button(f"Continuar Sección {sec_idx + 1} de Capacitación ➔", type="primary", key=f"btn_continuar_sec_{sec_idx}", use_container_width=True):
+                    # Botón dinámico con el número correcto de la sección (ej: Sección 1, Sección 2, etc.)
+                    numero_seccion_siguiente = sec_idx + 1
+                    if st.button(f"Continuar Sección {numero_seccion_siguiente} de Capacitación ➔", key=f"btn_continuar_sec_{sec_idx}", use_container_width=True):
                         st.session_state[key_estado_msg] = ""
                         st.session_state.respuestas_correctas += 1
                         st.session_state.seccion_actual += 1
@@ -433,7 +441,8 @@ elif st.session_state.paso == "evaluacion":
                         )
                         st.rerun()
                 else:
-                    btn_siguiente = st.button("Enviar Respuesta y Siguiente ➔", type="primary", key=f"btn_enviar_{sec_idx}", use_container_width=True)
+                    # Botón azul estándar de Enviar Respuesta
+                    btn_siguiente = st.button("Enviar Respuesta", type="primary", key=f"btn_enviar_{sec_idx}", use_container_width=True)
                     if btn_siguiente:
                         if respuesta == seccion['correcta']:
                             st.session_state[key_estado_msg] = "exito"
@@ -602,7 +611,7 @@ elif st.session_state.paso == "certificado":
     components.html(html_certificado, height=620, scrolling=True)
     st.markdown("<br>", unsafe_allow_html=True)
     
-    if st.button("🖨️ Imprimir y Guardar Certificado in PDF", type="primary", use_container_width=True):
+    if st.button("🖨️ Imprimir y Guardar Certificado en PDF", type="primary", use_container_width=True):
         components.html("<script>window.parent.print();</script>", height=0)
     
     if st.button("Finalizar y Salir del Sistema"):
