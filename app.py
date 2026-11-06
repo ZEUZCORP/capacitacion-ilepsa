@@ -30,18 +30,31 @@ if "respuestas_correctas" not in st.session_state:
 if "progreso_usuarios" not in st.session_state:
     st.session_state.progreso_usuarios = {}
 
-# Estilos corporativos limpios y elegantes
+# Estilos CSS con animación de entrada (transición visual de página nueva)
 st.markdown("""
     <style>
-    .card-principal {
+    @keyframes entradaPagina {
+        0% {
+            opacity: 0;
+            transform: translateY(25px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .card-animada {
+        animation: entradaPagina 0.45s ease-out forwards;
         background: #ffffff;
         border: 1px solid #e2e8f0;
         border-top: 5px solid #0284c7;
         padding: 30px;
         border-radius: 10px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
         margin-bottom: 20px;
     }
+
     .header-box {
         background-color: #f8fafc;
         border: 1px solid #cbd5e1;
@@ -49,6 +62,7 @@ st.markdown("""
         border-radius: 8px;
         margin-bottom: 20px;
     }
+
     .pregunta-box {
         background-color: #f1f5f9;
         border-left: 4px solid #0284c7;
@@ -65,7 +79,7 @@ st.markdown("""
 # ---------------------------------------------------------
 if st.session_state.paso == "login":
     st.markdown("""
-    <div class="card-principal" style="text-align: center;">
+    <div class="card-animada" style="text-align: center;">
         <h2 style="color: #0f172a; margin-top:0;">ACCESO COLABORADORES ILEPSA</h2>
         <p style="color: #64748b; margin-bottom: 0;">Ingrese su número de documento para continuar</p>
     </div>
@@ -94,7 +108,7 @@ if st.session_state.paso == "login":
 # ---------------------------------------------------------
 elif st.session_state.paso == "instrucciones":
     st.markdown(f"""
-    <div class="card-principal">
+    <div class="card-animada">
         <h3 style="color: #0f172a; margin-top:0;">¡Bienvenido(a), {st.session_state.nombre_usuario}!</h3>
         <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 15px 0;">
         <p style="font-size: 15px; color: #334155; line-height: 1.6;">
@@ -120,27 +134,24 @@ elif st.session_state.paso == "instrucciones":
         st.rerun()
 
 # ---------------------------------------------------------
-# 3. PANTALLA DE CAPACITACIÓN (FORZAR SCROLL ARRIBA)
+# 3. PANTALLA DE CAPACITACIÓN CON TRANSICIÓN VISUAL Y SCROLL
 # ---------------------------------------------------------
 elif st.session_state.paso == "evaluacion":
     total_secciones = len(SECCIONES)
     sec_idx = st.session_state.seccion_actual
 
-    # Script JavaScript reforzado para obligar al contenedor principal a hacer Scroll to Top
+    # Inyección JS para asegurar que el navegador suba al inicio en cada sección
     components.html(
         """
         <script>
-            var mainContainer = window.parent.document.querySelector('.main');
-            if (mainContainer) {
-                mainContainer.scrollTo({top: 0, behavior: 'instant'});
-            }
+            window.parent.document.querySelector('section.main').scrollTo({top: 0, behavior: 'instant'});
             window.parent.scrollTo({top: 0, behavior: 'instant'});
         </script>
         """,
         height=0,
     )
 
-    # Encabezado fijo limpio
+    # Encabezado con datos del participante
     st.markdown(f"""
     <div class="header-box">
         <table style="width:100%; border:none; margin:0;">
@@ -165,21 +176,19 @@ elif st.session_state.paso == "evaluacion":
     if sec_idx < total_secciones:
         seccion = SECCIONES[sec_idx]
         
-        # Limpieza de cualquier etiqueta HTML rota como </div> que venga desde contenidos.py
-        contenido_limpio = seccion['contenido'].replace("</div>", "").replace("</div>", "")
-        
+        # Tarjeta principal con animación CSS por cada paso de página
         st.markdown(f"""
-        <div class="card-principal">
+        <div class="card-animada" key="sec_card_{sec_idx}">
             <span style="color: #0284c7; font-weight: bold; font-size: 14px;">{seccion['eje']}</span>
             <h2 style="margin-top: 5px; color: #0f172a;">{seccion['titulo']}</h2>
             <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 15px 0;">
             <div style="font-size: 16px; line-height: 1.6; color: #334155;">
-                {contenido_limpio}
+                {seccion['contenido']}
             </div>
         </div>
         """, unsafe_allow_html=True)
         
-        # Evaluación de la sección
+        # Pregunta de evaluación
         st.markdown(f"""
         <div class="pregunta-box">
             <h4 style="margin-top:0; color: #0f172a;">Evaluación Obligatoria</h4>
@@ -196,7 +205,7 @@ elif st.session_state.paso == "evaluacion":
                     st.session_state.respuestas_correctas += 1
                     st.session_state.seccion_actual += 1
                     st.session_state.progreso_usuarios[st.session_state.cedula] = st.session_state.seccion_actual
-                    st.success("¡Respuesta correcta! Cargando la siguiente sección...")
+                    st.success("¡Respuesta correcta!")
                     time.sleep(0.2)
                     st.rerun()
                 else:
@@ -211,7 +220,7 @@ elif st.session_state.paso == "evaluacion":
 elif st.session_state.paso == "certificado":
     st.balloons()
     st.markdown(f"""
-    <div class="card-principal" style="text-align: center;">
+    <div class="card-animada" style="text-align: center;">
         <h2 style="color: #0f172a;">📜 CERTIFICADO OFICIAL DE APROBACIÓN</h2>
         <h4 style="color: #0284c7;">COMPAÑÍA ILEPSA S.A.</h4>
         <p>Se otorga el presente certificado oficial bajo el marco del <b>Acuerdo Ministerial MDT-2025-006</b> a:</p>
