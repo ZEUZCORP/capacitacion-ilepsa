@@ -1,98 +1,501 @@
-SECCIONES = [
-    {
-        "id": 1,
-        "eje": "Eje 1: Derechos Laborales, Constitución y OIT",
-        "titulo": "Sección 1: El Trabajo Humano y la Dignidad Constitucional",
-        "contenido": """
-        ### 1. El Significado Real del Trabajo Humano
-        El trabajo no es un simple intercambio mercantil ni una transacción de horas por dinero. En el marco de la Constitución de la República del Ecuador, el trabajo constituye un derecho y un deber social, así como el eje fundamental sobre el cual las personas construyen su proyecto de vida y su desarrollo integral.
-        En cualquier centro de trabajo de ILEPSA, cada labor es ejecutada por personas dignas que merecen un trato respetuoso, empático y profesional en todo momento.
+import streamlit as st
+import streamlit.components.v1 as components
+import time
+from datetime import datetime
+from supabase import create_client, Client
+from contenidos import SECCIONES
 
-        ### 2. Prohibición Absoluta de Tratos Deshumanizadores
-        El ordenamiento jurídico protege al trabajador contra cualquier abuso, coacción o trato degradante. Ningún superior puede menoscabar la dignidad de un colaborador mediante gritos, humillaciones públicas o exigencias fuera de toda lógica operativa y humana.
-        """,
-        "pregunta": "¿Cómo se define el trabajo humano dentro del marco constitucional y social en el Ecuador?",
-        "opciones": [
-            "Como un mero intercambio comercial exento de cualquier protección legal o de derechos humanos.",
-            "Como un derecho, deber social y eje fundamental para construir el proyecto de vida y la dignidad.",
-            "Como una obligación sujeta exclusivamente a la discreción temporal de los supervisores."
-        ],
-        "correcta": "Como un derecho, deber social y eje fundamental para construir el proyecto de vida y la dignidad."
-    },
-    {
-        "id": 2,
-        "eje": "Eje 1: Derechos Laborales, Constitución y OIT",
-        "titulo": "Sección 2: La Carta Magna y la Protección de los Derechos Laborales",
-        "contenido": """
-        ### 1. La Constitución como Escudo Protector
-        La Constitución consagra que el Estado garantizará a los trabajadores el pleno respeto a su dignidad, una vida decorosa, remuneraciones justas y el desempeño en un ambiente saludable, seguro y libre de todo tipo de violencia o discriminación.
+st.set_page_config(
+    page_title="Plataforma ILEPSA",
+    page_icon="🏢",
+    layout="centered"
+)
 
-        ### 2. Obligación Institucional
-        Todas las entidades que operan en el país tienen el deber ineludible de alinear su convivencia interna, reglamentos y políticas con los mandatos constitucionales de protección a los derechos humanos y laborales.
-        """,
-        "pregunta": "¿Qué garantiza la Constitución de la República respecto al ambiente y las condiciones de labor?",
-        "opciones": [
-            "El pleno respeto a la dignidad, una vida decorosa y un ambiente saludable libre de violencia.",
-            "Que cada entidad fije sus propias reglas de trato sin sujeción a los principios constitucionales.",
-            "Eximir a los centros de trabajo de cumplir con normativas de respeto si existen metas financieras urgentes."
-        ],
-        "correcta": "El pleno respeto a la dignidad, una vida decorosa y un ambiente saludable libre de violencia."
-    },
-    {
-        "id": 3,
-        "eje": "Eje 1: Derechos Laborales, Constitución y OIT",
-        "titulo": "Sección 3: Irrenunciabilidad e Intangibilidad de los Derechos",
-        "contenido": """
-        ### 1. El Principio de Irrenunciabilidad
-        Los derechos laborales consagrados en la ley son irrenunciables e intangibles. Ningún colaborador puede ceder sus beneficios mínimos ni suscribir acuerdos privados que reduzcan sus garantías legales. Esta protección existe porque la ley reconoce que un trabajador, ante presiones económicas, podría aceptar condiciones injustas.
+# Conexión limpia y segura usando st.secrets
+@st.cache_resource
+def init_supabase() -> Client:
+    return create_client(st.secrets["SUPABASE_URL"], st.secrets["SUPABASE_KEY"])
 
-        ### 2. Nulidad de Acuerdos Lesivos
-        Cualquier documento o acuerdo privado en el que un empleado renuncie a sus vacaciones, a sus aportes al IESS o a sus décimos carece por completo de validez jurídica.
-        """,
-        "pregunta": "¿Qué validez legal posee un documento firmado donde un trabajador renuncia a sus derechos mínimos de ley?",
-        "opciones": [
-            "Es plenamente válido siempre que cuente con la firma y rúbrica del colaborador.",
-            "Tiene validez únicamente si el departamento financiero lo aprueba por escrito.",
-            "Es nulo y carece de validez jurídica, ya que los derechos laborales son irrenunciables e intangibles."
-        ],
-        "correcta": "Es nulo y carece de validez jurídica, ya que los derechos laborales son irrenunciables e intangibles."
-    },
-    {
-        "id": 4,
-        "eje": "Eje 1: Derechos Laborales, Constitución y OIT",
-        "titulo": "Sección 4: El Principio de Primacía de la Realidad",
-        "contenido": """
-        ### 1. Los Hechos Valen Más que el Papel
-        El principio de primacía de la realidad determina que, ante discrepancias entre lo estipulado en un documento escrito y lo que ocurre efectivamente en la práctica diaria (horarios reales, funciones ejecutadas, subordinación), las autoridades laborales otorgan absoluta prevalencia a los hechos reales.
+supabase = init_supabase()
 
-        ### 2. Protección contra Simulaciones
-        Este principio salvaguarda al personal frente a contrataciones que busquen disfrazar relaciones laborales permanentes bajo figuras precarias o temporales indebidas.
-        """,
-        "pregunta": "¿Qué establece el principio de primacía de la realidad en el ámbito del derecho laboral?",
-        "opciones": [
-            "Que ante discrepancias, las autoridades dan prevalencia a los hechos reales de la práctica diaria frente a los documentos.",
-            "Que los contratos escritos tienen prioridad absoluta e indiscutible sobre cualquier testimonio del personal.",
-            "Que la entidad puede modificar los horarios reales de trabajo sin necesidad de reflejarlos en la operativa."
-        ],
-        "correcta": "Que ante discrepancias, las autoridades dan prevalencia a los hechos reales de la práctica diaria frente a los documentos."
-    },
-    {
-        "id": 5,
-        "eje": "Eje 1: Derechos Laborales, Constitución y OIT",
-        "titulo": "Sección 5: Normas y Convenios Fundamentales de la OIT",
-        "contenido": """
-        ### 1. Estándares Internacionales
-        La Organización Internacional del Trabajo (OIT) establece convenios fundamentales que los Estados miembros deben cumplir obligatoriamente. Estos incluyen la libertad sindical, la eliminación del trabajo forzoso, la abolición del trabajo infantil y la erradicación de la discriminación en el empleo.
+# Inicialización de estados de sesión
+if "paso" not in st.session_state:
+    st.session_state.paso = "login"
+if "cedula" not in st.session_state:
+    st.session_state.cedula = ""
+if "nombre_usuario" not in st.session_state:
+    st.session_state.nombre_usuario = ""
+if "es_admin" not in st.session_state:
+    st.session_state.es_admin = False
+if "seccion_actual" not in st.session_state:
+    st.session_state.seccion_actual = 0
+if "sub_paso" not in st.session_state:
+    st.session_state.sub_paso = "teoria"
+if "respuestas_correctas" not in st.session_state:
+    st.session_state.respuestas_correctas = 0
 
-        ### 2. Aplicación Práctica
-        Garantizar un entorno de trabajo donde se respeten estos estándares internacionales refleja un compromiso sólido con los derechos humanos universales.
-        """,
-        "pregunta": "¿Cuál es el propósito central de los convenios internacionales de la OIT ratificados por el Estado?",
-        "opciones": [
-            "Sustituir por completo las leyes internas del Código del Trabajo en las entidades privadas.",
-            "Establecer estándares obligatorios sobre libertad, erradicación del trabajo forzoso y no discriminación en el empleo.",
-            "Regular de manera exclusiva los volúmenes de producción y comercialización industrial."
-        ],
-        "correcta": "Establecer estándares obligatorios sobre libertad, erradicación del trabajo forzoso y no discriminación en el empleo."
-    }
+# Paleta de colores rotativa por sección
+COLORES_SECCION = [
+    {"borde": "#0284c7", "fondo_etiqueta": "#e0f2fe", "texto_etiqueta": "#0369a1"},
+    {"borde": "#7c3aed", "fondo_etiqueta": "#ede9fe", "texto_etiqueta": "#6d28d9"},
+    {"borde": "#059669", "fondo_etiqueta": "#d1fae5", "texto_etiqueta": "#047857"},
+    {"borde": "#d97706", "fondo_etiqueta": "#fef3c7", "texto_etiqueta": "#b45309"},
+    {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}
 ]
+
+# Estilos CSS con tipografía compacta, elegante y estructurada
+st.markdown("""
+    <style>
+    @keyframes fadeInPage {
+        0% { opacity: 0; transform: translateY(15px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    .pagina-nueva-transicion {
+        animation: fadeInPage 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .card-principal {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        padding: 25px 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
+        margin-bottom: 20px;
+        position: relative;
+    }
+    .badge-seccion-derecha {
+        position: absolute;
+        top: 20px;
+        right: 25px;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+    .header-box {
+        background-color: #f8fafc;
+        border: 1px solid #cbd5e1;
+        padding: 10px 18px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    .contenido-texto {
+        font-size: 14.5px;
+        line-height: 1.6;
+        color: #334155;
+    }
+    .pregunta-box {
+        background-color: #f8fafc;
+        border-left: 4px solid #0f172a;
+        padding: 20px;
+        border-radius: 0 8px 8px 0;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# Script para forzar el scroll al inicio absoluto (0,0)
+components.html(
+    """
+    <script>
+        function forzarScrollTop() {
+            const doc = window.parent.document;
+            doc.querySelectorAll('section.main').forEach(el => {
+                el.scrollTop = 0;
+                el.scrollTo({top: 0, behavior: 'instant'});
+            });
+            window.parent.scrollTo({top: 0, behavior: 'instant'});
+        }
+        forzarScrollTop();
+        setTimeout(forzarScrollTop, 50);
+        setTimeout(forzarScrollTop, 150);
+    </script>
+    """,
+    height=0,
+)
+
+# =========================================================
+# FASE 1: LOGIN (Recupera progreso automático de Supabase)
+# =========================================================
+if st.session_state.paso == "login":
+    st.markdown("""
+    <div class="pagina-nueva-transicion card-principal" style="text-align: center; border-top: 5px solid #0284c7;">
+        <h3 style="color: #0f172a; margin-top:0;">ACCESO COLABORADORES ILEPSA</h3>
+        <p style="color: #64748b; font-size: 14px; margin-bottom: 0;">Ingrese su número de cédula para continuar con su capacitación guardada</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    cedula_input = st.text_input("Cédula de Identidad:", max_chars=10, type="password")
+    
+    if st.button("Ingresar al Sistema", type="primary", use_container_width=True):
+        cedula_limpia = cedula_input.strip()
+        if len(cedula_limpia) >= 10 or cedula_limpia == "1":
+            try:
+                response = supabase.table("usuarios").select("nombres, seccion_actual, sub_paso").eq("cedula", cedula_limpia).execute()
+                
+                if response.data and len(response.data) > 0:
+                    user_data = response.data[0]
+                    st.session_state.cedula = cedula_limpia
+                    st.session_state.nombre_usuario = user_data["nombres"]
+                    
+                    st.session_state.seccion_actual = user_data.get("seccion_actual", 0) or 0
+                    st.session_state.sub_paso = user_data.get("sub_paso", "teoria") or "teoria"
+                    
+                    if "Administrador" in st.session_state.nombre_usuario or cedula_limpia in ["9999999999", "1"]:
+                        st.session_state.es_admin = True
+                        st.session_state.paso = "admin_dashboard"
+                    else:
+                        st.session_state.es_admin = False
+                        try:
+                            supabase.table("registro_tiempos").insert({
+                                "cedula": cedula_limpia,
+                                "fecha_ingreso": datetime.now().isoformat()
+                            }).execute()
+                        except Exception:
+                            pass
+                        st.session_state.paso = "instrucciones"
+                    
+                    st.rerun()
+                else:
+                    st.error("Cédula no registrada en la base de datos de ILEPSA.")
+            except Exception as e:
+                st.error(f"Error de conexión con Supabase: {e}")
+        else:
+            st.error("Ingrese un número de cédula válido.")
+
+# =========================================================
+# FASE 2: PANEL DE ADMINISTRACIÓN
+# =========================================================
+elif st.session_state.paso == "admin_dashboard":
+    st.markdown(f"""
+    <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #0f172a;">
+        <h3 style="color: #0f172a; margin-top:0;">📊 PANEL DE CONTROL Y ESTADÍSTICAS - ILEPSA</h3>
+        <p style="color: #64748b; font-size: 14px;"><b>Administrador en sesión:</b> {st.session_state.nombre_usuario}</p>
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
+        <p style="font-size: 14px; color: #334155;">
+            Monitoreo en tiempo real de accesos, tiempos de conexión y avance guardado de los colaboradores bajo la normativa MDT-2025-006.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("### 🕒 Registro de Ingresos y Tiempos de Conexión")
+    try:
+        query_tiempos = supabase.table("registro_tiempos").select("*").order("fecha_ingreso", desc=True).execute()
+        if query_tiempos.data and len(query_tiempos.data) > 0:
+            datos_tabla = []
+            for reg in query_tiempos.data:
+                cedula_reg = reg.get("cedula", "N/A")
+                fecha_reg = reg.get("fecha_ingreso", "N/A")
+                res_user = supabase.table("usuarios").select("nombres, seccion_actual").eq("cedula", cedula_reg).execute()
+                if res_user.data:
+                    nombre_reg = res_user.data[0]["nombres"]
+                    sec_progreso = res_user.data[0].get("seccion_actual", 0)
+                else:
+                    nombre_reg = "Colaborador Externo"
+                    sec_progreso = 0
+                
+                datos_tabla.append({
+                    "Colaborador": nombre_reg,
+                    "Cédula": cedula_reg,
+                    "Sección Actual": f"{sec_progreso} / {len(SECCIONES)}",
+                    "Fecha y Hora de Ingreso": fecha_reg
+                })
+            st.dataframe(datos_tabla, use_container_width=True)
+        else:
+            st.info("Aún no se registran ingresos de colaboradores.")
+    except Exception:
+        pass
+        
+    st.markdown("### 👥 Listado General de Colaboradores Registrados")
+    try:
+        query_usuarios = supabase.table("usuarios").select("cedula, nombres, seccion_actual").execute()
+        if query_usuarios.data:
+            st.dataframe(query_usuarios.data, use_container_width=True)
+    except Exception:
+        pass
+        
+    if st.button("Cerrar Sesión de Administrador", type="primary", use_container_width=True):
+        st.session_state.paso = "login"
+        st.session_state.cedula = ""
+        st.session_state.nombre_usuario = ""
+        st.session_state.es_admin = False
+        st.rerun()
+
+# =========================================================
+# FASE 3: INSTRUCCIONES (Colaboradores)
+# =========================================================
+elif st.session_state.paso == "instrucciones":
+    st.markdown(f"""
+    <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #0284c7;">
+        <h3 style="color: #0f172a; margin-top:0;">¡Bienvenido(a), {st.session_state.nombre_usuario}!</h3>
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
+        <p style="font-size: 14.5px; color: #334155; line-height: 1.6;">
+            En cumplimiento con la normativa legal vigente y el <b>Acuerdo Ministerial MDT-2025-006</b>, este programa de formación integral es de <b>carácter obligatorio</b> para todo el personal de la Compañía ILEPSA S.A. (Certificación de 40 horas).
+        </p>
+        <p style="font-size: 14.5px; color: #334155; line-height: 1.6; margin-bottom: 5px;">
+            <b>Progreso Automático:</b> Su avance se guarda de forma permanente en el sistema. Si cierra sesión o ingresa otro día, continuará exactamente desde donde se quedó.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    if st.button("Continuar mi Capacitación ➔", type="primary", use_container_width=True):
+        if st.session_state.seccion_actual >= len(SECCIONES):
+            st.session_state.paso = "certificado"
+        else:
+            st.session_state.paso = "evaluacion"
+        st.rerun()
+
+# =========================================================
+# FASE 4: MÓDULO DE CAPACITACIÓN (Lectura exacta desde contenidos.py)
+# =========================================================
+elif st.session_state.paso == "evaluacion":
+    total_secciones = len(SECCIONES)
+    sec_idx = st.session_state.seccion_actual
+
+    if sec_idx < total_secciones:
+        seccion = SECCIONES[sec_idx]
+        estilo_color = COLORES_SECCION[sec_idx % len(COLORES_SECCION)]
+        
+        st.markdown(f"""
+        <div class="header-box">
+            <table style="width:100%; border:none; margin:0;">
+                <tr>
+                    <td style="border:none;">🏢 <b>Empresa:</b> ILEPSA S.A.</td>
+                    <td style="border:none;">👤 <b>Colaborador:</b> {st.session_state.nombre_usuario}</td>
+                    <td style="border:none;">🪪 <b>Cédula:</b> {st.session_state.cedula}</td>
+                </tr>
+            </table>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        col_s1, col_s2 = st.columns([5, 1])
+        with col_s2:
+            if st.button("Guardar y Salir"):
+                st.session_state.paso = "login"
+                st.rerun()
+                
+        progreso = sec_idx / total_secciones
+        st.progress(progreso, text=f"Progreso actual: Sección {sec_idx + 1} de {total_secciones}")
+        
+        # -------------------------------------------------
+        # PANTALLA 1: TEORÍA
+        # -------------------------------------------------
+        if st.session_state.sub_paso == "teoria":
+            st.markdown(f"""
+            <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid {estilo_color['borde']};">
+                <div class="badge-seccion-derecha" style="background-color: {estilo_color['fondo_etiqueta']}; color: {estilo_color['texto_etiqueta']};">
+                    LECTURA {sec_idx + 1} / {total_secciones}
+                </div>
+                <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 13px; text-transform: uppercase;">
+                    {seccion['eje']}
+                </span>
+                <h3 style="margin-top: 6px; margin-bottom: 12px; color: #0f172a; font-size: 20px;">{seccion['titulo']}</h3>
+                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
+                <div class="contenido-texto">
+                    {seccion['contenido']}
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if st.button("Continuar al Cuestionario de esta Sección ➔", type="primary", key=f"btn_ir_cuestionario_{sec_idx}", use_container_width=True):
+                st.session_state.sub_paso = "cuestionario"
+                
+                try:
+                    supabase.table("usuarios").update({
+                        "seccion_actual": st.session_state.seccion_actual,
+                        "sub_paso": "cuestionario"
+                    }).eq("cedula", st.session_state.cedula).execute()
+                except Exception:
+                    pass
+
+                components.html(
+                    """
+                    <script>
+                        const parentDoc = window.parent.document;
+                        parentDoc.querySelectorAll('section.main').forEach(el => {
+                            el.scrollTop = 0;
+                            el.scrollTo({top: 0, behavior: 'instant'});
+                        });
+                        window.parent.scrollTo({top: 0, behavior: 'instant'});
+                    </script>
+                    """,
+                    height=0,
+                )
+                st.rerun()
+
+        # -------------------------------------------------
+        # PANTALLA 2: CUESTIONARIO
+        # -------------------------------------------------
+        elif st.session_state.sub_paso == "cuestionario":
+            st.markdown(f"""
+            <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid {estilo_color['borde']};">
+                <div class="badge-seccion-derecha" style="background-color: {estilo_color['fondo_etiqueta']}; color: {estilo_color['texto_etiqueta']};">
+                    EVALUACIÓN {sec_idx + 1} / {total_secciones}
+                </div>
+                <span style="color: {estilo_color['borde']}; font-weight: bold; font-size: 13px; text-transform: uppercase;">
+                    Cuestionario de Validación
+                </span>
+                <h3 style="margin-top: 6px; margin-bottom: 12px; color: #0f172a; font-size: 19px;">{seccion['titulo']}</h3>
+                <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
+                <p style="font-size: 14px; color: #475569; margin-bottom: 15px;">
+                    Responda la siguiente pregunta correspondiente al contenido que acaba de estudiar:
+                </p>
+                <div class="pregunta-box" style="border-left: 4px solid {estilo_color['borde']};">
+                    <p style="font-size: 15px; font-weight: 600; color: #1e293b; margin: 0;">{seccion['pregunta']}</p>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            respuesta = st.radio(
+                "Seleccione su respuesta:", 
+                seccion['opciones'], 
+                key=f"radio_cuestionario_{sec_idx}"
+            )
+            
+            col_btn1, col_btn2 = st.columns(2)
+            with col_btn1:
+                if st.button("⬅ Volver a leer la Teoría", use_container_width=True):
+                    st.session_state.sub_paso = "teoria"
+                    try:
+                        supabase.table("usuarios").update({
+                            "sub_paso": "teoria"
+                        }).eq("cedula", st.session_state.cedula).execute()
+                    except Exception:
+                        pass
+                    st.rerun()
+            with col_btn2:
+                btn_siguiente = st.button("Enviar Respuesta y Siguiente ➔", type="primary", key=f"btn_enviar_{sec_idx}", use_container_width=True)
+            
+            if btn_siguiente:
+                if respuesta == seccion['correcta']:
+                    st.session_state.respuestas_correctas += 1
+                    st.session_state.seccion_actual += 1
+                    st.session_state.sub_paso = "teoria"
+                    
+                    try:
+                        supabase.table("usuarios").update({
+                            "seccion_actual": st.session_state.seccion_actual,
+                            "sub_paso": "teoria"
+                        }).eq("cedula", st.session_state.cedula).execute()
+                    except Exception:
+                        pass
+                    
+                    components.html(
+                        """
+                        <script>
+                            const parentDoc = window.parent.document;
+                            parentDoc.querySelectorAll('section.main').forEach(el => {
+                                el.scrollTop = 0;
+                                el.scrollTo({top: 0, behavior: 'instant'});
+                            });
+                            window.parent.scrollTo({top: 0, behavior: 'instant'});
+                        </script>
+                        """,
+                        height=0,
+                    )
+                    
+                    with st.spinner(f"¡Respuesta correcta! Guardando avance y cargando siguiente sección..."):
+                        time.sleep(0.3)
+                    st.rerun()
+                else:
+                    st.error("Respuesta incorrecta. Debe revisar nuevamente la teoría de esta sección para poder avanzar.")
+    else:
+        st.session_state.paso = "certificado"
+        st.rerun()
+
+# =========================================================
+# FASE 5: CERTIFICADO OFICIAL (DIPLOMA HORIZONTAL UNIVERSITARIO)
+# =========================================================
+elif st.session_state.paso == "certificado":
+    st.markdown("""
+    <div style="text-align: center; margin-bottom: 15px;">
+        <span style="font-size: 26px;">✨ 🏆 ✨</span>
+        <h3 style="color: #059669; margin: 5px 0; font-size: 20px;">¡CAPACITACIÓN APROBADA CON ÉXITO!</h3>
+        <p style="color: #64748b; font-size: 13.5px;">Has culminado satisfactoriamente el programa bajo el Acuerdo Ministerial MDT-2025-006.</p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    html_certificado = f"""
+    <html>
+    <head>
+    <style>
+      @page {{ size: landscape; margin: 0; }}
+      body {{ font-family: 'Times New Roman', serif; background-color: #f1f5f9; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; }}
+      .diploma-horizontal {{
+          background: #fffdf9;
+          border: 14px double #1e3a8a;
+          width: 920px;
+          height: 580px;
+          padding: 45px 60px;
+          text-align: center;
+          box-sizing: border-box;
+          position: relative;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+          margin: 0 auto;
+      }}
+      .institucion {{ font-size: 15px; letter-spacing: 3px; color: #475569; text-transform: uppercase; font-weight: bold; margin-bottom: 5px; }}
+      h1 {{ color: #1e3a8a; font-size: 38px; margin: 5px 0 0 0; letter-spacing: 3px; font-family: 'Georgia', serif; }}
+      .normativa {{ color: #0284c7; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: bold; }}
+      .otorga {{ font-size: 16px; color: #334155; font-style: italic; margin: 10px 0; }}
+      .nombre {{ color: #0f172a; font-size: 34px; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 4px; margin: 8px 0; font-weight: bold; font-family: 'Georgia', serif; }}
+      .cedula {{ font-size: 15px; color: #334155; margin-bottom: 15px; }}
+      .texto-detalles {{ font-size: 14.5px; color: #334155; line-height: 1.6; max-width: 780px; margin: 0 auto; }}
+      .firmas-container {{ display: flex; justify-content: space-between; margin-top: 45px; padding: 0 40px; }}
+      .firma-box {{ text-align: center; width: 250px; }}
+      .linea-firma {{ border-top: 1px solid #1e3a8a; margin-bottom: 5px; }}
+      .cargo {{ font-weight: bold; color: #0f172a; font-size: 14px; }}
+      .empresa-firma {{ font-size: 12px; color: #64748b; }}
+    </style>
+    </head>
+    <body>
+      <div class="diploma-horizontal">
+        <div class="institucion">COMPAÑÍA ILEPSA S.A.</div>
+        <h1>CERTIFICADO DE APROBACIÓN</h1>
+        <div class="normativa">Acuerdo Ministerial MDT-2025-006 (Capacitación de 40 Horas)</div>
+        
+        <div class="otorga">Se otorga el presente reconocimiento oficial a:</div>
+        <div class="nombre">{st.session_state.nombre_usuario}</div>
+        <div class="cedula">Cédula de Identidad N° <b>{st.session_state.cedula}</b></div>
+        
+        <div class="texto-detalles">
+          Por haber completado y aprobado satisfactoriamente el programa de formación integral en prevención de riesgos laborales, equidad y no discriminación, con una intensidad de <b>40 horas académicas</b>, cumpliendo a cabalidad con las normativas vigentes y los estándares corporativos de ILEPSA S.A.
+        </div>
+        
+        <div class="firmas-container">
+          <div class="firma-box">
+            <div class="linea-firma"></div>
+            <div class="cargo">Gerencia General</div>
+            <div class="empresa-firma">ILEPSA S.A.</div>
+          </div>
+          <div class="firma-box">
+            <div class="linea-firma"></div>
+            <div class="cargo">Dirección de Talento Humano</div>
+            <div class="empresa-firma">Validado y Registrado</div>
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+    """
+    
+    components.html(html_certificado, height=620, scrolling=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+    
+    st.download_button(
+        label="📥 Descargar Certificado Oficial en Formato Horizontal (PDF / HTML)",
+        data=html_certificado,
+        file_name=f"Certificado_ILEPSA_{st.session_state.cedula}.html",
+        mime="text/html",
+        use_container_width=True
+    )
+    
+    if st.button("Finalizar y Salir del Sistema"):
+        st.session_state.paso = "login"
+        st.session_state.cedula = ""
+        st.session_state.nombre_usuario = ""
+        st.session_state.es_admin = False
+        st.session_state.seccion_actual = 0
+        st.session_state.sub_paso = "teoria"
+        st.rerun()
