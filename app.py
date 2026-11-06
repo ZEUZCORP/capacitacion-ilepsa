@@ -93,7 +93,6 @@ st.markdown("""
         box-shadow: 0 2px 4px rgba(0,0,0,0.02);
     }
     
-    /* TÍTULO SELECCIONE SU RESPUESTA GRANDE Y NEGRITA */
     .stRadio > label {
         font-size: 20px !important;
         font-weight: 700 !important;
@@ -350,7 +349,20 @@ elif st.session_state.paso == "evaluacion":
             </div>
             """, unsafe_allow_html=True)
             
-            # ORDEN ALEATORIO DE OPCIONES (Se barajan manteniendo la semilla de la sesión o sección para estabilidad)
+            key_estado_msg = f"estado_msg_{sec_idx}"
+            if key_estado_msg not in st.session_state:
+                st.session_state[key_estado_msg] = ""
+
+            col_lbl1, col_lbl2 = st.columns([2, 3])
+            with col_lbl1:
+                st.markdown("<p style='font-size: 20px; font-weight: 700; color: #0f172a; margin-top: 10px;'>Seleccione su respuesta:</p>", unsafe_allow_html=True)
+            with col_lbl2:
+                msg = st.session_state[key_estado_msg]
+                if msg == "error":
+                    st.markdown("<p style='color: #dc2626; font-weight: 700; font-size: 14px; background-color: #fee2e2; padding: 8px 12px; border-radius: 6px; border: 1px solid #fca5a5; margin: 0;'>❌ Respuesta incorrecta. Debe revisar nuevamente la teoría.</p>", unsafe_allow_html=True)
+                elif msg == "exito":
+                    st.markdown("<p style='color: #059669; font-weight: 700; font-size: 14px; background-color: #d1fae5; padding: 8px 12px; border-radius: 6px; border: 1px solid #a7f3d0; margin: 0;'>✔ ¡Respuesta correcta! Avanzando...</p>", unsafe_allow_html=True)
+
             key_opciones_mix = f"opciones_mix_{sec_idx}"
             if key_opciones_mix not in st.session_state:
                 lista_opciones = list(seccion['opciones'])
@@ -358,7 +370,7 @@ elif st.session_state.paso == "evaluacion":
                 st.session_state[key_opciones_mix] = lista_opciones
 
             respuesta = st.radio(
-                "Seleccione su respuesta:", 
+                "", 
                 st.session_state[key_opciones_mix], 
                 key=f"radio_cuestionario_{sec_idx}"
             )
@@ -366,6 +378,7 @@ elif st.session_state.paso == "evaluacion":
             col_btn1, col_btn2 = st.columns(2)
             with col_btn1:
                 if st.button("⬅ Volver a leer la Teoría", use_container_width=True):
+                    st.session_state[key_estado_msg] = ""
                     st.session_state.sub_paso = "teoria"
                     try:
                         supabase.table("usuarios").update({
@@ -379,11 +392,11 @@ elif st.session_state.paso == "evaluacion":
             
             if btn_siguiente:
                 if respuesta == seccion['correcta']:
+                    st.session_state[key_estado_msg] = "exito"
                     st.session_state.respuestas_correctas += 1
                     st.session_state.seccion_actual += 1
                     st.session_state.sub_paso = "teoria"
                     
-                    # Limpiar las opciones mezclas para la siguiente sección
                     if key_opciones_mix in st.session_state:
                         del st.session_state[key_opciones_mix]
                     
@@ -409,11 +422,11 @@ elif st.session_state.paso == "evaluacion":
                         height=0,
                     )
                     
-                    with st.spinner(f"¡Respuesta correcta! Guardando avance y cargando siguiente sección..."):
-                        time.sleep(0.3)
+                    time.sleep(0.8)
                     st.rerun()
                 else:
-                    st.error("Respuesta incorrecta. Debe revisar nuevamente la teoría de esta sección para poder avanzar.")
+                    st.session_state[key_estado_msg] = "error"
+                    st.rerun()
     else:
         st.session_state.paso = "certificado"
         st.rerun()
