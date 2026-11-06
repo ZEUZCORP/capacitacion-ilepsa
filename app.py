@@ -8,7 +8,7 @@ from contenidos import SECCIONES
 st.set_page_config(
     page_title="Plataforma ILEPSA",
     page_icon="🏢",
-    layout="centered"
+    layout="wide"
 )
 
 # Conexión limpia y segura usando st.secrets
@@ -34,7 +34,6 @@ if "sub_paso" not in st.session_state:
 if "respuestas_correctas" not in st.session_state:
     st.session_state.respuestas_correctas = 0
 
-# Paleta de colores rotativa por sección
 COLORES_SECCION = [
     {"borde": "#0284c7", "fondo_etiqueta": "#e0f2fe", "texto_etiqueta": "#0369a1"},
     {"borde": "#7c3aed", "fondo_etiqueta": "#ede9fe", "texto_etiqueta": "#6d28d9"},
@@ -43,11 +42,11 @@ COLORES_SECCION = [
     {"borde": "#dc2626", "fondo_etiqueta": "#fee2e2", "texto_etiqueta": "#b91c1c"}
 ]
 
-# Estilos CSS optimizados para ancho y lectura cómoda sin scroll excesivo
+# Estilos CSS optimizados para aprovechar el ancho y evitar scroll vertical largo
 st.markdown("""
     <style>
     @keyframes fadeInPage {
-        0% { opacity: 0; transform: translateY(15px); }
+        0% { opacity: 0; transform: translateY(10px); }
         100% { opacity: 1; transform: translateY(0); }
     }
     .pagina-nueva-transicion {
@@ -56,8 +55,8 @@ st.markdown("""
     .card-principal {
         background: #ffffff;
         border: 1px solid #e2e8f0;
-        padding: 25px 30px;
-        border-radius: 10px;
+        padding: 25px 35px;
+        border-radius: 12px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.04);
         margin-bottom: 20px;
         position: relative;
@@ -65,8 +64,8 @@ st.markdown("""
     .badge-seccion-derecha {
         position: absolute;
         top: 20px;
-        right: 25px;
-        padding: 4px 12px;
+        right: 30px;
+        padding: 5px 14px;
         border-radius: 15px;
         font-size: 12px;
         font-weight: 700;
@@ -83,7 +82,7 @@ st.markdown("""
     .sabias-que-box {
         background-color: #f0f9ff;
         border-left: 4px solid #0284c7;
-        padding: 12px 16px;
+        padding: 12px 18px;
         border-radius: 0 8px 8px 0;
         margin-bottom: 15px;
         font-size: 13.5px;
@@ -91,8 +90,8 @@ st.markdown("""
         font-weight: 500;
     }
     .contenido-texto {
-        font-size: 14px;
-        line-height: 1.55;
+        font-size: 14.5px;
+        line-height: 1.6;
         color: #334155;
     }
     .pregunta-box {
@@ -106,7 +105,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Script para forzar el scroll al inicio absoluto (0,0)
+# Script para forzar scroll al inicio absoluto (0,0)
 components.html(
     """
     <script>
@@ -127,52 +126,52 @@ components.html(
 )
 
 # =========================================================
-# FASE 1: LOGIN
+# FASE 1: LOGIN (Recupera progreso de Supabase)
 # =========================================================
 if st.session_state.paso == "login":
     st.markdown("""
-    <div class="pagina-nueva-transicion card-principal" style="text-align: center; border-top: 5px solid #0284c7;">
+    <div class="pagina-nueva-transicion card-principal" style="text-align: center; border-top: 5px solid #0284c7; max-width: 600px; margin: 50px auto;">
         <h3 style="color: #0f172a; margin-top:0;">ACCESO COLABORADORES ILEPSA</h3>
         <p style="color: #64748b; font-size: 14px; margin-bottom: 0;">Ingrese su número de cédula para continuar con su capacitación guardada</p>
     </div>
     """, unsafe_allow_html=True)
     
-    cedula_input = st.text_input("Cédula de Identidad:", max_chars=10, type="password")
-    
-    if st.button("Ingresar al Sistema", type="primary", use_container_width=True):
-        cedula_limpia = cedula_input.strip()
-        if len(cedula_limpia) >= 10 or cedula_limpia == "1":
-            try:
-                response = supabase.table("usuarios").select("nombres, seccion_actual, sub_paso").eq("cedula", cedula_limpia).execute()
-                
-                if response.data and len(response.data) > 0:
-                    user_data = response.data[0]
-                    st.session_state.cedula = cedula_limpia
-                    st.session_state.nombre_usuario = user_data["nombres"]
-                    st.session_state.seccion_actual = user_data.get("seccion_actual", 0) or 0
-                    st.session_state.sub_paso = user_data.get("sub_paso", "teoria") or "teoria"
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        cedula_input = st.text_input("Cédula de Identidad:", max_chars=10, type="password")
+        if st.button("Ingresar al Sistema", type="primary", use_container_width=True):
+            cedula_limpia = cedula_input.strip()
+            if len(cedula_limpia) >= 10 or cedula_limpia == "1":
+                try:
+                    response = supabase.table("usuarios").select("nombres, seccion_actual, sub_paso").eq("cedula", cedula_limpia).execute()
                     
-                    if "Administrador" in st.session_state.nombre_usuario or cedula_limpia in ["9999999999", "1"]:
-                        st.session_state.es_admin = True
-                        st.session_state.paso = "admin_dashboard"
+                    if response.data and len(response.data) > 0:
+                        user_data = response.data[0]
+                        st.session_state.cedula = cedula_limpia
+                        st.session_state.nombre_usuario = user_data["nombres"]
+                        st.session_state.seccion_actual = user_data.get("seccion_actual", 0) or 0
+                        st.session_state.sub_paso = user_data.get("sub_paso", "teoria") or "teoria"
+                        
+                        if "Administrador" in st.session_state.nombre_usuario or cedula_limpia in ["9999999999", "1"]:
+                            st.session_state.es_admin = True
+                            st.session_state.paso = "admin_dashboard"
+                        else:
+                            st.session_state.es_admin = False
+                            try:
+                                supabase.table("registro_tiempos").insert({
+                                    "cedula": cedula_limpia,
+                                    "fecha_ingreso": datetime.now().isoformat()
+                                }).execute()
+                            except Exception:
+                                pass
+                            st.session_state.paso = "instrucciones"
+                        st.rerun()
                     else:
-                        st.session_state.es_admin = False
-                        try:
-                            supabase.table("registro_tiempos").insert({
-                                "cedula": cedula_limpia,
-                                "fecha_ingreso": datetime.now().isoformat()
-                            }).execute()
-                        except Exception:
-                            pass
-                        st.session_state.paso = "instrucciones"
-                    
-                    st.rerun()
-                else:
-                    st.error("Cédula no registrada en la base de datos de ILEPSA.")
-            except Exception as e:
-                st.error(f"Error de conexión con Supabase: {e}")
-        else:
-            st.error("Ingrese un número de cédula válido.")
+                        st.error("Cédula no registrada en la base de datos de ILEPSA.")
+                except Exception as e:
+                    st.error(f"Error de conexión con Supabase: {e}")
+            else:
+                st.error("Ingrese un número de cédula válido.")
 
 # =========================================================
 # FASE 2: PANEL DE ADMINISTRACIÓN
@@ -217,14 +216,6 @@ elif st.session_state.paso == "admin_dashboard":
     except Exception:
         pass
         
-    st.markdown("### 👥 Listado General de Colaboradores Registrados")
-    try:
-        query_usuarios = supabase.table("usuarios").select("cedula, nombres, seccion_actual").execute()
-        if query_usuarios.data:
-            st.dataframe(query_usuarios.data, use_container_width=True)
-    except Exception:
-        pass
-        
     if st.button("Cerrar Sesión de Administrador", type="primary", use_container_width=True):
         st.session_state.paso = "login"
         st.session_state.cedula = ""
@@ -233,7 +224,7 @@ elif st.session_state.paso == "admin_dashboard":
         st.rerun()
 
 # =========================================================
-# FASE 3: INSTRUCCIONES / BIENVENIDA (Restaurado al 100%)
+# FASE 3: INSTRUCCIONES / BIENVENIDA
 # =========================================================
 elif st.session_state.paso == "instrucciones":
     st.markdown(f"""
@@ -260,7 +251,7 @@ elif st.session_state.paso == "instrucciones":
         st.rerun()
 
 # =========================================================
-# FASE 4: MÓDULO DE CAPACITACIÓN (Optimizado en ancho)
+# FASE 4: MÓDULO DE CAPACITACIÓN (Lee de contenidos.py)
 # =========================================================
 elif st.session_state.paso == "evaluacion":
     total_secciones = len(SECCIONES)
@@ -419,7 +410,7 @@ elif st.session_state.paso == "evaluacion":
         st.rerun()
 
 # =========================================================
-# FASE 5: CERTIFICADO OFICIAL (Diploma Formal de 40 Horas)
+# FASE 5: CERTIFICADO OFICIAL (DIPLOMA HORIZONTAL UNIVERSITARIO)
 # =========================================================
 elif st.session_state.paso == "certificado":
     st.markdown("""
@@ -434,48 +425,58 @@ elif st.session_state.paso == "certificado":
     <html>
     <head>
     <style>
-      body {{ font-family: 'Times New Roman', serif; background-color: #f8fafc; padding: 20px; }}
-      .diploma {{
+      @page {{ size: landscape; margin: 0; }}
+      body {{ font-family: 'Times New Roman', serif; background-color: #f1f5f9; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; }}
+      .diploma-horizontal {{
           background: #fffdf9;
-          border: 12px double #1e3a8a;
-          padding: 50px;
+          border: 14px double #1e3a8a;
+          width: 920px;
+          height: 580px;
+          padding: 45px 60px;
           text-align: center;
-          max-width: 800px;
+          box-sizing: border-box;
+          position: relative;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.15);
           margin: 0 auto;
-          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
       }}
-      h1 {{ color: #1e3a8a; font-size: 32px; margin-bottom: 5px; letter-spacing: 2px; }}
-      .subtitulo {{ color: #475569; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; }}
-      .nombre {{ color: #0284c7; font-size: 30px; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 5px; margin: 15px 0; font-weight: bold; }}
-      .texto {{ font-size: 16px; color: #334155; line-height: 1.6; margin: 25px auto; max-width: 650px; }}
-      .firmas {{ margin-top: 60px; display: flex; justify-content: space-around; }}
-      .firma-box {{ text-align: center; width: 220px; }}
-      .linea-firma {{ border-top: 1px solid #1e3a8a; margin-bottom: 8px; }}
+      .institucion {{ font-size: 15px; letter-spacing: 3px; color: #475569; text-transform: uppercase; font-weight: bold; margin-bottom: 5px; }}
+      h1 {{ color: #1e3a8a; font-size: 38px; margin: 5px 0 0 0; letter-spacing: 3px; font-family: 'Georgia', serif; }}
+      .normativa {{ color: #0284c7; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: bold; }}
+      .otorga {{ font-size: 16px; color: #334155; font-style: italic; margin: 10px 0; }}
+      .nombre {{ color: #0f172a; font-size: 34px; border-bottom: 2px solid #cbd5e1; display: inline-block; padding-bottom: 4px; margin: 8px 0; font-weight: bold; font-family: 'Georgia', serif; }}
+      .cedula {{ font-size: 15px; color: #334155; margin-bottom: 15px; }}
+      .texto-detalles {{ font-size: 14.5px; color: #334155; line-height: 1.6; max-width: 780px; margin: 0 auto; }}
+      .firmas-container {{ display: flex; justify-content: space-between; margin-top: 45px; padding: 0 40px; }}
+      .firma-box {{ text-align: center; width: 250px; }}
+      .linea-firma {{ border-top: 1px solid #1e3a8a; margin-bottom: 5px; }}
+      .cargo {{ font-weight: bold; color: #0f172a; font-size: 14px; }}
+      .empresa-firma {{ font-size: 12px; color: #64748b; }}
     </style>
     </head>
     <body>
-      <div class="diploma">
+      <div class="diploma-horizontal">
+        <div class="institucion">COMPAÑÍA ILEPSA S.A.</div>
         <h1>CERTIFICADO DE APROBACIÓN</h1>
-        <div class="subtitulo">Acuerdo Ministerial MDT-2025-006 - ILEPSA S.A.</div>
+        <div class="normativa">Acuerdo Ministerial MDT-2025-006 (Capacitación de 40 Horas)</div>
         
-        <p style="font-size: 16px; color: #334155;">Se otorga el presente reconocimiento oficial a:</p>
+        <div class="otorga">Se otorga el presente reconocimiento oficial a:</div>
         <div class="nombre">{st.session_state.nombre_usuario}</div>
-        <p style="font-size: 15px; color: #334155;">Cédula de Identidad N° <b>{st.session_state.cedula}</b></p>
+        <div class="cedula">Cédula de Identidad N° <b>{st.session_state.cedula}</b></div>
         
-        <div class="texto">
-          Por haber completado y aprobado satisfactoriamente el programa de formación integral en prevención de riesgos laborales, equidad y no discriminación, con una intensidad de <b>40 horas académicas</b>, cumpliendo a cabalidad con las normativas vigentes de la compañía ILEPSA S.A.
+        <div class="texto-detalles">
+          Por haber completado y aprobado satisfactoriamente el programa de formación integral en prevención de riesgos laborales, equidad y no discriminación, con una intensidad de <b>40 horas académicas</b>, cumpliendo a cabalidad con las normativas vigentes y los estándares corporativos de ILEPSA S.A.
         </div>
         
-        <div class="firmas">
+        <div class="firmas-container">
           <div class="firma-box">
             <div class="linea-firma"></div>
-            <b>Gerencia General</b><br>
-            <span style="font-size: 12px; color: #64748b;">ILEPSA S.A.</span>
+            <div class="cargo">Gerencia General</div>
+            <div class="empresa-firma">ILEPSA S.A.</div>
           </div>
           <div class="firma-box">
             <div class="linea-firma"></div>
-            <b>Talento Humano</b><br>
-            <span style="font-size: 12px; color: #64748b;">Validado y Registrado</span>
+            <div class="cargo">Dirección de Talento Humano</div>
+            <div class="empresa-firma">Validado y Registrado</div>
           </div>
         </div>
       </div>
@@ -483,11 +484,11 @@ elif st.session_state.paso == "certificado":
     </html>
     """
     
-    components.html(html_certificado, height=580, scrolling=True)
+    components.html(html_certificado, height=620, scrolling=True)
     st.markdown("<br>", unsafe_allow_html=True)
     
     st.download_button(
-        label="📥 Descargar Diploma Oficial en Formato HTML / Imprimir PDF",
+        label="📥 Descargar Certificado Oficial en Formato Horizontal (PDF / HTML)",
         data=html_certificado,
         file_name=f"Certificado_ILEPSA_{st.session_state.cedula}.html",
         mime="text/html",
