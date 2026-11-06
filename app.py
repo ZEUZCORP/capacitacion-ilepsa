@@ -47,6 +47,15 @@ st.markdown("""
         0% { opacity: 0; transform: translateY(10px); }
         100% { opacity: 1; transform: translateY(0); }
     }
+    /* Animación para que el mensaje rojo se desvanezca suavemente */
+    @keyframes fadeOutMsg {
+        0% { opacity: 1; }
+        70% { opacity: 1; }
+        100% { opacity: 0; display: none; }
+    }
+    .alerta-desvanecer {
+        animation: fadeOutMsg 3.5s ease-out forwards;
+    }
     .pagina-nueva-transicion {
         animation: fadeInPage 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
@@ -359,7 +368,7 @@ elif st.session_state.paso == "evaluacion":
             with col_lbl2:
                 msg = st.session_state[key_estado_msg]
                 if msg == "error":
-                    st.markdown("<p style='color: #dc2626; font-weight: 700; font-size: 14px; background-color: #fee2e2; padding: 8px 12px; border-radius: 6px; border: 1px solid #fca5a5; margin: 0;'>❌ Respuesta incorrecta. Debe revisar nuevamente la teoría.</p>", unsafe_allow_html=True)
+                    st.markdown("<p class='alerta-desvanecer' style='color: #dc2626; font-weight: 700; font-size: 14px; background-color: #fee2e2; padding: 8px 12px; border-radius: 6px; border: 1px solid #fca5a5; margin: 0;'>❌ Respuesta incorrecta. Debe revisar nuevamente la teoría.</p>", unsafe_allow_html=True)
                 elif msg == "exito":
                     st.markdown("<p style='color: #059669; font-weight: 700; font-size: 14px; background-color: #d1fae5; padding: 8px 12px; border-radius: 6px; border: 1px solid #a7f3d0; margin: 0;'>✔ ¡Respuesta correcta! Avanzando...</p>", unsafe_allow_html=True)
 
@@ -422,7 +431,7 @@ elif st.session_state.paso == "evaluacion":
                         height=0,
                     )
                     
-                    time.sleep(0.8)
+                    time.sleep(0.7)
                     st.rerun()
                 else:
                     st.session_state[key_estado_msg] = "error"
