@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 from datetime import datetime
 from contenidos import SECCIONES
 
@@ -22,9 +23,24 @@ if "progreso_usuarios" not in st.session_state:
 if "chat_ia" not in st.session_state:
     st.session_state.chat_ia = []
 
-# Estilo corporativo elegante y formal
+# Estilos con animación de "paso de página / libro" (Page Flip effect)
 st.markdown("""
     <style>
+    @keyframes bookFlip {
+        0% {
+            opacity: 0;
+            transform: translateY(20px) scale(0.99);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+    
+    .page-container {
+        animation: bookFlip 0.4s ease-out forwards;
+    }
+    
     .main-title {
         font-size: 26px;
         font-weight: 700;
@@ -42,14 +58,14 @@ st.markdown("""
     .exam-card {
         background-color: #ffffff;
         border: 1px solid #e2e8f0;
-        padding: 25px;
+        padding: 30px;
         border-radius: 12px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
         margin-bottom: 20px;
     }
     .question-box {
         background-color: #f8fafc;
-        border-left: 4px solid #0284c7;
+        border-left: 5px solid #0284c7;
         padding: 20px;
         border-radius: 0 8px 8px 0;
         margin-top: 20px;
@@ -65,17 +81,21 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Script de JavaScript para regresar la pantalla hacia arriba automáticamente al recargar
-st.markdown("""
+# Forzar al navegador padre a subir hasta arriba mediante iframe de componentes
+components.html(
+    """
     <script>
-        window.scrollTo({top: 0, behavior: 'smooth'});
+        window.parent.scrollTo({top: 0, behavior: 'smooth'});
     </script>
-""", unsafe_allow_html=True)
+    """,
+    height=0,
+)
 
 # ---------------------------------------------------------
 # PANTALLA DE ACCESO / PORTADA OFICIAL ILEPSA
 # ---------------------------------------------------------
 if not st.session_state.iniciado:
+    st.markdown('<div class="page-container">', unsafe_allow_html=True)
     st.markdown('<div class="main-title">PROGRAMA DE FORMACIÓN INTEGRAL Y OBLIGATORIA</div>', unsafe_allow_html=True)
     st.markdown('<div class="company-subtitle">COMPAÑÍA ILEPSA</div>', unsafe_allow_html=True)
     
@@ -106,9 +126,10 @@ if not st.session_state.iniciado:
             st.rerun()
         else:
             st.error("Por favor ingrese un número de cédula válido.")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ---------------------------------------------------------
-# DESARROLLO DE LA EVALUACIÓN (EXAMEN SECCIÓN POR SECCIÓN)
+# DESARROLLO DE LA EVALUACIÓN (EFECTO PÁGINA DE LIBRO)
 # ---------------------------------------------------------
 else:
     total_secciones = len(SECCIONES)
@@ -130,6 +151,9 @@ else:
     if sec_idx < total_secciones:
         seccion = SECCIONES[sec_idx]
         
+        # Envoltorio con la clase page-container para forzar la animación de cambio de hoja
+        st.markdown(f'<div class="page-container" key="page_{sec_idx}">', unsafe_allow_html=True)
+        
         st.markdown(f"### {seccion['eje']}")
         st.markdown(f"## {seccion['titulo']}")
         
@@ -150,7 +174,7 @@ else:
         
         col_btn1, col_btn2 = st.columns([1, 4])
         with col_btn1:
-            if st.button("Continuar Sección", type="primary"):
+            if st.button("Continuar a la Siguiente Sección ➔", type="primary"):
                 if respuesta_usuario == seccion['correcta']:
                     st.success("¡Respuesta correcta registrada con éxito!")
                     st.session_state.respuestas_correctas += 1
@@ -174,11 +198,14 @@ else:
             else:
                 st.warning("Ingrese un texto para consultar.")
 
+        st.markdown('</div>', unsafe_allow_html=True)
+
     # ---------------------------------------------------------
     # PANTALLA FINAL - CERTIFICADO
     # ---------------------------------------------------------
     else:
         st.balloons()
+        st.markdown('<div class="page-container">', unsafe_allow_html=True)
         st.markdown("""
         <div class="exam-card" style="text-align: center; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);">
             <h2>CERTIFICADO OFICIAL DE APROBACIÓN</h2>
@@ -195,3 +222,4 @@ else:
             st.session_state.cedula = ""
             st.session_state.seccion_actual = 0
             st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
