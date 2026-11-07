@@ -120,11 +120,17 @@ st.markdown("""
         padding-bottom: 6px !important;
     }
     
-    /* Personalizar el botón rojo cuando la respuesta es correcta */
-    button[kind="secondaryFormSubmit"], div.stButton > button[data-baseweb="button"]:has(div:contains("Continuar")) {
+    /* Forzar color rojo intenso y diseño llamativo para el botón de continuar sección */
+    div.stButton > button:not([kind="primary"]) {
         background-color: #dc2626 !important;
         color: white !important;
-        border: none !important;
+        border: 1px solid #b91c1c !important;
+        font-weight: 700 !important;
+    }
+    div.stButton > button:not([kind="primary"]):hover {
+        background-color: #b91c1c !important;
+        color: white !important;
+        border-color: #991b1b !important;
     }
     """ + bloqueo_css + """
     </style>
@@ -269,7 +275,29 @@ elif st.session_state.paso == "instrucciones":
     </div>
     """, unsafe_allow_html=True)
     
-    if st.button("Continuar mi Capacitación ➔", type="primary", use_container_width=True):
+    if st.button("Continuar a Video Introductorio ➔", type="primary", use_container_width=True):
+        st.session_state.paso = "video_introduccion"
+        st.rerun()
+
+# =========================================================
+# FASE 3.5: VIDEO INTRODUCTORIO
+# =========================================================
+elif st.session_state.paso == "video_introduccion":
+    st.markdown(f"""
+    <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #7c3aed;">
+        <h3 style="color: #0f172a; margin-top:0;">🎬 VIDEO INTRODUCTORIO INSTITUCIONAL</h3>
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
+        <p style="font-size: 16px; color: #334155; line-height: 1.6;">
+            Por favor, mire atentamente el video introductivo sobre la normativa y directrices antes de comenzar con los módulos de lectura y cuestionarios.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Cargar el archivo de video alojado en la carpeta assets
+    st.video("assets/video_intro.mp4.mp4")
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    if st.button("Comenzar con los Módulos de Capacitación ➔", type="primary", use_container_width=True):
         st.session_state.paso = "evaluacion"
         st.rerun()
 
@@ -407,7 +435,7 @@ elif st.session_state.paso == "evaluacion":
                     st.rerun()
             with col_btn2:
                 if st.session_state[key_estado_msg] == "exito":
-                    # Botón dinámico con el número correcto de la sección (ej: Sección 1, Sección 2, etc.)
+                    # Botón rojo con el número correcto de la sección actual
                     numero_seccion_siguiente = sec_idx + 1
                     if st.button(f"Continuar Sección {numero_seccion_siguiente} de Capacitación ➔", key=f"btn_continuar_sec_{sec_idx}", use_container_width=True):
                         st.session_state[key_estado_msg] = ""
