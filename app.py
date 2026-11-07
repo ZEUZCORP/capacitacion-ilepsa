@@ -32,6 +32,8 @@ if "sub_paso" not in st.session_state:
     st.session_state.sub_paso = "teoria"
 if "respuestas_correctas" not in st.session_state:
     st.session_state.respuestas_correctas = 0
+if "video_visto" not in st.session_state:
+    st.session_state.video_visto = False
 
 COLORES_SECCION = [
     {"borde": "#0284c7", "fondo_etiqueta": "#e0f2fe", "texto_etiqueta": "#0369a1"},
@@ -181,6 +183,7 @@ if st.session_state.paso == "login":
                         st.session_state.nombre_usuario = user_data["nombres"]
                         st.session_state.seccion_actual = user_data.get("seccion_actual", 0) or 0
                         st.session_state.sub_paso = user_data.get("sub_paso", "teoria") or "teoria"
+                        st.session_state.video_visto = False
                         
                         try:
                             supabase.table("registro_tiempos").insert({
@@ -280,33 +283,31 @@ elif st.session_state.paso == "instrucciones":
         st.rerun()
 
 # =========================================================
-# FASE 3.5: VIDEO INTRODUCTORIO
+# FASE 3.5: VIDEO INTRODUCTORIO (OBLIGATORIO COMPLETO)
 # =========================================================
 elif st.session_state.paso == "video_introduccion":
     st.markdown(f"""
     <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #7c3aed;">
         <h3 style="color: #0f172a; margin-top:0;">🎬 VIDEO INTRODUCTORIO INSTITUCIONAL</h3>
         <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
-        <p style="font-size: 16px; color: #334155; line-height: 1.6;">
-            Por favor, mire atentamente el video introductivo sobre la normativa y directrices antes de comenzar con los módulos de lectura y cuestionarios.
+        <p style="font-size: 16.5px; color: #b91c1c; font-weight: 700; background-color: #fee2e2; padding: 12px; border-radius: 6px; border: 1px solid #fca5a5;">
+            ⚠️ ATENCIÓN: Para poder continuar con la capacitación, debe visualizar el video introductorio completo.
         </p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Reproducción automática con audio incrustada por HTML
-    components.html("""
-        <div style="display: flex; justify-content: center; width: 100%;">
-            <video width="100%" controls autoplay style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                <source src="app/static/assets/video_intro.mp4.mp4" type="video/mp4">
-                Tu navegador no soporta la reproducción de video.
-            </video>
-        </div>
-    """, height=400)
-    
-    st.markdown("<br>", unsafe_allow_html=True)
-    if st.button("Comenzar con los Módulos de Capacitación ➔", type="primary", use_container_width=True):
-        st.session_state.paso = "evaluacion"
-        st.rerun()
+    if not st.session_state.video_visto:
+        st.video("assets/video_intro.mp4.mp4")
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("✔ Ya terminé de ver el video completo", use_container_width=True):
+            st.session_state.video_visto = True
+            st.rerun()
+    else:
+        st.success("✔ ¡Video completado con éxito!")
+        st.markdown("<br>", unsafe_allow_html=True)
+        if st.button("Comenzar con los Módulos de Capacitación ➔", type="primary", use_container_width=True):
+            st.session_state.paso = "evaluacion"
+            st.rerun()
 
 # =========================================================
 # FASE 4: MÓDULO DE CAPACITACIÓN
