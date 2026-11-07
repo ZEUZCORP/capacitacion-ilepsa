@@ -293,8 +293,15 @@ elif st.session_state.paso == "video_introduccion":
     </div>
     """, unsafe_allow_html=True)
     
-    # Cargar el archivo de video alojado en la carpeta assets
-    st.video("assets/video_intro.mp4.mp4")
+    # Reproducción automática con audio incrustada por HTML
+    components.html("""
+        <div style="display: flex; justify-content: center; width: 100%;">
+            <video width="100%" controls autoplay style="border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <source src="app/static/assets/video_intro.mp4.mp4" type="video/mp4">
+                Tu navegador no soporta la reproducción de video.
+            </video>
+        </div>
+    """, height=400)
     
     st.markdown("<br>", unsafe_allow_html=True)
     if st.button("Comenzar con los Módulos de Capacitación ➔", type="primary", use_container_width=True):
