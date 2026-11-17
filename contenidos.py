@@ -349,4 +349,4 @@ SECCIONES = [
     ],
     "correcta": "La autoridad jurisdiccional competente a través de sentencia en el proceso judicial correspondiente"
 }
-]
+] 
