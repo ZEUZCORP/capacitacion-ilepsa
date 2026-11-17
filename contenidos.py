@@ -139,214 +139,214 @@ SECCIONES = [
         ],
         "correcta": "Mantener una actitud vigilante ante alertas, apoyar a compañeros vulnerables y reportar anomalías oportunamente"
     },
-{
-    "id": 11,
-    "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
-    "titulo": "11. El Ámbito de Aplicación del Acuerdo Ministerial MDT-2025-006",
-    "contenido": "De acuerdo con lo estipulado en la normativa ministerial vigente, las disposiciones orientadas a garantizar la igualdad salarial y la erradicación de prácticas discriminatorias poseen un carácter de cumplimiento estrictamente obligatorio[cite: 4]. Este marco normativo no distingue sectores económicos preferenciales, abarcando de manera directa tanto al sector privado como a las instituciones, entidades y organismos que conforman el sector público ecuatoriano[cite: 4].<br><br>Dentro de este amplio espectro se encuentran también incorporados los gobiernos autónomos descentralizados, las empresas públicas y todas aquellas entidades que se enmarcan dentro de la institucionalidad estatal descrita en la normativa superior[cite: 4]. La universalidad de esta aplicación busca asegurar que ningún espacio laboral quede exento de los estándares de equidad, transparencia y respeto a los derechos consagrados en la ley[cite: 4].<br><br>Para los empleadores y directivos, esta cobertura general implica asumir una responsabilidad ineludible en la adecuación de sus reglamentos internos y en la ejecución puntual de las directrices ministeriales[cite: 4]. La estricta observancia de estas directrices protege a la organización frente a contingencias legales y consolida una cultura institucional alineada con las exigencias del Estado en materia de derechos laborales[cite: 4].<br><br>Conocer el alcance exacto de la normativa permite a los colaboradores comprender que sus derechos están amparados bajo un mismo estándar de protección jurídica, sin importar si prestan sus servicios en una empresa privada o en una entidad de carácter público[cite: 4]. Esta homogeneidad refuerza la seguridad jurídica y la justicia social en todo el territorio nacional[cite: 4].",
-    "pregunta": "¿Qué sectores abarca de manera obligatoria la aplicación del Acuerdo Ministerial MDT-2025-006 según su normativa?",
-    "opciones": [
-        "Únicamente a las empresas privadas que superen un número determinado de trabajadores comerciales",
-        "Tanto al sector privado como a las instituciones del sector público, gobiernos autónomos y empresas públicas",
-        "Exclusivamente a los ministerios de Estado y entidades bajo relación de dependencia directa del Ejecutivo",
-        "A las organizaciones autónomas que deseen certificarse de forma voluntaria sin supervisión estatal"
-    ],
-    "correcta": "Tanto al sector privado como a las instituciones del sector público, gobiernos autónomos y empresas públicas"
-},
-{
-    "id": 12,
-    "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
-    "titulo": "12. Los Cuatro Pilares Fundamentales de la Capacitación Virtual",
-    "contenido": "El artículo 3 del Acuerdo Ministerial establece de manera específica que los procesos de formación continua deben estructurarse sobre cuatro ejes temáticos esenciales para garantizar su efectividad[cite: 4]. El primero de estos pilares aborda de forma directa los derechos laborales que corresponden tanto a mujeres como a hombres dentro de cualquier relación de trabajo[cite: 4].<br><br>Como segundo pilar fundamental se encuentra la promoción activa de la igualdad de género, buscando eliminar cualquier brecha histórica o trato diferenciado injustificado[cite: 4]. El tercer pilar exige la inclusión de contenidos orientados a la erradicación de la violencia y toda forma de discriminación dentro de la empresa o centro de trabajo[cite: 4].<br><br>Finalmente, el cuarto pilar comprende aquellos temas complementarios e indispensables orientados a establecer y consolidar el principio de trabajo de igual valor[cite: 4]. Estos cuatro pilares constituyen la base sobre la cual se diseña toda la malla curricular de capacitación exigida por las autoridades laborales del país[cite: 4].<br><br>La integración armónica de estos contenidos en los programas virtuales asegura que los participantes obtengan una visión integral y práctica de sus responsabilidades y derechos[cite: 4]. Con ello se cumple el propósito superior de transformar positivamente las dinámicas cotidianas en cada espacio de labor institucional[cite: 4].",
-    "pregunta": "Según lo dispuesto en el artículo 3 del Acuerdo Ministerial, ¿cuál de las siguientes temáticas forma parte de los cuatro pilares obligatorios?",
-    "opciones": [
-        "Estrategias avanzadas de marketing digital y posicionamiento comercial corporativo",
-        "La erradicación de la violencia y no discriminación en una empresa o centro de trabajo",
-        "Protocolos técnicos para el mantenimiento preventivo de maquinaria pesada industrial",
-        "Metodologías financieras para la reducción de costos operativos en el sector privado"
-    ],
-    "correcta": "La erradicación de la violencia y no discriminación en una empresa o centro de trabajo"
-},
-{
-    "id": 13,
-    "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
-    "titulo": "13. Participación Obligatoria del Directorio y Representantes Legales",
-    "contenido": "Una de las disposiciones más relevantes contenidas en la normativa ministerial radica en la exigencia de que los procesos formativos no se limiten exclusivamente al personal operativo o administrativo de base[cite: 4]. El artículo 3 del cuerpo legal determina la obligatoriedad de que en estas capacitaciones participen también el directorio, el representante legal y las máximas autoridades de la organización[cite: 4].<br><br>Esta inclusión de la alta dirección en los programas de capacitación refuerza el principio de liderazgo con el ejemplo y demuestra un compromiso real desde las esferas de toma de decisiones[cite: 4]. Ningún directivo o empleador se encuentra exento de cumplir con estas directrices, debiendo integrarse a los cursos o delegar su participación conforme lo estipule el sector correspondiente[cite: 4].<br><br>La presencia activa de los directivos en los módulos formativos permite alinear la visión estratégica de la empresa con el cumplimiento normativo vigente, evitando la desconexión entre las políticas gerenciales y la realidad operativa[cite: 4]. Asimismo, transmite un mensaje claro a todo el personal sobre la importancia institucional que se otorga a la equidad y al respeto de los derechos[cite: 4].<br><br>De este modo, la capacitación deja de ser una mera formalidad burocrática para convertirse en un espacio de alineación corporativa transversal[cite: 4]. El involucramiento directivo garantiza que las políticas de prevención y no discriminación sean impulsadas y respaldadas desde la cúspide de la estructura organizacional[cite: 4].",
-    "pregunta": "¿Qué actores de la organización tienen la obligación de participar en los procesos de capacitación según el artículo 3 del acuerdo?",
-    "opciones": [
-        "Exclusivamente los trabajadores contratados bajo la modalidad de prueba o tiempo parcial",
-        "El directorio, el representante legal, la máxima autoridad o sus delegados según corresponda",
-        "Solamente el personal operativo que labora en turnos rotativos dentro de las plantas",
-        "Los auditores externos contratados de manera temporal para la revisión contable anual"
-    ],
-    "correcta": "El directorio, el representante legal, la máxima autoridad o sus delegados según corresponda"
-},
-{
-    "id": 14,
-    "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
-    "titulo": "14. Requisito de Duración Mínima Anual de las Capacitaciones",
-    "contenido": "Para garantizar que el proceso de formación y concientización tenga un impacto real en la cultura organizacional, la normativa establece un parámetro temporal claro e improrrogable[cite: 4]. Los empleadores y máximas autoridades deben asegurar que los programas de capacitación alcancen una duración mínima de cuarenta (40) horas anuales[cite: 4].<br><br>Este tiempo de formación puede ejecutarse mediante modalidades virtuales, presenciales o a través de esquemas mixtos que se adapten de mejor manera a las necesidades operativas de la institución[cite: 4]. Lo fundamental es que el acumulado de horas invertidas en el desarrollo de los cuatro pilares normativos cumpla cabalmente con el mínimo exigido por la autoridad ministerial[cite: 4].<br><br>Planificar adecuadamente este volumen de horas a lo largo del periodo anual previene inconvenientes administrativos y asegura que la asimilación de conocimientos por parte del personal sea progresiva y efectiva[cite: 4]. Las unidades de Talento Humano juegan un papel estratégico en el diseño de cronogramas que no afecten la productividad pero garanticen la asistencia de todos los colaboradores[cite: 4].<br><br>El cumplimiento riguroso de esta exigencia horaria es indispensable para acceder posteriormente a los procesos de certificación oficial de cumplimiento de obligaciones[cite: 5]. Por ello, mantener un registro detallado y auditable de la participación del personal constituye una tarea prioritaria para la gestión administrativa de la empresa[cite: 5].",
-    "pregunta": "¿Cuál es la duración mínima anual que deben cumplir los procesos de capacitación exigidos por el Ministerio del Trabajo?",
-    "opciones": [
-        "Una duración mínima de cuarenta (40) horas anuales bajo modalidad virtual, presencial o mixta",
-        "Exactamente diez horas semestrales impartidas de forma exclusiva en las instalaciones públicas",
-        "Un total de ochenta horas divididas en tres periodos trimestrales obligatorios",
-        "Veinte horas mensuales computadas dentro de la jornada ordinaria de labores operativas"
-    ],
-    "correcta": "Una duración mínima de cuarenta (40) horas anuales bajo modalidad virtual, presencial o mixta"
-},
-{
-    "id": 15,
-    "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
-    "titulo": "15. Acciones Complementarias de Sensibilización Institucional",
-    "contenido": "Además de los programas formales de capacitación, la normativa establece que las organizaciones deben desarrollar acciones específicas orientadas a fomentar la sensibilización institucional[cite: 5]. Estas actividades buscan evidenciar de manera práctica el valor de los diversos tipos de trabajo desde una perspectiva profunda de igualdad de género y no discriminación[cite: 5].<br><br>La sensibilización trasciende la simple transmisión teórica de conceptos jurídicos, apelando a la empatía, la reflexión crítica y la construcción de un tejido social interno sólido dentro de la compañía[cite: 5]. Estas acciones deben estar dirigidas de manera equitativa a todos los trabajadores y servidores públicos que integran la estructura organizacional[cite: 5].<br><br>Implementar campañas de comunicación interna, conversatorios guiados y espacios de diálogo constructivo complementa de forma perfecta las horas de formación virtual obligatoria[cite: 5]. De este modo se logra que los valores de respeto a la dignidad humana formen parte de la identidad corporativa cotidiana y no solo de un requisito documental[cite: 5].<br><br>La coordinación de estas iniciativas recae conjuntamente sobre los empleadores, las máximas autoridades y las respectivas unidades de Talento Humano[cite: 5]. Garantizar la ejecución de estas acciones es un paso clave para demostrar ante las autoridades ministeriales el compromiso genuino de la entidad con la equidad laboral[cite: 5].",
-    "pregunta": "Además de la capacitación, ¿qué obligación complementaria deben ejecutar los empleadores según el artículo 4 del acuerdo?",
-    "opciones": [
-        "Realizar acciones que evidencien la sensibilización sobre el valor de los trabajos con perspectiva de igualdad de género",
-        "Establecer incentivos económicos mensuales basados estrictamente en la antigüedad de los colaboradores",
-        "Contratar auditores externos internacionales para evaluar el rendimiento comercial de la empresa",
-        "Modificar los estatutos societarios ante el Registro Mercantil de forma trimestral obligatoria"
-    ],
-    "correcta": "Realizar acciones que evidencien la sensibilización sobre el valor de los trabajos con perspectiva de igualdad de género"
-},
-{
-    "id": 16,
-    "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
-    "titulo": "16. El Reporte Anual de Acciones ante el Ministerio del Trabajo",
-    "contenido": "El cumplimiento de las obligaciones en materia de capacitación y sensibilización no solo debe ejecutarse internamente, sino que requiere de un proceso formal de rendición de cuentas ante la autoridad rectora[cite: 5]. El artículo 5 del Acuerdo Ministerial estipula que los empleadores y las instituciones del Estado tienen la obligación de reportar todas las acciones ejecutadas durante el periodo anterior[cite: 5].<br><br>Este proceso de reporte se efectúa de manera anual durante el mes de enero, utilizando para el efecto el módulo o sistema informático que el Ministerio del Trabajo implemente para dicha finalidad[cite: 5]. La plataforma digital centraliza la información y facilita el control del cumplimiento normativo a escala nacional[cite: 5].<br><br>Es de suma importancia destacar que la autenticidad, exactitud y veracidad de la información reportada en el sistema recae bajo la exclusiva responsabilidad de los empleadores del sector privado y de las máximas autoridades públicas[cite: 5]. Cualquier inconsistencia o falsedad en los datos ingresados puede acarrear drásticas consecuencias legales y administrativas[cite: 5].<br><br>Prever con anticipación la recopilación de certificados, listados de asistencia y evidencias de las actividades realizadas garantiza que el proceso de reporte en el mes de enero se realice sin contratiempos[cite: 5]. Esto demuestra orden institucional y apego estricto a las disposiciones emitidas por el Ministerio del Trabajo[cite: 5].",
-    "pregunta": "¿En qué periodo del año se debe realizar obligatoriamente el reporte de las acciones de capacitación ante el sistema del Ministerio?",
-    "opciones": [
-        "En el mes de enero de cada año, utilizando el sistema informático implementado por el Ministerio",
-        "Durante los primeros cinco días hábiles posteriores a la conclusión de cada trimestre operativo",
-        "Exclusivamente cuando la institución sea notificada de una auditoría laboral sorpresiva",
-        "Al finalizar el ejercicio fiscal en el mes de diciembre de manera presencial en las notarías"
-    ],
-    "correcta": "En el mes de enero de cada año, utilizando el sistema informático implementado por el Ministerio"
-},
-{
-    "id": 17,
-    "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
-    "titulo": "17. Sanciones Aplicables ante el Incumplimiento Normativo",
-    "contenido": "El marco legal es enfático al establecer que las disposiciones relativas a la capacitación continua, las acciones de sensibilización y el reporte periódico no constituyen recomendaciones opcionales[cite: 5]. El artículo 6 del Acuerdo Ministerial determina con claridad que el incumplimiento de estas obligaciones acarreará la imposición de sanciones severas[cite: 5].<br><br>Los empleadores del sector privado y las máximas autoridades de las instituciones y empresas públicas que omitan la ejecución de estos programas o fallen en su reporte oportuno serán sancionados conforme a lo previsto en la normativa legal vigente[cite: 5]. Estas medidas punitivas buscan disuadir la negligencia y proteger los derechos fundamentales de los trabajadores[cite: 5].<br><br>El régimen de sanciones puede incluir multas pecuniarias y la imposibilidad de acceder a certificaciones o beneficios otorgados por el Estado, afectando la reputación institucional de la organización[cite: 5]. Por esta razón, la supervisión interna constante es la mejor herramienta preventiva para evitar riesgos legales innecesarios[cite: 5].<br><br>Garantizar que cada colaborador complete sus horas de formación y que la empresa mantenga sus registros al día es una responsabilidad directiva ineludible[cite: 5]. La observancia estricta de la norma asegura una convivencia armónica y previene cualquier conflicto administrativo con las autoridades de control[cite: 5].",
-    "pregunta": "¿Qué consecuencias legales enfrentan los empleadores en caso de incumplir con las obligaciones de capacitación y reporte?",
-    "opciones": [
-        "Serán sancionados conforme a lo previsto en la normativa legal vigente aplicable a la infracción",
-        "Recibirán una advertencia verbal sin consecuencias administrativas ni económicas posteriores",
-        "Tendrán un plazo extraordinario de cinco años para compensar las horas no dictadas",
-        "Quedarán exentos de cumplir con las normativas laborales durante los periodos fiscales siguientes"
-    ],
-    "correcta": "Serán sancionados conforme a lo previsto en la normativa legal vigente aplicable a la infracción"
-},
-{
-    "id": 18,
-    "eje": "Módulo III: Certificación y Mecanismos de Control",
-    "titulo": "18. Requisitos para la Obtención de la Certificación de Cumplimiento",
-    "contenido": "El sistema normativo implementado por el Ministerio del Trabajo contempla un mecanismo de reconocimiento e incentivo para aquellas organizaciones que demuestran un apego ejemplar a la ley[cite: 5]. Para acceder a la certificación de cumplimiento de obligaciones orientadas a alcanzar la igualdad salarial, las entidades deben cumplir rigurosamente con los parámetros establecidos en los artículos precedentes[cite: 5].<br><br>El proceso de obtención se inicia mediante una solicitud formal de postulación presentada por la organización[cite: 5]. Dicho documento debe contener como datos mínimos la razón social, el número de Registro Único de Contribuyentes, la ubicación geográfica por provincia y cantón, y una exposición sucinta de las acciones ejecutadas[cite: 5].<br><br>Asimismo, es un requisito indispensable adjuntar todos los documentos probatorios que demuestren de manera fehaciente la ejecución efectiva de los programas de capacitación, las actividades de sensibilización y el reporte anual oportuno[cite: 5]. La transparencia en la presentación de estos respaldos es vital para agilizar el análisis técnico de la autoridad[cite: 5].<br><br>Adicionalmente, los postulantes tienen la facultad de presentar cualquier otra documentación o información complementaria que evidencie la aplicación sólida de políticas internas de igualdad de trato y oportunidades[cite: 5]. Esto enriquece el expediente y consolida el perfil ejemplar de la institución ante los evaluadores ministeriales[cite: 5].",
-    "pregunta": "¿Qué información mínima debe contener la solicitud de postulación para acceder a la certificación de cumplimiento?",
-    "opciones": [
-        "Razón social, número de RUC, ubicación, exposición sucinta de acciones y firma del representante legal",
-        "El balance financiero auditado de los últimos cinco años y el detalle de cuentas bancarias",
-        "La lista completa de proveedores comerciales y los contratos de arrendamiento de las oficinas",
-        "Una proyección detallada de las ventas estimadas para el siguiente ejercicio fiscal corporativo"
-    ],
-    "correcta": "Razón social, número de RUC, ubicación, exposición sucinta de acciones y firma del representante legal"
-},
-{
-    "id": 19,
-    "eje": "Módulo III: Certificación y Mecanismos de Control",
-    "titulo": "19. El Procedimiento de Análisis y Emisión del Informe Técnico",
-    "contenido": "Una vez presentada la solicitud de postulación de manera física ante las Direcciones Regionales del Trabajo y Servicio Público correspondientes al domicilio de la entidad, se activa el procedimiento formal de verificación[cite: 5]. Las dependencias ministeriales inician de inmediato el análisis minucioso de la información y los documentos proporcionados[cite: 5].<br><br>Este proceso de revisión y evaluación técnica debe concluir con la emisión de un informe debidamente sustentado que determine la aprobación o la negativa para el otorgamiento de la certificación solicitada[cite: 5]. Dicho informe técnico constituye el dictamen fundamental y debe emitirse en un término no mayor a diez (10) días contados desde la fecha de presentación de la postulación[cite: 6].<br><br>En el evento de que el análisis detecte la ausencia o el incumplimiento de alguno de los requisitos exigidos, la autoridad otorgará a la organización un término perentorio de diez (10) días para proceder a su subsanación[cite: 6]. Si la entidad no corrige las observaciones en el plazo señalado, el trámite se archivará, sin perjuicio de que pueda presentar una nueva postulación en el futuro[cite: 6].<br><br>Por el contrario, si el informe ratifica el cumplimiento total de los requisitos, la autoridad regional procederá a emitir el certificado oficial correspondiente[cite: 6]. Este documento acreditativo valida el compromiso institucional con la igualdad salarial y es remitido en paralelo al área de comunicación para su difusión pública[cite: 6].",
-    "pregunta": "¿En qué término máximo se debe emitir el informe técnico que aprueba o niega la certificación de cumplimiento según la norma?",
-    "opciones": [
-        "En un término no mayor a diez (10) días contados desde la fecha de presentación de la postulación",
-        "Exactamente cuarenta y cinco días hábiles tras la inspección física de las instalaciones",
-        "Dentro de las veinticuatro horas posteriores al ingreso del trámite en la ventanilla única",
-        "En un plazo improrrogable de sesenta días calendario contados desde el cierre del año fiscal"
-    ],
-    "correcta": "En un término no mayor a diez (10) días contados desde la fecha de presentación de la postulación"
-},
-{
-    "id": 20,
-    "eje": "Módulo III: Certificación y Mecanismos de Control",
-    "titulo": "20. Plazos Generales y Publicación de la Certificación Oficial",
-    "contenido": "El proceso completo orientado a la obtención de la certificación de cumplimiento de obligaciones en materia de igualdad salarial se encuentra estrictamente acotado en el tiempo[cite: 6]. La normativa dispone que el trámite total no debe exceder un término máximo de treinta (30) días, contados desde la fecha de su presentación formal, siempre que los requisitos estén completos[cite: 6].<br><br>En los casos donde la autoridad requiera que el postulante complete o subsane información faltante, el cómputo de este término de treinta días iniciará a partir de la fecha en que se verifique el cumplimiento efectivo de dicha subsanación[cite: 6]. Esta precisión garantiza seguridad jurídica y predictibilidad en los tiempos de respuesta institucional[cite: 6].<br><br>Una vez emitido el certificado de cumplimiento, el Ministerio del Trabajo a través de la Dirección de Comunicación Social procede a publicar la lista oficial de las empresas e instituciones que han obtenido esta distinción[cite: 6]. Esta publicación se realiza en los medios oficiales de la cartera de Estado[cite: 6].<br><br>Dicha publicación cumple el doble propósito de constituir un reconocimiento público al esfuerzo institucional y servir como un incentivo reputacional que destaca el compromiso corporativo con la igualdad de género y la justicia social en el país[cite: 6].",
-    "pregunta": "¿Cuál es el término máximo total establecido para que concluya el proceso de certificación, siempre que se cumplan los requisitos?",
-    "opciones": [
-        "Un término que não debe exceder de treinta (30) días contados desde la fecha de presentación de la postulación",
-        "Un plazo fijo de seis meses renovables de manera automática por disposición ministerial",
-        "Exactamente noventa días calendario sin posibilidad de prórroga bajo ninguna circunstancia",
-        "Un periodo de un año completo sujeto a auditorías trimestrales presenciales obligatorias"
-    ],
-    "correcta": "Un término que no debe exceder de treinta (30) días contados desde la fecha de presentación de la postulación"
-},
-{
-    "id": 21,
-    "eje": "Módulo IV: Denuncias y Procedimientos Específicos",
-    "titulo": "21. Procedimiento de Denuncia por Discriminación Salarial en el Sector Público",
-    "contenido": "El marco normativo establece vías claras y expeditas para que los servidores públicos que consideren ser víctimas de discriminación salarial puedan ejercer su derecho a la defensa[cite: 6]. El afectado puede presentar su reclamo formal ante la Unidad de Administración del Talento Humano (UATH) o la unidad que haga sus veces dentro de la respectiva institución pública[cite: 6].<br><br>Para que la denuncia sea admitida a trámite, debe cumplir con requisitos formales esenciales tales como los datos de identificación completa del servidor, la narración pormenorizada de los hechos que fundamentan la pretensión, los fundamentos de derecho expuestos con claridad y la respectiva firma manual o electrónica[cite: 6]. Además, se deben adjuntar todos los medios de prueba pertinentes[cite: 6].<br><br>Una vez recibida la denuncia, la UATH procede a examinar el cumplimiento de los requisitos exigidos[cite: 7]. Si se detectan deficiencias formales, se otorga un término de tres (3) días para que el denunciante proceda a completarlas o aclararlas, advirtiendo que la falta de respuesta acarreará el archivo definitivo del expediente[cite: 7].<br><br>Este mecanismo interno busca solucionar las controversias de manera directa y transparente dentro de la propia administración, garantizando el respeto a los derechos laborales y fomentando un clima de equidad y justicia en el servicio público[cite: 7].",
-    "pregunta": "¿Qué instancia institucional es la competente para conocer y tramitar inicialmente las denuncias por discriminación salarial en el sector público?",
-    "opciones": [
-        "La Unidad de Administración del Talento Humano (UATH) o la unidad que haga sus veces en la entidad",
-        "El Ministerio de Finanzas a través de su dirección de control presupuestario general",
-        "La Procuraduría General del Estado mediante sus delegaciones regionales provinciales",
-        "El Tribunal Contencioso Administrativo en única instancia jurisdiccional ordinaria"
-    ],
-    "correcta": "La Unidad de Administración del Talento Humano (UATH) o la unidad que haga sus veces en la entidad"
-},
-{
-    "id": 22,
-    "eje": "Módulo IV: Denuncias y Procedimientos Específicos",
-    "titulo": "22. Trámite, Diálogo e Informe Técnico en el Sector Público",
-    "contenido": "Una vez verificado el cumplimiento de los requisitos formales de la denuncia en el sector público, la UATH institucional tiene la obligación de convocar a las partes involucradas a un espacio de diálogo formal[cite: 7]. Esta diligencia debe realizarse en el término de hasta tres (3) días contados desde la aceptación del trámite[cite: 7].<br><br>En dicho espacio de diálogo participan de manera directa el responsable de la UATH, la máxima autoridad de la institución o su delegado, y el servidor denunciante[cite: 7]. De todo lo tratado y acordado en esta diligencia se deja constancia escrita mediante la suscripción del acta respectiva[cite: 7].<br><br>Con todos los elementos de juicio recabados durante el proceso y la audiencia de diálogo, la UATH debe emitir un informe técnico imperativo que determine la existencia o inexistencia de discriminación salarial[cite: 7]. Si el informe confirma la vulneración, la unidad sugerirá a la máxima autoridad las acciones correctivas aplicables[cite: 7].<br><br>El proceso integral de atención por parte de la UATH no debe exceder el término de quince (15) días desde la presentación de la denuncia[cite: 7]. La falta de atención oportuna por parte de los funcionarios encargados da lugar al inicio de procesos disciplinarios conforme a la ley[cite: 7].",
-    "pregunta": "¿Qué acción obligatoria debe realizar la UATH en el término de hasta tres días tras admitir una denuncia que cumple los requisitos?",
-    "opciones": [
-        "Convocar al servidor denunciante y a las autoridades a un espacio de diálogo formal con su respectiva acta",
-        "Remitir el expediente completo al Ministerio del Trabajo para la destitución inmediata del jefe",
-        "Suspender el pago de la remuneración del área involucrada hasta esclarecer los hechos",
-        "Publicar el nombre del denunciado en los boletines oficiales de prensa institucional"
-    ],
-    "correcta": "Convocar al servidor denunciante y a las autoridades a un espacio de diálogo formal con su respectiva acta"
-},
-{
-    "id": 23,
-    "eje": "Módulo IV: Denuncias y Procedimientos Específicos",
-    "titulo": "23. Denuncia por Discriminación Salarial en el Sector Privado",
-    "contenido": "Para los trabajadores que presten sus servicios bajo el régimen del sector privado y sospechen fundadamente ser víctimas de discriminación salarial, la normativa ha previsto un canal administrativo especializado[cite: 7]. El reclamo debe ser interpuesto de manera directa ante el Inspector del Trabajo correspondiente al domicilio del trabajador, quien ostenta la competencia para conocer y tramitar la causa[cite: 7].<br><br>La denuncia presentada ante esta autoridad debe observar requisitos formales rigurosos, tales como la designación de la autoridad, la información personal completa del accionante, la dirección domiciliaria y casillero judicial en caso de contar con abogado patrocinador[cite: 8]. Asimismo, debe señalarse con precisión el lugar donde se notificará al empleador[cite: 8].<br><br>El escrito inicial debe contener una narración detallada y pormenorizada de los hechos, la invocación clara de los fundamentos de derecho, la presentación de los medios de prueba conforme al Código Orgánico General de Procesos (COGEP) y una pretensión sumamente precisa[cite: 8]. La firma del trabajador, ya sea manual o electrónica, es un requisito insustituible[cite: 8].<br><br>Este procedimiento administrativo ante la Inspectoría del Trabajo busca garantizar una tutela efectiva de los derechos remunerativos, permitiendo la búsqueda de soluciones conciliatorias antes de escalar la controversia hacia los tribunales judiciales ordinarios[cite: 8].",
-    "pregunta": "¿Ante qué autoridad del trabajo debe interponer su denuncia un trabajador del sector privado que presuma discriminación salarial?",
-    "opciones": [
-        "Ante el Inspector del Trabajo competente según el domicilio del trabajador denunciante",
-        "Ante el representante legal de la compañía mediante una carta notariada de reclamo",
-        "Directamente ante el Presidente de la República en el Palacio de Gobierno",
-        "Ante la Superintendencia de Compañías en la unidad de resolución de conflictos mercantiles"
-    ],
-    "correcta": "Ante el Inspector del Trabajo competente según el domicilio del trabajador denunciante"
-},
-{
-    "id": 24,
-    "eje": "Módulo IV: Denuncias y Procedimientos Específicos",
-    "titulo": "24. El Procedimiento ante el Inspector del Trabajo y la Audiencia",
-    "contenido": "Una vez receptada la denuncia en el sector privado mediante sorteo, el Inspector del Trabajo competente avoca conocimiento y verifica el cumplimiento de los requisitos legales[cite: 8]. Si se advierten omisiones, se otorga al accionante el término de dos (2) días para completar o aclarar la solicitud, bajo prevención de archivo en caso de incumplimiento[cite: 8].<br><br>Si la denuncia es calificada favorablemente, se procede a notificar al empleador en el término de un (1) día, otorgándole a su vez el término de dos (2) días para que conteste de manera expresa los fundamentos y pretensiones del reclamo[cite: 8]. Precluido este término, el Inspector convocará a las partes a una audiencia obligatoria dentro de los tres (3) días siguientes[cite: 8].<br><br>Al iniciar dicha audiencia, la autoridad laboral tiene el deber primordial de procurar una conciliación directa entre las partes[cite: 8]. De alcanzarse un entendimiento, se suscribe un acta con los compromisos acordados, los cuales son de obligatorio cumplimiento bajo prevenciones legales en caso de incumplimiento[cite: 8].<br><br>De no lograrse un acuerdo conciliatorio, la audiencia continúa con la recepción de pruebas y versiones de los informantes, levantando un acta detallada de todas las actuaciones[cite: 8]. No obstante, el trabajador conserva expedita la vía judicial para reclamar la reparación integral y el pago retroactivo de sus remuneraciones[cite: 8].",
-    "pregunta": "¿Qué actuación debe realizar primordialmente el Inspector del Trabajo al iniciar la audiencia con las partes interesadas?",
-    "opciones": [
-        "Procurar una conciliación entre las partes para levantar un acta con los compromisos acordados",
-        "Dictar sentencia condenatoria inmediata contra el empleador sin escuchar sus argumentos",
-        "Archivar el proceso de manera definitiva si el empleador se presenta sin abogado",
-        "Ordenar la suspensión de las actividades comerciales de la empresa por un mes"
-    ],
-    "correcta": "Procurar una conciliación entre las partes para levantar un acta con los compromisos acordados"
-},
-{
-    "id": 25,
-    "eje": "Módulo IV: Denuncias y Procedimientos Específicos",
-    "titulo": "25. Conclusión y Vía Judicial en la Restitución Salarial",
-    "contenido": "El proceso administrativo de denuncia por discriminación salarial ante el Inspector del Trabajo constituye una vía de protección oportuna, cuyo trámite integral no debe exceder el término de quince (15) días desde su presentación formal[cite: 9]. Sin embargo, la normativa aclara que el trabajador puede acudir directamente a la vía judicial sin que la vía administrativa sea un requisito previo obligatorio[cite: 8].<br><br>Corresponde exclusivamente a la autoridad jurisdiccional competente, mediante sentencia motivada, determinar la existencia de vulneración de derechos en el ámbito salarial[cite: 8]. Dicha autoridad judicial tiene la potestad legal de ordenar el pago retroactivo de las diferencias remunerativas y fijar una nueva remuneración ajustada a los criterios de trabajo de igual valor[cite: 9].<br><br>Asimismo, en el ámbito institucional se prevé la conformación de mesas sectoriales a cargo de la Subsecretaría de Empleo y Salarios para coordinar acciones interinstitucionales que fortalezcan la aplicación de la ley[cite: 9]. Estas mesas integran esfuerzos públicos y privados para erradicar las brechas salariales de manera estructural[cite: 9].<br><br>Con la conclusión de este módulo formativo, se consolidan los conocimientos normativos indispensables para identificar, prevenir y reportar cualquier práctica discriminatoria, reafirmando el compromiso colectivo con la justicia laboral, la equidad de género y el respeto irrestricto a la dignidad humana en nuestra organización[cite: 9].",
-    "pregunta": "¿Qué autoridad es la competente para ordenar mediante sentencia el pago retroactivo y la fijación de una nueva remuneración justa?",
-    "opciones": [
-        "La autoridad jurisdiccional competente a través de sentencia en el proceso judicial correspondiente",
-        "El Inspector del Trabajo al concluir la primera fase de la audiencia de conciliación",
-        "La unidad de Talento Humano mediante resolución administrativa interna inapelable",
-        "El Ministerio de Finanzas en coordinación con la Contraloría General del Estado"
-    ],
-    "correcta": "La autoridad jurisdiccional competente a través de sentencia en el proceso judicial correspondiente"
-}
-] 
+    {
+        "id": 11,
+        "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
+        "titulo": "11. El Ámbito de Aplicación del Acuerdo Ministerial MDT-2025-006",
+        "contenido": "De acuerdo con lo estipulado en la normativa ministerial vigente, las disposiciones orientadas a garantizar la igualdad salarial y la erradicación de prácticas discriminatorias poseen un carácter de cumplimiento estrictamente obligatorio. Este marco normativo no distingue sectores económicos preferenciales, abarcando de manera directa tanto al sector privado como a las instituciones, entidades y organismos que conforman el sector público ecuatoriano.<br><br>Dentro de este amplio espectro se encuentran también incorporados los gobiernos autónomos descentralizados, las empresas públicas y todas aquellas entidades que se enmarcan dentro de la institucionalidad estatal descrita en la normativa superior. La universalidad de esta aplicación busca asegurar que ningún espacio laboral quede exento de los estándares de equidad, transparencia y respeto a los derechos consagrados en la ley.<br><br>Para los empleadores y directivos, esta cobertura general implica asumir una responsabilidad ineludible en la adecuación de sus reglamentos internos y en la ejecución puntual de las directrices ministeriales. La estricta observancia de estas directrices protege a la organización frente a contingencias legales y consolida una cultura institucional alineada con las exigencias del Estado en materia de derechos laborales.<br><br>Conocer el alcance exacto de la normativa permite a los colaboradores comprender que sus derechos están amparados bajo un mismo estándar de protección jurídica, sin importar si prestan sus servicios en una empresa privada o en una entidad de carácter público. Esta homogeneidad refuerza la seguridad jurídica y la justicia social en todo el territorio nacional.",
+        "pregunta": "¿Qué sectores abarca de manera obligatoria la aplicación del Acuerdo Ministerial MDT-2025-006 según su normativa?",
+        "opciones": [
+            "Únicamente a las empresas privadas que superen un número determinado de trabajadores comerciales",
+            "Tanto al sector privado como a las instituciones del sector público, gobiernos autónomos y empresas públicas",
+            "Exclusivamente a los ministerios de Estado y entidades bajo relación de dependencia directa del Ejecutivo",
+            "A las organizaciones autónomas que deseen certificarse de forma voluntaria sin supervisión estatal"
+        ],
+        "correcta": "Tanto al sector privado como a las instituciones del sector público, gobiernos autónomos y empresas públicas"
+    },
+    {
+        "id": 12,
+        "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
+        "titulo": "12. Los Cuatro Pilares Fundamentales de la Capacitación Virtual",
+        "contenido": "El artículo 3 del Acuerdo Ministerial establece de manera específica que los procesos de formación continua deben estructurarse sobre cuatro ejes temáticos esenciales para garantizar su efectividad. El primero de estos pilares aborda de forma directa los derechos laborales que corresponden tanto a mujeres como a hombres dentro de cualquier relación de trabajo.<br><br>Como segundo pilar fundamental se encuentra la promoción activa de la igualdad de género, buscando eliminar cualquier brecha histórica o trato diferenciado injustificado. El tercer pilar exige la inclusión de contenidos orientados a la erradicación de la violencia y toda forma de discriminación dentro de la empresa o centro de trabajo.<br><br>Finalmente, el cuarto pilar comprende aquellos temas complementarios e indispensables orientados a establecer y consolidar el principio de trabajo de igual valor. Estos cuatro pilares constituyen la base sobre la cual se diseña toda la malla curricular de capacitación exigida por las autoridades laborales del país.<br><br>La integración armónica de estos contenidos en los programas virtuales asegura que los participantes obtengan una visión integral y práctica de sus responsabilidades y derechos. Con ello se cumple el propósito superior de transformar positivamente las dinámicas cotidianas en cada espacio de labor institucional.",
+        "pregunta": "Según lo dispuesto en el artículo 3 del Acuerdo Ministerial, ¿cuál de las siguientes temáticas forma parte de los cuatro pilares obligatorios?",
+        "opciones": [
+            "Estrategias avanzadas de marketing digital y posicionamiento comercial corporativo",
+            "La erradicación de la violencia y no discriminación en una empresa o centro de trabajo",
+            "Protocolos técnicos para el mantenimiento preventivo de maquinaria pesada industrial",
+            "Metodologías financieras para la reducción de costos operativos en el sector privado"
+        ],
+        "correcta": "La erradicación de la violencia y no discriminación en una empresa o centro de trabajo"
+    },
+    {
+        "id": 13,
+        "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
+        "titulo": "13. Participación Obligatoria del Directorio y Representantes Legales",
+        "contenido": "Una de las disposiciones más relevantes contenidas en la normativa ministerial radica en la exigencia de que los procesos formativos no se limiten exclusivamente al personal operativo o administrativo de base. El artículo 3 del cuerpo legal determina la obligatoriedad de que en estas capacitaciones participen también el directorio, el representante legal y las máximas autoridades de la organización.<br><br>Esta inclusión de la alta dirección en los programas de capacitación refuerza el principio de liderazgo con el ejemplo y demuestra un compromiso real desde las esferas de toma de decisiones. Ningún directivo o empleador se encuentra exento de cumplir con estas directrices, debiendo integrarse a los cursos o delegar su participación conforme lo estipule el sector correspondiente.<br><br>La presencia activa de los directivos en los módulos formativos permite alinear la visión estratégica de la empresa con el cumplimiento normativo vigente, evitando la desconexión entre las políticas gerenciales y la realidad operativa. Asimismo, transmite un mensaje claro a todo el personal sobre la importancia institucional que se otorga a la equidad y al respeto de los derechos.<br><br>De este modo, la capacitación deja de ser una mera formalidad burocrática para convertirse en un espacio de alineación corporativa transversal. El involucramiento directivo garantiza que las políticas de prevención y no discriminación sean impulsadas y respaldadas desde la cúspide de la estructura organizacional.",
+        "pregunta": "¿Qué actores de la organización tienen la obligación de participar en los procesos de capacitación según el artículo 3 del acuerdo?",
+        "opciones": [
+            "Exclusivamente los trabajadores contratados bajo la modalidad de prueba o tiempo parcial",
+            "El directorio, el representante legal, la máxima autoridad o sus delegados según corresponda",
+            "Solamente el personal operativo que labora en turnos rotativos dentro de las plantas",
+            "Los auditores externos contratados de manera temporal para la revisión contable anual"
+        ],
+        "correcta": "El directorio, el representante legal, la máxima autoridad o sus delegados según corresponda"
+    },
+    {
+        "id": 14,
+        "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
+        "titulo": "14. Requisito de Duración Mínima Anual de las Capacitaciones",
+        "contenido": "Para garantizar que el proceso de formación y concientización tenga un impacto real en la cultura organizacional, la normativa establece un parámetro temporal claro e improrrogable. Los empleadores y máximas autoridades deben asegurar que los programas de capacitación alcancen una duración mínima de cuarenta (40) horas anuales.<br><br>Este tiempo de formación puede ejecutarse mediante modalidades virtuales, presenciales o a través de esquemas mixtos que se adapten de mejor manera a las necesidades operativas de la institución. Lo fundamental es que el acumulado de horas invertidas en el desarrollo de los cuatro pilares normativos cumpla cabalmente con el mínimo exigido por la autoridad ministerial.<br><br>Planificar adecuadamente este volumen de horas a lo largo del periodo anual previene inconvenientes administrativos y asegura que la asimilación de conocimientos por parte del personal sea progresiva y efectiva. Las unidades de Talento Humano juegan un papel estratégico en el diseño de cronogramas que no afecten la productividad pero garanticen la asistencia de todos los colaboradores.<br><br>El cumplimiento riguroso de esta exigencia horaria es indispensable para acceder posteriormente a los procesos de certificación oficial de cumplimiento de obligaciones. Por ello, mantener un registro detallado y auditable de la participación del personal constituye una tarea prioritaria para la gestión administrativa de la empresa.",
+        "pregunta": "¿Cuál es la duración mínima anual que deben cumplir los procesos de capacitación exigidos por el Ministerio del Trabajo?",
+        "opciones": [
+            "Una duración mínima de cuarenta (40) horas anuales bajo modalidad virtual, presencial o mixta",
+            "Exactamente diez horas semestrales impartidas de forma exclusiva en las instalaciones públicas",
+            "Un total de ochenta horas divididas en tres periodos trimestrales obligatorios",
+            "Veinte horas mensuales computadas dentro de la jornada ordinaria de labores operativas"
+        ],
+        "correcta": "Una duración mínima de cuarenta (40) horas anuales bajo modalidad virtual, presencial o mixta"
+    },
+    {
+        "id": 15,
+        "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
+        "titulo": "15. Acciones Complementarias de Sensibilización Institucional",
+        "contenido": "Además de los programas formales de capacitación, la normativa establece que las organizaciones deben desarrollar acciones específicas orientadas a fomentar la sensibilización institucional. Estas actividades buscan evidenciar de manera práctica el valor de los diversos tipos de trabajo desde una perspectiva profunda de igualdad de género y no discriminación.<br><br>La sensibilización trasciende la simple transmisión teórica de conceptos jurídicos, apelando a la empatía, la reflexión crítica y la construcción de un tejido social interno sólido dentro de la compañía. Estas acciones deben estar dirigidas de manera equitativa a todos los trabajadores y servidores públicos que integran la estructura organizacional.<br><br>Implementar campañas de comunicación interna, conversatorios guiados y espacios de diálogo constructivo complementa de forma perfecta las horas de formación virtual obligatoria. De este modo se logra que los valores de respeto a la dignidad humana formen parte de la identidad corporativa cotidiana y no solo de un requisito documental.<br><br>La coordinación de estas iniciativas recae conjuntamente sobre los empleadores, las máximas autoridades y las respectivas unidades de Talento Humano. Garantizar la ejecución de estas acciones es un paso clave para demostrar ante las autoridades ministeriales el compromiso genuino de la entidad con la equidad laboral.",
+        "pregunta": "Además de la capacitación, ¿qué obligación complementaria deben ejecutar los empleadores según el artículo 4 del acuerdo?",
+        "opciones": [
+            "Realizar acciones que evidencien la sensibilización sobre el valor de los trabajos con perspectiva de igualdad de género",
+            "Establecer incentivos económicos mensuales basados estrictamente en la antigüedad de los colaboradores",
+            "Contratar auditores externos internacionales para evaluar el rendimiento comercial de la empresa",
+            "Modificar los estatutos societarios ante el Registro Mercantil de forma trimestral obligatoria"
+        ],
+        "correcta": "Realizar acciones que evidencien la sensibilización sobre el valor de los trabajos con perspectiva de igualdad de género"
+    },
+    {
+        "id": 16,
+        "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
+        "titulo": "16. El Reporte Anual de Acciones ante el Ministerio del Trabajo",
+        "contenido": "El cumplimiento de las obligaciones en materia de capacitación y sensibilización no solo debe ejecutarse internamente, sino que requiere de un proceso formal de rendición de cuentas ante la autoridad rectora. El artículo 5 del Acuerdo Ministerial estipula que los empleadores y las instituciones del Estado tienen la obligación de reportar todas las acciones ejecutadas durante el periodo anterior.<br><br>Este proceso de reporte se efectúa de manera anual durante el mes de enero, utilizando para el efecto el módulo o sistema informático que el Ministerio del Trabajo implemente para dicha finalidad. La plataforma digital centraliza la información y facilita el control del cumplimiento normativo a escala nacional.<br><br>Es de suma importancia destacar que la autenticidad, exactitud y veracidad de la información reportada en el sistema recae bajo la exclusiva responsabilidad de los empleadores del sector privado y de las máximas autoridades públicas. Cualquier inconsistencia o falsedad en los datos ingresados puede acarrear drásticas consecuencias legales y administrativas.<br><br>Prever con anticipación la recopilación de certificados, listados de asistencia y evidencias de las actividades realizadas garantiza que el proceso de reporte en el mes de enero se realice sin contratiempos. Esto demuestra orden institucional y apego estricto a las disposiciones emitidas por el Ministerio del Trabajo.",
+        "pregunta": "¿En qué periodo del año se debe realizar obligatoriamente el reporte de las acciones de capacitación ante el sistema del Ministerio?",
+        "opciones": [
+            "En el mes de enero de cada año, utilizando el sistema informático implementado por el Ministerio",
+            "Durante los primeros cinco días hábiles posteriores a la conclusión de cada trimestre operativo",
+            "Exclusivamente cuando la institución sea notificada de una auditoría laboral sorpresiva",
+            "Al finalizar el ejercicio fiscal en el mes de diciembre de manera presencial en las notarías"
+        ],
+        "correcta": "En el mes de enero de cada año, utilizando el sistema informático implementado por el Ministerio"
+    },
+    {
+        "id": 17,
+        "eje": "Módulo II: Obligaciones y Capacitación Obligatoria",
+        "titulo": "17. Sanciones Aplicables ante el Incumplimiento Normativo",
+        "contenido": "El marco legal es enfático al establecer que las disposiciones relativas a la capacitación continua, las acciones de sensibilización y el reporte periódico no constituyen recomendaciones opcionales. El artículo 6 del Acuerdo Ministerial determina con claridad que el incumplimiento de estas obligaciones acarreará la imposición de sanciones severas.<br><br>Los empleadores del sector privado y las máximas autoridades de las instituciones y empresas públicas que omitan la ejecución de estos programas o fallen en su reporte oportuno serán sancionados conforme a lo previsto en la normativa legal vigente. Estas medidas punitivas buscan disuadir la negligencia y proteger los derechos fundamentales de los trabajadores.<br><br>El régimen de sanciones puede incluir multas pecuniarias y la imposibilidad de acceder a certificaciones o beneficios otorgados por el Estado, afectando la reputación institucional de la organización. Por esta razón, la supervisión interna constante es la mejor herramienta preventiva para evitar riesgos legales innecesarios.<br><br>Garantizar que cada colaborador complete sus horas de formación y que la empresa mantenga sus registros al día es una responsabilidad directiva ineludible. La observancia estricta de la norma asegura una convivencia armónica y previene cualquier conflicto administrativo con las autoridades de control.",
+        "pregunta": "¿Qué consecuencias legales enfrentan los empleadores en caso de incumplir con las obligaciones de capacitación y reporte?",
+        "opciones": [
+            "Serán sancionados conforme a lo previsto en la normativa legal vigente aplicable a la infracción",
+            "Recibirán una advertencia verbal sin consecuencias administrativas ni económicas posteriores",
+            "Tendrán un plazo extraordinario de cinco años para compensar las horas no dictadas",
+            "Quedarán exentos de cumplir con las normativas laborales durante los periodos fiscales siguientes"
+        ],
+        "correcta": "Serán sancionados conforme a lo previsto en la normativa legal vigente aplicable a la infracción"
+    },
+    {
+        "id": 18,
+        "eje": "Módulo III: Certificación y Mecanismos de Control",
+        "titulo": "18. Requisitos para la Obtención de la Certificación de Cumplimiento",
+        "contenido": "El sistema normativo implementado por el Ministerio del Trabajo contempla un mecanismo de reconocimiento e incentivo para aquellas organizaciones que demuestran un apego ejemplar a la ley. Para acceder a la certificación de cumplimiento de obligaciones orientadas a alcanzar la igualdad salarial, las entidades deben cumplir rigurosamente con los parámetros establecidos en los artículos precedentes.<br><br>El proceso de obtención se inicia mediante una solicitud formal de postulación presentada por la organización. Dicho documento debe contener como datos mínimos la razón social, el número de Registro Único de Contribuyentes, la ubicación geográfica por provincia y cantón, y una exposición sucinta de las acciones ejecutadas.<br><br>Asimismo, es un requisito indispensable adjuntar todos los documentos probatorios que demuestren de manera fehaciente la ejecución efectiva de los programas de capacitación, las actividades de sensibilización y el reporte anual oportuno. La transparencia en la presentación de estos respaldos es vital para agilizar el análisis técnico de la autoridad.<br><br>Adicionalmente, los postulantes tienen la facultad de presentar cualquier otra documentación o información complementaria que evidencie la aplicación sólida de políticas internas de igualdad de trato y oportunidades. Esto enriquece el expediente y consolida el perfil ejemplar de la institución ante los evaluadores ministeriales.",
+        "pregunta": "¿Qué información mínima debe contener la solicitud de postulación para acceder a la certificación de cumplimiento?",
+        "opciones": [
+            "Razón social, número de RUC, ubicación, exposición sucinta de acciones y firma del representante legal",
+            "El balance financiero auditado de los últimos cinco años y el detalle de cuentas bancarias",
+            "La lista completa de proveedores comerciales y los contratos de arrendamiento de las oficinas",
+            "Una proyección detallada de las ventas estimadas para el siguiente ejercicio fiscal corporativo"
+        ],
+        "correcta": "Razón social, número de RUC, ubicación, exposición sucinta de acciones y firma del representante legal"
+    },
+    {
+        "id": 19,
+        "eje": "Módulo III: Certificación y Mecanismos de Control",
+        "titulo": "19. El Procedimiento de Análisis y Emisión del Informe Técnico",
+        "contenido": "Una vez presentada la solicitud de postulación de manera física ante las Direcciones Regionales del Trabajo y Servicio Público correspondientes al domicilio de la entidad, se activa el procedimiento formal de verificación. Las dependencias ministeriales inician de inmediato el análisis minucioso de la información y los documentos proporcionados.<br><br>Este proceso de revisión y evaluación técnica debe concluir con la emisión de un informe debidamente sustentado que determine la aprobación o la negativa para el otorgamiento de la certificación solicitada. Dicho informe técnico constituye el dictamen fundamental y debe emitirse en un término no mayor a diez (10) días contados desde la fecha de presentación de la postulación.<br><br>En el evento de que el análisis detecte la ausencia o el incumplimiento de alguno de los requisitos exigidos, la autoridad otorgará a la organización un término perentorio de diez (10) días para proceder a su subsanación. Si la entidad no corrige las observaciones en el plazo señalado, el trámite se archivará, sin perjuicio de que pueda presentar una nueva postulación en el futuro.<br><br>Por el contrario, si el informe ratifica el cumplimiento total de los requisitos, la autoridad regional procederá a emitir el certificado oficial correspondiente. Este documento acreditativo valida el compromiso institucional con la igualdad salarial y es remitido en paralelo al área de comunicación para su difusión pública.",
+        "pregunta": "¿En qué término máximo se debe emitir el informe técnico que aprueba o niega la certificación de cumplimiento según la norma?",
+        "opciones": [
+            "En un término no mayor a diez (10) días contados desde la fecha de presentación de la postulación",
+            "Exactamente cuarenta y cinco días hábiles tras la inspección física de las instalaciones",
+            "Dentro de las veinticuatro horas posteriores al ingreso del trámite en la ventanilla única",
+            "En un plazo improrrogable de sesenta días calendario contados desde el cierre del año fiscal"
+        ],
+        "correcta": "En un término no mayor a diez (10) días contados desde la fecha de presentación de la postulación"
+    },
+    {
+        "id": 20,
+        "eje": "Módulo III: Certificación y Mecanismos de Control",
+        "titulo": "20. Plazos Generales y Publicación de la Certificación Oficial",
+        "contenido": "El proceso completo orientado a la obtención de la certificación de cumplimiento de obligaciones en materia de igualdad salarial se encuentra estrictamente acotado en el tiempo. La normativa dispone que el trámite total no debe exceder un término máximo de treinta (30) días, contados desde la fecha de su presentación formal, siempre que los requisitos estén completos.<br><br>En los casos donde la autoridad requiera que el postulante complete o subsane información faltante, el cómputo de este término de treinta días iniciará a partir de la fecha en que se verifique el cumplimiento efectivo de dicha subsanación. Esta precisión garantiza seguridad jurídica y predictibilidad en los tiempos de respuesta institucional.<br><br>Una vez emitido el certificado de cumplimiento, el Ministerio del Trabajo a través de la Dirección de Comunicación Social procede a publicar la lista oficial de las empresas e instituciones que han obtenido esta distinción. Esta publicación se realiza en los medios oficiales de la cartera de Estado.<br><br>Dicha publicación cumple el doble propósito de constituir un reconocimiento público al esfuerzo institucional y servir como un incentivo reputacional que destaca el compromiso corporativo con la igualdad de género y la justicia social en el país.",
+        "pregunta": "¿Cuál es el término máximo total establecido para que concluya el proceso de certificación, siempre que se cumplan los requisitos?",
+        "opciones": [
+            "Un término que no debe exceder de treinta (30) días contados desde la fecha de presentación de la postulación",
+            "Un plazo fijo de seis meses renovables de manera automática por disposición ministerial",
+            "Exactamente noventa días calendario sin posibilidad de prórroga bajo ninguna circunstancia",
+            "Un periodo de un año completo sujeto a auditorías trimestrales presenciales obligatorias"
+        ],
+        "correcta": "Un término que não debe exceder de treinta (30) días contados desde la fecha de presentación de la postulación"
+    },
+    {
+        "id": 21,
+        "eje": "Módulo IV: Denuncias y Procedimientos Específicos",
+        "titulo": "21. Procedimiento de Denuncia por Discriminación Salarial en el Sector Público",
+        "contenido": "El marco normativo establece vías claras y expeditas para que los servidores públicos que consideren ser víctimas de discriminación salarial puedan ejercer su derecho a la defensa. El afectado puede presentar su reclamo formal ante la Unidad de Administración del Talento Humano (UATH) o la unidad que haga sus veces dentro de la respectiva institución pública.<br><br>Para que la denuncia sea admitida a trámite, debe cumplir con requisitos formales esenciales tales como los datos de identificación completa del servidor, la narración pormenorizada de los hechos que fundamentan la pretensión, los fundamentos de derecho expuestos con claridad y la respectiva firma manual o electrónica. Además, se deben adjuntar todos los medios de prueba pertinentes.<br><br>Una vez recibida la denuncia, la UATH procede a examinar el cumplimiento de los requisitos exigidos. Si se detectan deficiencias formales, se otorga un término de tres (3) días para que el denunciante proceda a completarlas o aclararlas, advirtiendo que la falta de respuesta acarreará el archivo definitivo del expediente.<br><br>Este mecanismo interno busca solucionar las controversias de manera directa y transparente dentro de la propia administración, garantizando el respeto a los derechos laborales y fomentando un clima de equidad y justicia en el servicio público.",
+        "pregunta": "¿Qué instancia institucional es la competente para conocer y tramitar inicialmente las denuncias por discriminación salarial en el sector público?",
+        "opciones": [
+            "La Unidad de Administración del Talento Humano (UATH) o la unidad que haga sus veces en la entidad",
+            "El Ministerio de Finanzas a través de la dirección de control presupuestario general",
+            "La Procuraduría General del Estado mediante sus delegaciones regionales provinciales",
+            "El Tribunal Contencioso Administrativo en única instancia jurisdiccional ordinaria"
+        ],
+        "correcta": "La Unidad de Administración del Talento Humano (UATH) o la unidad que haga sus veces en la entidad"
+    },
+    {
+        "id": 22,
+        "eje": "Módulo IV: Denuncias y Procedimientos Específicos",
+        "titulo": "22. Trámite, Diálogo e Informe Técnico en el Sector Público",
+        "contenido": "Una vez verificado el cumplimiento de los requisitos formales de la denuncia en el sector público, la UATH institucional tiene la obligación de convocar a las partes involucradas a un espacio de diálogo formal. Esta diligencia debe realizarse en el término de hasta tres (3) días contados desde la aceptación del trámite.<br><br>En dicho espacio de diálogo participan de manera directa el responsable de la UATH, la máxima autoridad de la institución o su delegado, y el servidor denunciante. De todo lo tratado y acordado en esta diligencia se deja constancia escrita mediante la suscripción del acta respectiva.<br><br>Con todos los elementos de juicio recabados durante el proceso y la audiencia de diálogo, la UATH debe emitir un informe técnico imperativo que determine la existencia o inexistencia de discriminación salarial. Si el informe confirma la vulneración, la unidad sugerirá a la máxima autoridad las acciones correctivas aplicables.<br><br>El proceso integral de atención por parte de la UATH no debe exceder el término de quince (15) días desde la presentación de la denuncia. La falta de atención oportuna por parte de los funcionarios encargados da lugar al inicio de procesos disciplinarios conforme a la ley.",
+        "pregunta": "¿Qué acción obligatoria debe realizar la UATH en el término de hasta tres días tras admitir una denuncia que cumple los requisitos?",
+        "opciones": [
+            "Convocar al servidor denunciante y a las autoridades a un espacio de diálogo formal con su respectiva acta",
+            "Remitir el expediente completo al Ministerio del Trabajo para la destitución inmediata del jefe",
+            "Suspender el pago de la remuneración del área involucrada hasta esclarecer los hechos",
+            "Publicar el nombre del denunciado en los boletines oficiales de prensa institucional"
+        ],
+        "correcta": "Convocar al servidor denunciante y a las autoridades a un espacio de diálogo formal con su respectiva acta"
+    },
+    {
+        "id": 23,
+        "eje": "Módulo IV: Denuncias y Procedimientos Específicos",
+        "titulo": "23. Denuncia por Discriminación Salarial en el Sector Privado",
+        "contenido": "Para los trabajadores que presten sus servicios bajo el régimen del sector privado y sospechen fundadamente ser víctimas de discriminación salarial, la normativa ha previsto un canal administrativo especializado. El reclamo debe ser interpuesto de manera directa ante el Inspector del Trabajo correspondiente al domicilio del trabajador, quien ostenta la competencia para conocer y tramitar la causa.<br><br>La denuncia presentada ante esta autoridad debe observar requisitos formales rigurosos, tales como la designación de la autoridad, la información personal completa del accionante, la dirección domiciliaria y casillero judicial en caso de contar con abogado patrocinador. Asimismo, debe señalarse con precisión el lugar donde se notificará al empleador.<br><br>El escrito inicial debe contener una narración detallada y pormenorizada de los hechos, la invocación clara de los fundamentos de derecho, la presentación de los medios de prueba conforme al Código Orgánico General de Procesos (COGEP) y una pretensión sumamente precisa. La firma del trabajador, ya sea manual o electrónica, es un requisito insustituible.<br><br>Este procedimiento administrativo ante la Inspectoría del Trabajo busca garantizar una tutela efectiva de los derechos remunerativos, permitiendo la búsqueda de soluciones conciliatorias antes de escalar la controversia hacia los tribunales judiciales ordinarios.",
+        "pregunta": "¿Ante qué autoridad del trabajo debe interponer su denuncia un trabajador del sector privado que presuma discriminación salarial?",
+        "opciones": [
+            "Ante el Inspector del Trabajo competente según el domicilio del trabajador denunciante",
+            "Ante el representante legal de la compañía mediante una carta notariada de reclamo",
+            "Directamente ante el Presidente de la República en el Palacio de Gobierno",
+            "Ante la Superintendencia de Compañías en la unidad de resolución de conflictos mercantiles"
+        ],
+        "correcta": "Ante el Inspector del Trabajo competente según el domicilio del trabajador denunciante"
+    },
+    {
+        "id": 24,
+        "eje": "Módulo IV: Denuncias y Procedimientos Específicos",
+        "titulo": "24. El Procedimiento ante el Inspector del Trabajo y la Audiencia",
+        "contenido": "Una vez receptada la denuncia en el sector privado mediante sorteo, el Inspector del Trabajo competente avoca conocimiento y verifica el cumplimiento de los requisitos legales. Si se advierten omisiones, se otorga al accionante el término de dos (2) días para completar o aclarar la solicitud, bajo prevención de archivo en caso de incumplimiento.<br><br>Si la denuncia es calificada favorablemente, se procede a notificar al empleador en el término de un (1) día, otorgándole a su vez el término de dos (2) días para que conteste de manera expresa los fundamentos y pretensiones del reclamo. Precluido este término, el Inspector convocará a las partes a una audiencia obligatoria dentro de los tres (3) días siguientes.<br><br>Al iniciar dicha audiencia, la autoridad laboral tiene el deber primordial de procurar una conciliación directa entre las partes. De alcanzarse un entendimiento, se suscribe un acta con los compromisos acordados, los cuales son de obligatorio cumplimiento bajo prevenciones legales en caso de incumplimiento.<br><br>De no lograrse un acuerdo conciliatorio, la audiencia continúa con la recepción de pruebas y versiones de los informantes, levantando un acta detallada de todas las actuaciones. No obstante, el trabajador conserva expedita la vía judicial para reclamar la reparación integral y el pago retroactivo de sus remuneraciones.",
+        "pregunta": "¿Qué actuación debe realizar primordialmente el Inspector del Trabajo al iniciar la audiencia con las partes interesadas?",
+        "opciones": [
+            "Procurar una conciliación entre las partes para levantar un acta con los compromisos acordados",
+            "Dictar sentencia condenatoria inmediata contra el empleador sin escuchar sus argumentos",
+            "Archivar el proceso de manera definitiva si el empleador se presenta sin abogado",
+            "Ordenar la suspensión de las actividades comerciales de la empresa por un mes"
+        ],
+        "correcta": "Procurar una conciliación entre las partes para levantar un acta con los compromisos acordados"
+    },
+    {
+        "id": 25,
+        "eje": "Módulo IV: Denuncias y Procedimientos Específicos",
+        "titulo": "25. Conclusión y Vía Judicial en la Restitución Salarial",
+        "contenido": "El proceso administrativo de denuncia por discriminación salarial ante el Inspector del Trabajo constituye una vía de protección oportuna, cuyo trámite integral no debe exceder el término de quince (15) días desde su presentación formal. Sin embargo, la normativa aclara que el trabajador puede acudir directamente a la vía judicial sin que la vía administrativa sea un requisito previo obligatorio.<br><br>Corresponde exclusivamente a la autoridad jurisdiccional competente, mediante sentencia motivada, determinar la existencia de vulneración de derechos en el ámbito salarial. Dicha autoridad judicial tiene la potestad legal de ordenar el pago retroactivo de las diferencias remunerativas y fijar una nueva remuneración ajustada a los criterios de trabajo de igual valor.<br><br>Asimismo, en el ámbito institucional se prevé la conformación de mesas sectoriales a cargo de la Subsecretaría de Empleo y Salarios para coordinar acciones interinstitucionales que fortalezcan la aplicación de la ley. Estas mesas integran esfuerzos públicos y privados para erradicar las brechas salariales de manera estructural.<br><br>Con la conclusión de este módulo formativo, se consolidan los conocimientos normativos indispensables para identificar, prevenir y reportar cualquier práctica discriminatoria, reafirmando el compromiso colectivo con la justicia laboral, la equidad de género y el respeto irrestricto a la dignidad humana en nuestra organización.",
+        "pregunta": "¿Qué autoridad es la competente para ordenar mediante sentencia el pago retroactivo y la fijación de una nueva remuneración justa?",
+        "opciones": [
+            "La autoridad jurisdiccional competente a través de sentencia en el proceso judicial correspondiente",
+            "El Inspector del Trabajo al concluir la primera fase de la audiencia de conciliación",
+            "La unidad de Talento Humano mediante resolución administrativa interna inapelable",
+            "El Ministerio de Finanzas en coordinación con la Contraloría General del Estado"
+        ],
+        "correcta": "La autoridad jurisdiccional competente a través de sentencia en el proceso judicial correspondiente"
+    }
+]
