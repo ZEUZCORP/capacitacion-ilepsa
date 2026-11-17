@@ -122,7 +122,6 @@ st.markdown("""
         padding-bottom: 6px !important;
     }
     
-    /* Forzar color rojo intenso y diseño llamativo para el botón de continuar sección */
     div.stButton > button:not([kind="primary"]) {
         background-color: #dc2626 !important;
         color: white !important;
@@ -198,7 +197,10 @@ if st.session_state.paso == "login":
                             st.session_state.paso = "admin_dashboard"
                         else:
                             st.session_state.es_admin = False
-                            st.session_state.paso = "instrucciones"
+                            if st.session_state.seccion_actual > 0 or st.session_state.sub_paso == "cuestionario":
+                                st.session_state.paso = "evaluacion"
+                            else:
+                                st.session_state.paso = "instrucciones"
                         st.rerun()
                     else:
                         st.error("Cédula no registrada en la base de datos de ILEPSA.")
@@ -443,7 +445,6 @@ elif st.session_state.paso == "evaluacion":
                     st.rerun()
             with col_btn2:
                 if st.session_state[key_estado_msg] == "exito":
-                    # Botón rojo con el número correcto de la sección actual
                     numero_seccion_siguiente = sec_idx + 1
                     if st.button(f"Continuar Sección {numero_seccion_siguiente} de Capacitación ➔", key=f"btn_continuar_sec_{sec_idx}", use_container_width=True):
                         st.session_state[key_estado_msg] = ""
@@ -477,7 +478,6 @@ elif st.session_state.paso == "evaluacion":
                         )
                         st.rerun()
                 else:
-                    # Botón azul estándar de Enviar Respuesta
                     btn_siguiente = st.button("Enviar Respuesta", type="primary", key=f"btn_enviar_{sec_idx}", use_container_width=True)
                     if btn_siguiente:
                         if respuesta == seccion['correcta']:
