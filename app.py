@@ -34,10 +34,6 @@ if "respuestas_correctas" not in st.session_state:
     st.session_state.respuestas_correctas = 0
 if "video_visto" not in st.session_state:
     st.session_state.video_visto = False
-if "calificacion" not in st.session_state:
-    st.session_state.calificacion = 0.0
-if "falladas" not in st.session_state:
-    st.session_state.falladas = []
 
 COLORES_SECCION = [
     {"borde": "#0284c7", "fondo_etiqueta": "#e0f2fe", "texto_etiqueta": "#0369a1"},
@@ -178,7 +174,7 @@ if st.session_state.paso == "login":
             cedula_limpia = cedula_input.strip()
             if len(cedula_limpia) >= 10 or cedula_limpia == "1":
                 try:
-                    response = supabase.table("usuarios").select("nombres, seccion_actual, sub_paso, calificacion, falladas").eq("cedula", cedula_limpia).execute()
+                    response = supabase.table("usuarios").select("nombres, seccion_actual, sub_paso").eq("cedula", cedula_limpia).execute()
                     
                     if response.data and len(response.data) > 0:
                         user_data = response.data[0]
@@ -186,16 +182,6 @@ if st.session_state.paso == "login":
                         st.session_state.nombre_usuario = user_data["nombres"]
                         st.session_state.seccion_actual = user_data.get("seccion_actual", 0) or 0
                         st.session_state.sub_paso = user_data.get("sub_paso", "teoria") or "teoria"
-                        
-                        falladas_db = user_data.get("falladas")
-                        st.session_state.falladas = falladas_db if isinstance(falladas_db, list) else []
-                        
-                        calif_db = user_data.get("calificacion")
-                        if st.session_state.seccion_actual == 0 and len(st.session_state.falladas) == 0 and (calif_db is None or calif_db == 100):
-                            st.session_state.calificacion = 0.0
-                        else:
-                            st.session_state.calificacion = float(calif_db) if calif_db is not None else 0.0
-                            
                         st.session_state.video_visto = False
                         
                         try:
@@ -211,9 +197,7 @@ if st.session_state.paso == "login":
                             st.session_state.paso = "admin_dashboard"
                         else:
                             st.session_state.es_admin = False
-                            if st.session_state.seccion_actual >= len(SECCIONES):
-                                st.session_state.paso = "felicitaciones_intermedia"
-                            elif st.session_state.seccion_actual > 0 or st.session_state.sub_paso == "cuestionario":
+                            if st.session_state.seccion_actual > 0 or st.session_state.sub_paso == "cuestionario":
                                 st.session_state.paso = "evaluacion"
                             else:
                                 st.session_state.paso = "instrucciones"
@@ -235,7 +219,7 @@ elif st.session_state.paso == "admin_dashboard":
         <p style="color: #64748b; font-size: 15px;"><b>Administrador en sesión:</b> {st.session_state.nombre_usuario}</p>
         <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
         <p style="font-size: 15px; color: #334155;">
-            Monitoreo en tiempo real de accesos, tiempos de conexión, calificaciones y avance guardado de los colaboradores bajo la normativa MDT-2025-006.
+            Monitoreo en tiempo real de accesos, tiempos de conexión y avance guardado de los colaboradores bajo la normativa MDT-2025-006.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -249,21 +233,18 @@ elif st.session_state.paso == "admin_dashboard":
                 cedula_reg = reg.get("cedula", "N/A")
                 fecha_reg = reg.get("fecha_ingreso", "N/A")
                 
-                res_user = supabase.table("usuarios").select("nombres, seccion_actual, calificacion").eq("cedula", cedula_reg).execute()
+                res_user = supabase.table("usuarios").select("nombres, seccion_actual").eq("cedula", cedula_reg).execute()
                 if res_user.data:
                     nombre_reg = res_user.data[0]["nombres"]
                     sec_progreso = res_user.data[0].get("seccion_actual", 0)
-                    calif_reg = res_user.data[0].get("calificacion", 0)
                 else:
                     nombre_reg = "Colaborador / Admin"
                     sec_progreso = "N/A"
-                    calif_reg = "N/A"
                 
                 datos_tabla.append({
                     "Colaborador": nombre_reg,
                     "Cédula": cedula_reg,
                     "Sección Actual": f"{sec_progreso} / {len(SECCIONES)}" if isinstance(sec_progreso, int) else sec_progreso,
-                    "Calificación": f"{round(float(calif_reg), 2)} / 100" if isinstance(calif_reg, (int, float)) else calif_reg,
                     "Fecha y Hora de Ingreso": fecha_reg
                 })
             st.dataframe(datos_tabla, use_container_width=True)
@@ -294,7 +275,7 @@ elif st.session_state.paso == "instrucciones":
             Este programa aborda los temas obligatorios normativos: <b>a) Derechos laborales de mujeres y hombres; b) Igualdad de género; c) Erradicación de violencia y no discriminación en el centro de trabajo; y d) Establecimiento de trabajo de igual valor.</b>
         </p>
         <p style="font-size: 15px; color: #0284c7; background-color: #e0f2fe; padding: 12px; border-radius: 6px; margin-top: 15px; font-weight: 500;">
-            💡 <b>Nota:</b> Su progreso y calificación se guardarán automáticamente para cuando inicie sesión nuevamente.
+            💡 <b>Nota:</b> Su progreso se guardará automáticamente para cuando inicie sesión nuevamente.
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -304,7 +285,7 @@ elif st.session_state.paso == "instrucciones":
         st.rerun()
 
 # =========================================================
-# FASE 3.5: VIDEO INTRODUCTORIO
+# FASE 3.5: VIDEO INTRODUCTORIO (OBLIGATORIO COMPLETO)
 # =========================================================
 elif st.session_state.paso == "video_introduccion":
     st.markdown(f"""
@@ -336,7 +317,6 @@ elif st.session_state.paso == "video_introduccion":
 elif st.session_state.paso == "evaluacion":
     total_secciones = len(SECCIONES)
     sec_idx = st.session_state.seccion_actual
-    valor_pregunta = 100.0 / total_secciones if total_secciones > 0 else 0.0
 
     if sec_idx < total_secciones:
         seccion = SECCIONES[sec_idx]
@@ -466,14 +446,10 @@ elif st.session_state.paso == "evaluacion":
             with col_btn2:
                 if st.session_state[key_estado_msg] == "exito":
                     numero_seccion_siguiente = sec_idx + 1
-                    texto_boton_siguiente = f"Continuar Sección {numero_seccion_siguiente} de Capacitación ➔" if numero_seccion_siguiente < total_secciones else "Finalizar Capacitación y Ver Resultados ➔"
+                    texto_boton_siguiente = f"Continuar Sección {numero_seccion_siguiente} de Capacitación ➔" if numero_seccion_siguiente < total_secciones else "Finalizar Capacitación y Ver Certificación ➔"
                     if st.button(texto_boton_siguiente, key=f"btn_continuar_sec_{sec_idx}", use_container_width=True):
                         st.session_state[key_estado_msg] = ""
                         st.session_state.respuestas_correctas += 1
-                        
-                        if sec_idx not in st.session_state.falladas:
-                            st.session_state.calificacion = round(min(100.0, st.session_state.calificacion + valor_pregunta), 2)
-                            
                         st.session_state.seccion_actual += 1
                         st.session_state.sub_paso = "teoria"
                         
@@ -483,8 +459,7 @@ elif st.session_state.paso == "evaluacion":
                         try:
                             supabase.table("usuarios").update({
                                 "seccion_actual": st.session_state.seccion_actual,
-                                "sub_paso": "teoria",
-                                "calificacion": st.session_state.calificacion
+                                "sub_paso": "teoria"
                             }).eq("cedula", st.session_state.cedula).execute()
                         except Exception:
                             pass
@@ -511,103 +486,32 @@ elif st.session_state.paso == "evaluacion":
                             st.rerun()
                         else:
                             st.session_state[key_estado_msg] = "error"
-                            if sec_idx not in st.session_state.falladas:
-                                st.session_state.falladas.append(sec_idx)
-                                try:
-                                    supabase.table("usuarios").update({
-                                        "falladas": st.session_state.falladas,
-                                        "calificacion": st.session_state.calificacion
-                                    }).eq("cedula", st.session_state.cedula).execute()
-                                except Exception:
-                                    pass
                             st.rerun()
     else:
         st.session_state.paso = "felicitaciones_intermedia"
         st.rerun()
 
 # =========================================================
-# FASE 4.5: PANTALLA INTERMEDIA DE CALIFICACIÓN
+# FASE 4.5: PANTALLA INTERMEDIA DE FELICITACIONES
 # =========================================================
 elif st.session_state.paso == "felicitaciones_intermedia":
-    nota_final = round(st.session_state.calificacion, 2)
-    nota_mostrar = int(nota_final) if nota_final.is_integer() else nota_final
-
-    if nota_final < 50:
-        color_barra = "#dc2626"
-        fondo_barra = "#fee2e2"
-        borde_barra = "#fca5a5"
-        texto_barra = "#991b1b"
-        titulo_estado = "⚠️ CALIFICACIÓN INSUFICIENTE"
-        mensaje_resultado = (
-            "Tu puntaje obtenido está por debajo del mínimo requerido para acreditar los conocimientos normativos. "
-            "<b>Recomendamos que repitas el cuestionario nuevamente para obtener el certificado oficial de cumplimiento.</b>"
-        )
-    elif nota_final < 70:
-        color_barra = "#d97706"
-        fondo_barra = "#fef3c7"
-        borde_barra = "#fcd34d"
-        texto_barra = "#92400e"
-        titulo_estado = "⚠️ CAPACITACIÓN APROBADA CON OBSERVACIONES"
-        mensaje_resultado = (
-            "Conoces en términos generales la normativa y has cumplido con el programa obligatorio, por lo que <b>ya puedes obtener tu certificado</b>. "
-            "Sin embargo, te recomendamos volver a repasar los contenidos de lectura para fortalecer tus conocimientos."
-        )
-    else:
-        color_barra = "#059669"
-        fondo_barra = "#d1fae5"
-        borde_barra = "#6ee7b7"
-        texto_barra = "#065f46"
-        titulo_estado = "🌟 ¡DESEMPEÑO EXCELENTE!"
-        mensaje_resultado = (
-            "¡Excelente trabajo! Demuestras un sólido dominio de las normativas laborales, igualdad de género y prevención de violencia en el trabajo. "
-            "Sigue aplicando estos principios en tu entorno laboral. A continuación, procede a descargar tu certificado."
-        )
-
     st.markdown(f"""
-<div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid {color_barra}; text-align: center; padding: 40px;">
-<span style="font-size: 36px;">🎉 🏆</span>
-<h2 style="color: #0f172a; margin-top: 15px;">¡FELICITACIONES, {st.session_state.nombre_usuario}!</h2>
-<p style="font-size: 16.5px; color: #475569; margin-bottom: 20px;">
-Has finalizado el recorrido de la capacitación obligatoria en cumplimiento del <b>Acuerdo Ministerial MDT-2025-006</b>.
-</p>
-<div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 20px; margin-bottom: 25px;">
-<span style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 700;">Tu puntaje final obtenido es:</span>
-<div style="font-size: 42px; font-weight: 800; color: {color_barra}; margin: 5px 0;">
-{nota_mostrar} / 100
-</div>
-<div style="width: 100%; background-color: #e2e8f0; border-radius: 999px; height: 14px; overflow: hidden; margin-top: 10px;">
-<div style="width: {min(100, max(0, nota_final))}%; background-color: {color_barra}; height: 100%; border-radius: 999px;"></div>
-</div>
-</div>
-<div style="background-color: {fondo_barra}; border: 1px solid {borde_barra}; color: {texto_barra}; padding: 18px; border-radius: 8px; text-align: justify; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-<div style="font-weight: 700; margin-bottom: 6px; font-size: 16.5px;">{titulo_estado}</div>
-{mensaje_resultado}
-</div>
-</div>
-""", unsafe_allow_html=True)
-
-    if nota_final < 50:
-        if st.button("🔄 Reiniciar Capacitación y Repetir Cuestionario", use_container_width=True):
-            st.session_state.seccion_actual = 0
-            st.session_state.sub_paso = "teoria"
-            st.session_state.calificacion = 0.0
-            st.session_state.falladas = []
-            st.session_state.respuestas_correctas = 0
-            try:
-                supabase.table("usuarios").update({
-                    "seccion_actual": 0,
-                    "sub_paso": "teoria",
-                    "calificacion": 0,
-                    "falladas": []
-                }).eq("cedula", st.session_state.cedula).execute()
-            except Exception:
-                pass
-            st.session_state.paso = "evaluacion"
-            st.rerun()
-    else:
-        if st.button("Ver y Descargar mi Certificado Oficial ➔", type="primary", use_container_width=True):
-            st.session_state.paso = "certificado"
-            st.rerun()
+    <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #059669; text-align: center; padding: 40px;">
+        <span style="font-size: 36px;">🎉 🏆</span>
+        <h2 style="color: #0f172a; margin-top: 15px;">¡FELICITACIONES, {st.session_state.nombre_usuario}!</h2>
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;">
+        <p style="font-size: 18px; color: #334155; line-height: 1.8; text-align: justify; margin-bottom: 25px;">
+            Has cumplido satisfactoriamente con todo el contenido de la capacitación obligatoria en cumplimiento del <b>Acuerdo Ministerial MDT-2025-006</b>, completando los ejes normativos de igualdad de género, derechos laborales, erradicación de violencia y trabajo de igual valor.
+        </p>
+        <p style="font-size: 16.5px; color: #0284c7; background-color: #e0f2fe; padding: 15px; border-radius: 8px; font-weight: 600;">
+            📥 A continuación, procede a descargar tu certificado de cumplimiento oficial haciendo clic en el botón inferior.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    if st.button("Ver y Descargar mi Certificado Oficial ➔", type="primary", use_container_width=True):
+        st.session_state.paso = "certificado"
+        st.rerun()
 
 # =========================================================
 # FASE 5: CERTIFICADO OFICIAL CORPORATIVO
@@ -766,7 +670,7 @@ elif st.session_state.paso == "certificado":
     components.html(html_certificado, height=620, scrolling=True)
     st.markdown("<br>", unsafe_allow_html=True)
     
-    if st.button("🖨️ Imprimir y Guardar Certificado en PDF", type="primary", use_container_width=True):
+    if st.button("🖨️ Imprimir y Guardar Certificado in PDF", type="primary", use_container_width=True):
         components.html("<script>window.parent.print();</script>", height=0)
     
     if st.button("Finalizar y Salir del Sistema"):
