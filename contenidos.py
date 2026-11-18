@@ -698,7 +698,783 @@ SECCIONES = [
             "Una herramienta de presión exclusiva para resolver conflictos salariales mediante vías de hecho"
         ],
         "correcta": "Una guía permanente y un respaldo fundamental para ejercer sus funciones con ética, seguridad y equidad"
+    },
+    {
+        "id": 51,
+        "eje": "Módulo VIII: Profundización en Derechos y Deberes",
+        "titulo": "51. La Libertad de Asociación y Contratación Colectiva",
+        "contenido": "La Constitución de la República del Ecuador, en su artículo 326 numeral 8, así como el Código del Trabajo en sus artículos pertinentes, consagran la libertad de asociación y el derecho a la contratación colectiva como garantías esenciales para los trabajadores en relación de dependencia.<br><br>Este principio fundamental asegura que el personal pueda organizarse pacíficamente para la defensa de sus intereses comunes, negociar mejoras en sus condiciones socioeconómicas y participar en el diálogo social constructivo con los representantes de la empresa, todo ello dentro del marco de la ley y el respeto mutuo.<br><br>Para ti como colaborador, conocer estas garantías fortalece tu comprensión sobre los mecanismos legítimos de representación y participación, promoviendo un ambiente donde las relaciones obrero-patronales se manejan con absoluta transparencia y apertura al entendimiento.<br><br>Garantizar la libertad de asociación refrenda el compromiso institucional con el pluralismo, la democracia participativa y el respeto a los derechos consagrados en los convenios fundamentales de la Organización Internacional del Trabajo (OIT).",
+        "pregunta": "Según la legislación ecuatoriana y los principios constitucionales, ¿qué garantiza el derecho a la libertad de asociación laboral?",
+        "opciones": [
+            "Que los trabajadores puedan organizarse libremente para la defensa de sus intereses y el diálogo social constructivo",
+            "Que la empresa delegue por completo la administración financiera y operativa en los sindicatos internos",
+            "Que los colaboradores queden exentos de cumplir con el reglamento interno de disciplina de la compañía",
+            "Que las jornadas de trabajo sean fijadas de manera unilateral por los empleados sin consulta previa"
+        ],
+        "correcta": "Que los trabajadores puedan organizarse libremente para la defensa de sus intereses y el diálogo social constructivo"
+    },
+    {
+        "id": 52,
+        "eje": "Módulo VIII: Profundización en Derechos y Deberes",
+        "titulo": "52. Obligación de Proveer Equipos de Protección y Seguridad",
+        "contenido": "El Código del Trabajo y las normativas específicas de seguridad y salud ocupacional imponen al empleador la obligación estricta de proporcionar de manera gratuita y oportuna todos los equipos de protección personal (EPP), indumentaria adecuada y herramientas necesarias para precautelar la integridad física del trabajador.<br><br>Por su parte, el trabajador asume la corresponsabilidad ineludible de utilizar correctamente dichos implementos durante toda la jornada, cumpliendo los protocolos técnicos de prevención de riesgos propios de su área de operaciones.<br><br>Para ti, esta normativa representa la garantía de que tu salud y tu vida son prioritarias para la empresa, exigiendo una cultura de autocuidado y cumplimiento riguroso de las normas de seguridad industrial en cada proceso productivo.<br><br>Prevenir accidentes laborales mediante el uso adecuado de los equipos de protección consolida un entorno de trabajo seguro, confiable y plenamente alineado con los estándares más exigentes de bienestar ocupacional.",
+        "pregunta": "¿Qué responsabilidad fundamental establece la ley en materia de seguridad y salud para el empleador y el trabajador?",
+        "opciones": [
+            "El empleador debe proveer gratuitamente equipos de protección y el trabajador tiene el deber de usarlos adecuadamente",
+            "El trabajador es el único responsable de adquirir sus propias herramientas y ropa de seguridad industrial",
+            "La empresa puede omitir la entrega de equipos de protección si las labores se ejecutan en áreas administrativas",
+            "El uso de implementos de seguridad queda sujeto exclusivamente al criterio voluntario de cada colaborador"
+        ],
+        "correcta": "El empleador debe proveer gratuitamente equipos de protección y el trabajador tiene el deber de usarlos adecuadamente"
+    },
+    {
+        "id": 53,
+        "eje": "Módulo VIII: Profundización en Derechos y Deberes",
+        "titulo": "53. El Derecho a Vacaciones Anuales Remuneradas",
+        "contenido": "El artículo 69 del Código del Trabajo establece que todo trabajador tiene derecho a gozar anualmente de un período ininterrumpido de quince días de descanso remunerado, incluyendo los días no laborables que formen parte de dicho periodo, conforme a la antigüedad acumulada en la empresa.<br><br>Este derecho irrenunciable está diseñado para permitir la recuperación física y mental del colaborador, fomentando la conciliación entre sus responsabilidades laborales y su bienestar personal y familiar.<br><br>Para ti, planificar y disfrutar de tus vacaciones anuales constituye una garantía legal indispensable para mantener altos niveles de motivación, salud y rendimiento profesional en tu puesto de trabajo.<br><br>La empresa asume la obligación de facilitar el goce efectivo de este descanso, programándolo de común acuerdo para evitar afectaciones operativas y garantizando el pago anticipado de la remuneración correspondiente.",
+        "pregunta": "Según el artículo 69 del Código del Trabajo, ¿cuál es el periodo básico de descanso remunerado al año que le corresponde al trabajador?",
+        "opciones": [
+            "Un período ininterrumpido de quince (15) días de vacaciones anuales remuneradas",
+            "Exactamente sesenta días calendario distribuidos en cuatro periodos trimestrales",
+            "Un total de treinta días hábiles acumulables de forma indefinida sin límite de tiempo",
+            "Un fin de semana largo mensual compensado mediante recortes en la jornada ordinaria"
+        ],
+        "correcta": "Un período ininterrumpido de quince (15) días de vacaciones anuales remuneradas"
+    },
+    {
+        "id": 54,
+        "eje": "Módulo VIII: Profundización en Derechos y Deberes",
+        "titulo": "54. Protección contra el Hostigamiento Psicológico Ocasional y Sistemático",
+        "contenido": "Más allá del acoso laboral sistemático (mobbing), la normativa interna y los protocolos de prevención de riesgos psicosociales prohíben cualquier manifestación aislada u ocasional de hostigamiento, burla, descalificación o trato grosero entre miembros de la organización.<br><br>La convivencia corporativa exige un estándar elevado de respeto y consideración interpersonal, impidiendo que expresiones de impaciencia, bromas de carácter ofensivo o presiones desmedidas alteren la paz y la dignidad en las áreas de trabajo.<br><br>Para ti como colaborador, saber que la empresa rechaza cualquier forma de agresión psicológica te brinda la confianza de desenvolverte en un espacio seguro, donde la empatía y la buena educación son normas de conducta obligatorias.<br><br>Frenar a tiempo conductas hostiles ocasionales evita que escalen a conflictos mayores, consolidando una comunidad laboral unida, respetuosa y firmemente comprometida con el bienestar emocional de todos.",
+        "pregunta": "¿Cómo debe manejarse cualquier manifestación aislada de trato grosero u hostigamiento en la empresa según la política interna?",
+        "opciones": [
+            "Se rechaza categóricamente, ya que la convivencia exige respeto y consideración para preservar la paz laboral",
+            "Se tolera siempre y cuando ocurra fuera del horario oficial de oficinas y de las instalaciones",
+            "Se considera una herramienta válida de presión operativa para acelerar el cumplimiento de metas",
+            "Se deja a la libre resolución de los involucrados sin la intervención de las normas disciplinarias"
+        ],
+        "correcta": "Se rechaza categóricamente, ya que la convivencia exige respeto y consideración para preservar la paz laboral"
+    },
+    {
+        "id": 55,
+        "eje": "Módulo VIII: Profundización en Derechos y Deberes",
+        "titulo": "55. Obligación de Guardar Reserva y Confidencialidad Operativa",
+        "contenido": "El Código del Trabajo y los contratos individuales establecen la obligación estricta de guardar absoluta reserva y confidencialidad respecto a los secretos industriales, comerciales, fórmulas, procesos técnicos o información estratégica de la compañía a la que el trabajador tenga acceso por su cargo.<br><br>Esta obligación protege los intereses patrimoniales y competitivos de la empresa frente a terceros, exigiendo de los colaboradores una conducta proba, leal y responsable en el manejo de la documentación e información institucional.<br><br>Para ti, cumplir con este deber fiduciario demuestra tu profesionalismo, ética y compromiso con la seguridad corporativa, precautelando el prestigio y la sostenibilidad del centro de trabajo que te brinda empleo.<br><br>La filtración indebida o el uso no autorizado de información reservada constituye una causal grave de sanción disciplinaria y terminación contractual justificada conforme a la ley.",
+        "pregunta": "¿Qué implica la obligación de guardar reserva y confidencialidad operativa por parte del colaborador?",
+        "opciones": [
+            "Proteger los secretos industriales, comerciales y estratégicos de la empresa, evitando filtraciones indebidas",
+            "Censurar el intercambio de opiniones profesionales entre los distintos departamentos de la compañía",
+            "Impidir que los trabajadores conozcan los detalles generales sobre los estados financieros anuales",
+            "Archivar de manera indefinida los registros de asistencia y planillas de sueldos en oficinas seguras"
+        ],
+        "correcta": "Proteger los secretos industriales, comerciales y estratégicos de la empresa, evitando filtraciones indebidas"
+    },
+    {
+        "id": 56,
+        "eje": "Módulo VIII: Profundización en Derechos y Deberes",
+        "titulo": "56. El Derecho a la Propiedad Intelectual de Creaciones Laborales",
+        "contenido": "Cuando un trabajador, en desarrollo de sus funciones habituales o mediante el uso de los recursos tecnológicos y operativos de la empresa, crea software, diseños, invenciones o mejoras técnicas, la titularidad de dichos derechos de propiedad intelectual se regula conforme a los contratos y a la Ley de Propiedad Intelectual del Ecuador.<br><br>Comprender estas normas evita conflictos sobre la autoría y el uso comercial de las innovaciones generadas dentro de la jornada de trabajo, garantizando que el esfuerzo creativo sea reconocido institucionalmente.<br><br>Para ti como colaborador creativo o técnico, esto significa que tus aportes innovadores cuentan con un marco de protección claro, donde la empresa valora e incentiva la inventiva orientada a optimizar los procesos productivos.<br><br>Fomentar la innovación bajo directrices legales transparentes estimula el desarrollo tecnológico interno y consolida a la organización como un referente de creatividad y modernidad industrial.",
+        "pregunta": "¿Cómo se determina generalmente la titularidad de las creaciones o mejoras técnicas desarrolladas por un empleado en su jornada?",
+        "opciones": [
+            "Se regula conforme a los contratos de trabajo y la ley, salvaguardando los intereses operativos e institucionales",
+            "Pasan a ser propiedad exclusiva del trabajador para comercializarlas de forma independiente con terceros",
+            "Quedan excluidas de toda protección legal al haber sido elaboradas dentro de una empresa privada",
+            "Requieren de la aprobación previa y unánime de los sindicatos externos para su aplicación práctica"
+        ],
+        "correcta": "Se regula conforme a los contratos de trabajo y la ley, salvaguardando los intereses operativos e institucionales"
+    },
+    {
+        "id": 57,
+        "eje": "Módulo VIII: Profundización en Derechos y Deberes",
+        "titulo": "57. Prevención del Consumo de Sustancias en el Ámbito Laboral",
+        "contenido": "El Reglamento Interno de Trabajo y las políticas de seguridad ocupacional prohíben de manera absoluta la introducción, comercialización, posesión o consumo de bebidas alcohólicas, sustancias psicotrópicas o estupefacientes dentro de las instalaciones de la empresa y durante la ejecución de las labores.<br><br>Esta prohibición responde a la necesidad ineludible de precautelar la integridad física del infractor y la de sus compañeros, considerando que el estado de alteración cognitiva incrementa exponencialmente el riesgo de accidentes graves en la operación.<br><br>Para ti, cumplir y promover esta disposición garantiza un entorno laboral sobrio, seguro, lúcido y plenamente confiable, donde las capacidades físicas y mentales de todo el equipo se encuentran en óptimas condiciones.<br><br>El quebrantamiento de esta norma activa de inmediato los procedimientos disciplinarios más severos, incluyendo las causales legales de visto bueno por embriaguez o intoxicación en el trabajo.",
+        "pregunta": "¿Qué establece la normativa interna respecto a la posesión o consumo de alcohol y sustancias en la empresa?",
+        "opciones": [
+            "Prohíbe terminantemente su consumo o posesión en las instalaciones para prevenir accidentes y proteger la seguridad",
+            "Permite su uso moderado durante las horas de almuerzo siempre que no afecte el rendimiento operativo",
+            "Lo autoriza de manera excepcional en los días viernes al concluir los turnos ordinarios de labores",
+            "Deja la regulación de esta materia al criterio voluntario de los jefes de cada unidad de producción"
+        ],
+        "correcta": "Prohíbe terminantemente su consumo o posesión en las instalaciones para prevenir accidentes y proteger la seguridad"
+    },
+    {
+        "id": 58,
+        "eje": "Módulo VIII: Profundización en Derechos y Deberes",
+        "titulo": "58. El Uso Correcto de los Canales de Comunicación Interna",
+        "contenido": "Los correos electrónicos corporativos, las plataformas de mensajería institucional, los equipos informáticos y las redes de datos de la empresa constituyen herramientas de trabajo destinadas exclusivamente al cumplimiento de las funciones asignadas a cada colaborador.<br><br>Su utilización debe ajustarse a criterios estrictamente profesionales, éticos y legales, prohibiendo el envío de cadenas maliciosas, material ofensivo, contenido pornográfico o información que vulnere la moral y las buenas costumbres.<br><br>Para ti, hacer un uso responsable de estos canales garantiza la ciberseguridad corporativa, previene ataques informáticos y mantiene la fluidez de las comunicaciones oficiales entre las distintas áreas de la institución.<br><br>La empresa se reserva el derecho de auditar el uso correcto de sus plataformas tecnológicas para asegurar el cumplimiento de estas directrices y proteger la integridad de sus sistemas de información.",
+        "pregunta": "¿Cuál es el criterio fundamental que debe regir el uso de los canales y equipos de comunicación corporativos?",
+        "opciones": [
+            "Deben emplearse exclusivamente para fines profesionales y laborales, manteniendo estándares éticos y de seguridad",
+            "Pueden utilizarse libremente para cualquier actividad personal ilimitada durante las horas de oficina",
+            "Sirven como repositorio personal de archivos multimedia y entretenimiento para los colaboradores",
+            "Quedan exentos de cualquier supervisión o auditoría por parte del departamento de sistemas"
+        ],
+        "correcta": "Deben emplearse exclusivamente para fines profesionales y laborales, manteniendo estándares éticos y de seguridad"
+    },
+    {
+        "id": 59,
+        "eje": "Módulo VIII: Profundización en Derechos y Deberes",
+        "titulo": "59. El Deber de Colaboración ante Auditorías e Inspecciones",
+        "contenido": "Cuando organismos de control estatales, tales como el Ministerio del Trabajo, el IESS o auditores externos autorizados, realizan inspecciones o revisiones dentro de las instalaciones de la empresa, todo el personal tiene el deber ético y legal de colaborar con veracidad y transparencia.<br><br>Esta colaboración implica facilitar información exacta, atender los requerimientos documentales y permitir el acceso ordenado a las áreas operativas conforme a las directrices emitidas por la representación legal de la compañía.<br><br>Para ti como colaborador, actuar con honestidad y disposición durante estos procesos fortalece la imagen institucional y demuestra que nuestras operaciones se desarrollan bajo un marco de absoluta legalidad y orden.<br><br>La obstaculización malintencionada o la entrega de datos falsos a las autoridades de control constituye una falta grave que perjudica los intereses corporativos y vulnera los principios normativos vigentes.",
+        "pregunta": "Ante una inspección o auditoría de organismos de control estatales en la empresa, ¿cómo debe actuar el personal?",
+        "opciones": [
+            "Colaborar con veracidad, facilitando la información y el acceso requerido conforme a las directrices legales",
+            "Ocultar los registros documentales y suspender el ingreso de los inspectores a las áreas de trabajo",
+            "Negarse a emitir declaraciones bajo el argumento de proteger la privacidad de los empleados",
+            "Abandonar las instalaciones de manera temporal hasta que concluyan las diligencias oficiales"
+        ],
+        "correcta": "Colaborar con veracidad, facilitando la información y el acceso requerido conforme a las directrices legales"
+    },
+    {
+        "id": 60,
+        "eje": "Módulo VIII: Profundización en Derechos y Deberes",
+        "titulo": "60. Consolidación de los Valores Éticos en la Organización",
+        "contenido": "Los derechos, deberes, protocolos de no discriminación, prevención de violencia e igualdad salarial estudiados a lo largo de este programa formativo encuentran su síntesis perfecta en la práctica cotidiana de los valores éticos institucionales.<br><br>La honestidad, la integridad, el respeto a la dignidad humana, la transparencia y la responsabilidad social son los pilares sobre los cuales se edifica la reputación y el éxito sostenido de nuestra compañía en el mercado ecuatoriano.<br><br>Para ti como colaborador, interiorizar y practicar estos valores significa convertirte en un pilar fundamental de una cultura corporativa ejemplar, donde el esfuerzo individual contribuye al bienestar colectivo y a la justicia social.<br><br>Con este módulo avanzado, reafirmamos que el cumplimiento de la ley no es una simple obligación formal, sino un compromiso vital con la excelencia, la equidad y el respeto irrestricto a las personas.",
+        "pregunta": "¿Qué representan los valores éticos institucionales en la práctica diaria de la compañía según el programa formativo?",
+        "opciones": [
+            "Los pilares fundamentales que sustentan la reputación, la equidad, la transparencia y el éxito sostenido de la empresa",
+            "Una serie de enunciados decorativos impresos en los manuales sin aplicación real en las operaciones",
+            "Un obstáculo temporal para alcanzar las metas de producción económica exigidas por la gerencia",
+            "Un conjunto de reglas opcionales aplicables únicamente al personal administrativo de alta gerencia"
+        ],
+        "correcta": "Los pilares fundamentales que sustentan la reputación, la equidad, la transparencia y el éxito sostenido de la empresa"
+    },
+    {
+        "id": 61,
+        "eje": "Módulo IX: Nuevas Fronteras en el Derecho Laboral",
+        "titulo": "61. El Trabajo a Distancia y el Teletrabajo Regulado",
+        "contenido": "Con la evolución de las tecnologías de la información y las reformas incorporadas al ordenamiento laboral ecuatoriano, el teletrabajo y las modalidades a distancia se han consolidado como formas legítimas de ejecución de la relación de dependencia bajo estrictas normativas de control.<br><br>Estas modalidades exigen que el empleador garantice la desconexión digital del trabajador fuera de la jornada convenida, respete los límites de horario, proporcione los soportes tecnológicos adecuados y mantenga el mismo nivel de derechos y protección social que el trabajo presencial.<br><br>Para ti como colaborador bajo esta modalidad, significa que la flexibilidad operativa no implica la pérdida de tus garantías fundamentales, debiendo cumplir con responsabilidad tus metas mientras la empresa respeta tu privacidad y tus tiempos de descanso.<br><br>Regular adecuadamente el teletrabajo fomenta la conciliación entre la vida personal y laboral, optimiza la productividad y adapta a la organización a los estándares más modernos de gestión del talento humano.",
+        "pregunta": "Según la normativa sobre teletrabajo y modalidades a distancia, ¿qué obligación fundamental debe cumplir el empleador?",
+        "opciones": [
+            "Garantizar la desconexión digital del trabajador fuera de la jornada convenida y mantener iguales derechos laborales",
+            "Exigir disponibilidad ininterrumpida las veinticuatro horas del día mediante el uso de canales de mensajería",
+            "Suprimir el pago de los beneficios sociales al considerar que el colaborador labora desde su domicilio particular",
+            "Delegar en el trabajador la obligación de adquirir y mantener su propia infraestructura tecnológica de red"
+        ],
+        "correcta": "Garantizar la desconexión digital del trabajador fuera de la jornada convenida y mantener iguales derechos laborales"
+    },
+    {
+        "id": 62,
+        "eje": "Módulo IX: Nuevas Fronteras en el Derecho Laboral",
+        "titulo": "62. Protección de Datos Personales en el Ámbito Laboral",
+        "contenido": "La Ley Orgánica de Protección de Datos Personales establece directrices de cumplimiento estricto para el manejo de la información confidencial de los colaboradores dentro de las organizaciones, prohibiendo la recolección de datos excesivos o injustificados por parte del departamento de Talento Humano.<br><br>La empresa está obligada a resguardar los expedientes médicos, hojas de vida, evaluaciones y registros salariales bajo estrictos estándares de seguridad informática y confidencialidad, utilizándolos exclusivamente para fines estrictamente laborales y legales.<br><br>Para ti, esto representa la garantía de que tu privacidad es respetada y que tu información personal cuenta con un blindaje legal frente a accesos no autorizados o usos indebidos dentro de la estructura corporativa.<br><br>Garantizar la protección de datos fortalece la confianza institucional y demuestra el firme compromiso de la compañía con los derechos digitales y la privacidad de su capital humano.",
+        "pregunta": "¿Qué exige la Ley de Protección de Datos Personales en el manejo de la información de los trabajadores dentro de la empresa?",
+        "opciones": [
+            "Resguardar los expedientes y registros bajo estrictos estándares de seguridad, usándolos solo para fines laborales",
+            "Publicar las fichas médicas y evaluaciones de desempeño en las carteleras informativas de libre acceso",
+            "Permitir la libre comercialización de las bases de datos del personal con proveedores comerciales externos",
+            "Eliminar por completo los historiales de contratación al finalizar cada periodo fiscal anual"
+        ],
+        "correcta": "Resguardar los expedientes y registros bajo estrictos estándares de seguridad, usándolos solo para fines laborales"
+    },
+    {
+        "id": 63,
+        "eje": "Módulo IX: Nuevas Fronteras en el Derecho Laboral",
+        "titulo": "63. Gestión de Riesgos Psicosociales en el Trabajo",
+        "contenido": "Los riesgos psicosociales comprenden aquellos aspectos del diseño, organización y gestión del trabajo, así como de su entorno social, que pueden causar daños físicos, psíquicos o sociales a los trabajadores, tales como el estrés crónico, la fatiga mental y el Burnout.<br><br>Conforme a las normativas del IESS y del Ministerio del Trabajo, las empresas deben implementar programas activos de evaluación y prevención de estos riesgos, identificando fuentes de presión excesiva y promoviendo un ambiente saludable.<br><br>Para ti, la gestión de riesgos psicosociales significa que tu salud mental es considerada un pilar fundamental de la seguridad ocupacional, contando con espacios de apoyo y directrices para prevenir el desgaste laboral extremo.<br><br>Cuidar el bienestar psicológico de los equipos previene enfermedades ocupacionales, reduce el ausentismo y consolida una cultura corporativa humanitaria, equilibrada y verdaderamente sostenible.",
+        "pregunta": "¿Qué abarca la gestión de riesgos psicosociales obligatoria en los centros de trabajo modernos?",
+        "opciones": [
+            "La prevención y evaluación de factores organizacionales que puedan causar estrés crónico, fatiga mental o desgaste",
+            "El suministro obligatorio de suplementos vitamínicos y analgésicos farmacéuticos para el personal operativo",
+            "La contratación de servicios de entretenimiento nocturno durante los fines de semana de cierre fiscal",
+            "La supresión total de las metas de productividad y los indicadores de rendimiento en todas las áreas"
+        ],
+        "correcta": "La prevención y evaluación de factores organizacionales que puedan causar estrés crónico, fatiga mental o desgaste"
+    },
+    {
+        "id": 64,
+        "eje": "Módulo IX: Nuevas Fronteras en el Derecho Laboral",
+        "titulo": "64. Inclusión Laboral de Personas con Discapacidad",
+        "contenido": "La legislación ecuatoriana establece la obligación ineludible de que las empresas privadas e instituciones públicas con un número determinado de trabajadores mantengan un porcentaje mínimo de inclusión laboral de personas con discapacidad o sustitutos.<br><br>Esta normativa busca garantizar la igualdad real de oportunidades, la inserción productiva y el desarrollo profesional de este grupo de atención prioritaria, prohibiendo cualquier forma de discriminación en su contratación y desempeño.<br><br>Para ti como colaborador, compartir el espacio de trabajo con personas con discapacidad enriquece la diversidad del equipo, fomenta la solidaridad y consolida un entorno inclusivo donde el talento humano se valora por sus capacidades reales.<br><br>Cumplir con las cuotas de inclusión refrenda el compromiso ético de la organización con la justicia social, la no discriminación y la equiparación de oportunidades en la sociedad.",
+        "pregunta": "¿Cuál es el propósito fundamental de las normativas sobre inclusión laboral de personas con discapacidad en las empresas?",
+        "opciones": [
+            "Garantizar la inserción productiva y la igualdad de oportunidades para este grupo de atención prioritaria",
+            "Otorgar exoneraciones totales de tributos fiscales a cambio de la contratación temporal de personal",
+            "Reemplazar las obligaciones de seguridad industrial mediante la asignación de tareas administrativas simples",
+            "Establecer jornadas de trabajo reducidas a la mitad con el pago íntegro de las remuneraciones básicas"
+        ],
+        "correcta": "Garantizar la inserción productiva y la igualdad de oportunidades para este grupo de atención prioritaria"
+    },
+    {
+        "id": 65,
+        "eje": "Módulo IX: Nuevas Fronteras en el Derecho Laboral",
+        "titulo": "65. La Erradicación del Trabajo Infantil y Adolescente No Autorizado",
+        "contenido": "El ordenamiento jurídico ecuatoriano, en concordancia con los convenios internacionales de la OIT y la Constitución, prohíbe de manera absoluta el trabajo infantil y regula con severas restricciones las actividades de los adolescentes, exigiendo autorizaciones previas y salvaguardando su educación.<br><br>Ninguna empresa o proveedor vinculado a nuestra cadena de valor puede emplear a menores de edad infringiendo los límites de edad mínima o exponiéndoles a labores peligrosas que comprometan su desarrollo integral y su formación académica.<br><br>Para ti, conocer esta prohibición absoluta refuerza la conciencia ética corporativa, sabiendo que nuestra institución rechaza categóricamente cualquier forma de explotación laboral en todas sus etapas y procesos.<br><br>Proteger la infancia y garantizar el derecho a la educación de los jóvenes es un deber moral ineludible que fortalece los cimientos éticos de nuestra sociedad y de nuestra organización.",
+        "pregunta": "¿Qué establece la legislación laboral y los convenios internacionales respecto al trabajo infantil?",
+        "opciones": [
+            "Prohíbe de manera absoluta el trabajo infantil y regula con estrictas restricciones las actividades de adolescentes",
+            "Permite la contratación de menores de edad en turnos nocturnos si cuentan con el aval de sus tutores legales",
+            "Faculta a las empresas industriales para incorporar aprendices infantiles en labores de alta peligrosidad",
+            "Deja al criterio de los gerentes operativos la decisión de emplear mano de obra juvenil en periodos vacacionales"
+        ],
+        "correcta": "Prohíbe de manera absoluta el trabajo infantil y regula con estrictas restricciones las actividades de adolescentes"
+    },
+    {
+        "id": 66,
+        "eje": "Módulo IX: Nuevas Fronteras en el Derecho Laboral",
+        "titulo": "66. Responsabilidad Social Empresarial y Derechos Laborales",
+        "contenido": "La Responsabilidad Social Empresarial (RSE) va más allá del cumplimiento estrictamente legal, abarcando el compromiso voluntario de la compañía con el desarrollo sostenible, el bienestar de su comunidad, la protección ambiental y el respeto irrestricto a los derechos de sus trabajadores.<br><br>Una estrategia de RSE sólida reconoce que el eslabón más importante de la organización es su talento humano, integrando políticas de equidad salarial, conciliación familiar y no discriminación en el núcleo de su gestión.<br><br>Para ti, laborar en una empresa socialmente responsable significa percibir que los valores corporativos se traducen en acciones reales que benefician tu calidad de vida y la de tu entorno familiar.<br><br>Este enfoque integral consolida una reputación impecable, proyectando a la organización como un modelo de excelencia, ética y compromiso con el futuro sostenible del Ecuador.",
+        "pregunta": "¿Cómo se integra el talento humano dentro de una estrategia genuina de Responsabilidad Social Empresarial (RSE)?",
+        "opciones": [
+            "Como el eslabón más importante, integrando políticas de equidad, bienestar y respeto a los derechos laborales",
+            "Como un recurso operativo intercambiable sujeto exclusivamente a los vaivenes de la oferta y demanda externa",
+            "Como un grupo de interés secundario cuyos beneficios económicos dependen de los excedentes comerciales anuales",
+            "Como un elemento administrativo externo administrado mediante contratos de tercerización de servicios"
+        ],
+        "correcta": "Como el eslabón más importante, integrando políticas de equidad, bienestar y respeto a los derechos laborales"
+    },
+    {
+        "id": 67,
+        "eje": "Módulo IX: Nuevas Fronteras en el Derecho Laboral",
+        "titulo": "67. El Rol de la Mediación en Conflictos Laborales Internos",
+        "contenido": "Los centros de mediación autorizados y los mecanismos alternativos de solución de conflictos se han convertido en herramientas eficaces para resolver controversias entre trabajadores y empleadores de manera rápida, confidencial y pacífica sin agotar la vía judicial ordinaria.<br><br>Acudir a la mediación permite alcanzar acuerdos voluntarios con fuerza de sentencia ejecutoriada, preservando la armonía institucional y evitando los costos y demoras de un litigio prolongado.<br><br>Para ti, conocer esta alternativa significa contar con un camino civilizado y constructivo para ventilar diferencias sobre liquidaciones, actas finiquito o interpretaciones contractuales con el respaldo de mediadores acreditados.<br><br>Fomentar la cultura de diálogo y mediación refrenda la voluntad institucional de resolver los desacuerdos mediante el entendimiento mutuo, la equidad y la buena fe.",
+        "pregunta": "¿Qué ventajas principales ofrecen los mecanismos de mediación en la solución de controversias laborales?",
+        "opciones": [
+            "Permiten resolver conflictos de manera rápida, pacífica y confidencial mediante acuerdos voluntarios con fuerza legal",
+            "Obligan al trabajador a renunciar a sus indemnizaciones de ley a cambio de recibir pagos en cuotas diferidas",
+            "Sustituyen de manera definitiva la intervención de los jueces de lo laboral en delitos de orden penal",
+            "Eliminan el derecho del colaborador a contar con el patrocinio de un abogado defensor de su confianza"
+        ],
+        "correcta": "Permiten resolver conflictos de manera rápida, pacífica y confidencial mediante acuerdos voluntarios con fuerza legal"
+    },
+    {
+        "id": 68,
+        "eje": "Módulo IX: Nuevas Fronteras en el Derecho Laboral",
+        "titulo": "68. Transparencia en la Gestión y Prevención de Conflictos de Interés",
+        "contenido": "Las políticas de buen gobierno corporativo exigen a los colaboradores y directivos actuar con absoluta transparencia, evitando incurrir en situaciones de conflicto de interés donde los intereses personales, familiares o comerciales entren en colisión con los de la empresa.<br><br>Incurrir en adjudicaciones opacas, contratación de familiares directos sin declaratoria previa o aprovechamiento de información privilegiada daña la credibilidad institucional y activa severas sanciones disciplinarias.<br><br>Para ti, mantener una conducta íntegra y transparente protege tu reputación profesional y garantiza que las decisiones operativas se tomen exclusivamente en beneficio de los objetivos corporativos y del equipo de trabajo.<br><br>Consolidar un estándar elevado de probidad previene actos de corrupción interna y fortalece un clima de confianza absoluta en todas las instancias de la organización.",
+        "pregunta": "¿Qué exige la política de prevención de conflictos de interés a los colaboradores de la empresa?",
+        "opciones": [
+            "Actuar con absoluta transparencia y evitar que intereses personales o familiares interfieran con las decisiones corporativas",
+            "Informar de manera confidencial los sueldos y bonificaciones de sus compañeros a proveedores externos",
+            "Participar obligatoriamente en las licitaciones de compras corporativas como oferentes particulares",
+            "Renunciar a cualquier actividad académica o comercial desarrollada fuera de la jornada ordinaria"
+        ],
+        "correcta": "Actuar con absoluta transparencia y evitar que intereses personales o familiares interfieran con las decisiones corporativas"
+    },
+    {
+        "id": 69,
+        "eje": "Módulo IX: Nuevas Fronteras en el Derecho Laboral",
+        "titulo": "69. El Derecho a la Formación y Actualización Profesional Continua",
+        "contenido": "Más allá de la capacitación obligatoria en derechos y equidad exigida por el Ministerio del Trabajo, el desarrollo integral del personal comprende el derecho a recibir formación técnica especializada y actualización continua orientada a potenciar sus destrezas operativas.<br><br>Facilitar el acceso a entrenamientos, talleres y programas de actualización fortalece la competitividad del equipo humano y prepara a los colaboradores para asumir nuevos retos tecnológicos y comerciales dentro de la industria.<br><br>Para ti como trabajador, la inversión de la empresa en tu capacitación representa una oportunidad invaluable para potenciar tu empleabilidad, tu eficiencia y tus posibilidades de ascenso a mediano y largo plazo.<br><br>Vincular el crecimiento técnico con el respeto a los valores institucionales garantiza un desarrollo profesional armónico, altamente productivo y alineado con las exigencias del mercado global.",
+        "pregunta": "¿Qué beneficio aporta el acceso a programas de formación técnica y actualización profesional continua al colaborador?",
+        "opciones": [
+            "Potencia sus destrezas operativas, mejora su eficiencia y amplía sus oportunidades de desarrollo y ascenso",
+            "Sustituye por completo la obligación de cumplir con las evaluaciones de desempeño anuales obligatorias",
+            "Exime al trabajador de registrar su asistencia diaria mediante los sistemas biométricos de control",
+            "Otorga el derecho a percibir bonificaciones salariales automáticas sin importar los resultados de producción"
+        ],
+        "correcta": "Potencia sus destrezas operativas, mejora su eficiencia y amplía sus oportunidades de desarrollo y ascenso"
+    },
+    {
+        "id": 70,
+        "eje": "Módulo IX: Nuevas Fronteras en el Derecho Laboral",
+        "titulo": "70. Síntesis de los Derechos y Deberes en el Nuevo Entorno Laboral",
+        "contenido": "El panorama contemporáneo del derecho laboral exige un equilibrio perfecto entre el respeto inflexible a los derechos fundamentales, la equidad de género, la erradicación de la violencia, la igualdad salarial y el cumplimiento riguroso de los deberes operativos y éticos.<br><br>Comprender que los derechos de los trabajadores y las obligaciones de los empleadores forman parte de un mismo sistema de justicia distributiva garantiza relaciones de dependencia estables, productivas y armónicas.<br><br>Para ti, haber recorrido este proceso formativo consolida una visión integral sobre tu rol como actor clave en la construcción de un entorno corporativo moderno, justo y respetuoso de la dignidad humana.<br><br>Continuemos aplicando estos principios cada día, consolidando a nuestra organización como un referente indiscutible de legalidad, ética, inclusión y excelencia en el Ecuador.",
+        "pregunta": "Según los principios revisados en el nuevo entorno laboral, ¿cómo se relacionan los derechos de los trabajadores y los deberes empresariales?",
+        "opciones": [
+            "Forman parte de un sistema equilibrado de justicia distributiva que garantiza relaciones estables y armónicas",
+            "Representan exigencias opcionales que pueden obviarse cuando existan presiones operativas extraordinarias",
+            "Constituyen normativas exclusivas aplicables al sector público sin vinculación con las empresas privadas",
+            "Funcionan como herramientas independientes sin relación directa con el clima organizacional interno"
+        ],
+        "correcta": "Forman parte de un sistema equilibrado de justicia distributiva que garantiza relaciones estables y armónicas"
+},
+    {
+        "id": 71,
+        "eje": "Módulo X: Gobernanza y Sostenibilidad Laboral",
+        "titulo": "71. El Rol de la Alta Dirección en la Cultura de Integridad",
+        "contenido": "La gobernanza corporativa moderna establece que el compromiso con la ética, la equidad salarial y la no discriminación no es una atribución exclusiva de los departamentos operativos, sino una responsabilidad indelegable de la alta dirección, el directorio y los representantes legales de la empresa.<br><br>Cuando los líderes de la organización actúan con el ejemplo, respaldan de manera activa los protocolos de prevención e impulsan una cultura de puertas abiertas, transmiten un mensaje contundente sobre la cero tolerancia frente a cualquier práctica abusiva o discriminatoria.<br><br>Para ti como colaborador, esta coherencia gerencial te otorga la absoluta tranquilidad de saber que las políticas escritas de la compañía se cumplen en la práctica diaria, respaldando tu estabilidad y tu dignidad profesional desde la cúspide de la estructura jerárquica.<br><br>Consolidar un liderazgo íntegro y transparente fortalece la cohesión interna y proyecta una imagen de solidez institucional incuestionable ante la sociedad y los organismos de control.",
+        "pregunta": "Según los principios de gobernanza corporativa, ¿cuál es el rol fundamental de la alta dirección frente a las políticas de equidad e integridad?",
+        "opciones": [
+            "Asumir la responsabilidad de liderar con el ejemplo, respaldando los protocolos y promoviendo una cultura de cero tolerancia al abuso",
+            "Delegar de manera definitiva en el personal subalterno la fiscalización del cumplimiento de las leyes laborales",
+            "Mantener las directrices éticas como documentos de archivo internos sin aplicación obligatoria en la gerencia",
+            "Suspender temporalmente las políticas de no discriminación cuando se presenten situaciones de alta presión comercial"
+        ],
+        "correcta": "Asumir la responsabilidad de liderar con el ejemplo, respaldando los protocolos y promoviendo una cultura de cero tolerancia al abuso"
+    },
+    {
+        "id": 72,
+        "eje": "Módulo X: Gobernanza y Sostenibilidad Laboral",
+        "titulo": "72. Indicadores de Gestión y Monitoreo de Clima Laboral",
+        "contenido": "Las empresas comprometidas con la mejora continua implementan herramientas científicas y metodologías de medición periódica del clima laboral, tales como encuestas de satisfacción anónimas, evaluación de riesgos psicosociales y auditorías internas de equidad retributiva.<br><br>Estos indicadores permiten a la gerencia detectar a tiempo cualquier foco de conflicto, desmotivación o percepción de desigualdad, facilitando la adopción inmediata de medidas correctivas y planes de acción ajustados a la realidad de la organización.<br><br>Para ti como colaborador, participar en estas mediciones de manera honesta y constructiva significa aportar directamente a la optimización de tu propio entorno de trabajo, sabiendo que tu opinión es valorada y tomada en cuenta.<br><br>Monitorear permanentemente el clima laboral transforma los datos en acciones concretas que garantizan un ambiente armónico, saludable, participativo y firmemente enfocado en el bienestar general.",
+        "pregunta": "¿Qué propósito fundamental cumplen las herramientas de medición periódica del clima laboral en la empresa?",
+        "opciones": [
+            "Detectar focos de conflicto o desigualdad para adoptar medidas correctivas y optimizar el entorno de trabajo",
+            "Establecer deducciones salariales automáticas basadas en los resultados de las evaluaciones individuales",
+            "Justificar la reducción de personal en los departamentos que presenten menores índices de satisfacción",
+            "Eliminar la obligatoriedad de cumplir con los reglamentos internos de disciplina y orden operativo"
+        ],
+        "correcta": "Detectar focos de conflicto o desigualdad para adoptar medidas correctivas y optimizar el entorno de trabajo"
+    },
+    {
+        "id": 73,
+        "eje": "Módulo X: Gobernanza y Sostenibilidad Laboral",
+        "titulo": "73. La Importancia de la Memoria Documental en la Gestión Laboral",
+        "contenido": "La gestión documental rigurosa constituye el respaldo probatorio indispensable ante cualquier auditoría del Ministerio del Trabajo o controversia jurídica, abarcando el archivo ordenado de contratos, roles de pago, registros de asistencia, actas de capacitación y evaluaciones de desempeño.<br><br>Contar con un sistema de archivo digital e impreso seguro garantiza la trazabilidad de las acciones patronales, demostrando con hechos el cumplimiento estricto de las obligaciones legales y convencionales.<br><br>Para ti, la existencia de una memoria documental transparente asegura que tus derechos adquiridos, ascensos, permisos y reconocimientos se encuentren debidamente registrados y respaldados ante cualquier eventualidad administrativa.<br><br>La pulcritud en el manejo de la información consolida una gestión institucional ordenada, eficiente y plenamente blindada frente a errores u omisiones de carácter formal.",
+        "pregunta": "¿Qué representa una gestión documental rigurosa y ordenada para la empresa y sus colaboradores?",
+        "opciones": [
+            "Un respaldo probatorio seguro que garantiza la trazabilidad de contratos, capacitaciones y derechos adquiridos",
+            "Un requisito burocrático innecesario que incrementa los costos operativos y de almacenamiento físico",
+            "Una herramienta exclusiva para sancionar a los trabajadores que cometan faltas leves de puntualidad",
+            "Un archivo confidencial de acceso prohibido para los colaboradores que deseen verificar sus propios roles"
+        ],
+        "correcta": "Un respaldo probatorio seguro que garantiza la trazabilidad de contratos, capacitaciones y derechos adquiridos"
+    },
+    {
+        "id": 74,
+        "eje": "Módulo X: Gobernanza y Sostenibilidad Laboral",
+        "titulo": "74. Cultura de Prevención frente a la Judicialización de Conflictos",
+        "contenido": "El enfoque moderno de las relaciones de trabajo prioriza la cultura de prevención y diálogo interno por encima de la judicialización prolongada de los conflictos, promoviendo espacios donde las discrepancias se solucionan mediante la negociación de buena fe y la mediación.<br><br>Prevenir los litigios laborales mediante una comunicación abierta, el cumplimiento puntual de obligaciones y la aplicación justa de las normas beneficia la estabilidad financiera y emocional de toda la comunidad corporativa.<br><br>Para ti como colaborador, saber que la compañía prefiere el entendimiento directo y la solución pacífica de las controversias te otorga confianza y tranquilidad en el desarrollo diario de tus funciones.<br><br>Fomentar la prevención consolida un modelo de gestión basado en la armonía y la cooperación mutua, reduciendo drásticamente la conflictividad y fortaleciendo el tejido social de la organización.",
+        "pregunta": "¿Por qué es preferible fomentar una cultura de prevención frente a la judicialización de conflictos laborales?",
+        "opciones": [
+            "Porque permite resolver discrepancias mediante el diálogo y la buena fe, preservando la armonía institucional",
+            "Porque elimina por completo el derecho constitucional de los trabajadores a presentar demandas judiciales",
+            "Porque exime a la empresa de cumplir con el pago de indemnizaciones en casos de despido intempestivo",
+            "Porque traslada la responsabilidad de solucionar los desacuerdos económicos al propio personal operativo"
+        ],
+        "correcta": "Porque permite resolver discrepancias mediante el diálogo y la buena fe, preservando la armonía institucional"
+    },
+    {
+        "id": 75,
+        "eje": "Módulo X: Gobernanza y Sostenibilidad Laboral",
+        "titulo": "75. Innovación Social y Bienestar Integral del Capital Humano",
+        "contenido": "La sostenibilidad de una organización en el tiempo depende de su capacidad para innovar no solo en procesos tecnológicos y comerciales, sino también en el ámbito de la innovación social, colocando el bienestar integral de su capital humano en el centro de la estrategia corporativa.<br><br>Programas de salud preventiva, apoyo a la conciliación familiar, planes de carrera equitativos y capacitación continua forman parte de un ecosistema que transforma el trabajo en una fuente de realización personal y desarrollo económico sostenible.<br><br>Para ti, formar parte de una empresa enfocada en el bienestar integral significa contar con un espacio donde tu evolución profesional y tu tranquilidad personal son pilares reconocidos y respaldados.<br><br>De este modo, cerramos este amplio ciclo formativo reafirmando que el éxito empresarial y la dignidad humana son inseparables, guiando cada uno de nuestros pasos hacia un futuro de equidad, legalidad y prosperidad compartida.",
+        "pregunta": "¿Qué busca consolidar una organización que apuesta por la innovación social y el bienestar integral de su capital humano?",
+        "opciones": [
+            "Un ecosistema donde el trabajo sea una fuente de realización personal, equidad y desarrollo sostenible",
+            "Un sistema de control estricto que limite la autonomía creativa de los colaboradores en sus áreas",
+            "Una reducción temporal de los estándares de calidad exigidos en la producción comercial ordinaria",
+            "Una dependencia absoluta de subsidios estatales para el financiamiento de las actividades operativas"
+        ],
+        "correcta": "Un ecosistema donde el trabajo sea una fuente de realización personal, equidad y desarrollo sostenible"
+    },
+    {
+        "id": 71,
+        "eje": "Módulo X: Gobernanza y Sostenibilidad Laboral",
+        "titulo": "71. El Rol de la Alta Dirección en la Cultura de Integridad",
+        "contenido": "La gobernanza corporativa moderna establece que el compromiso con la ética, la equidad salarial y la no discriminación no es una atribución exclusiva de los departamentos operativos, sino una responsabilidad indelegable de la alta dirección, el directorio y los representantes legales de la empresa.<br><br>Cuando los líderes de la organización actúan con el ejemplo, respaldan de manera activa los protocolos de prevención e impulsan una cultura de puertas abiertas, transmiten un mensaje contundente sobre la cero tolerancia frente a cualquier práctica abusiva o discriminatoria.<br><br>Para ti como colaborador, esta coherencia gerencial te otorga la absoluta tranquilidad de saber que las políticas escritas de la compañía se cumplen en la práctica diaria, respaldando tu estabilidad y tu dignidad profesional desde la cúspide de la estructura jerárquica.<br><br>Consolidar un liderazgo íntegro y transparente fortalece la cohesión interna y proyecta una imagen de solidez institucional incuestionable ante la sociedad y los organismos de control.",
+        "pregunta": "Según los principios de gobernanza corporativa, ¿cuál es el rol fundamental de la alta dirección frente a las políticas de equidad e integridad?",
+        "opciones": [
+            "Asumir la responsabilidad de liderar con el ejemplo, respaldando los protocolos y promoviendo una cultura de cero tolerancia al abuso",
+            "Delegar de manera definitiva en el personal subalterno la fiscalización del cumplimiento de las leyes laborales",
+            "Mantener las directrices éticas como documentos de archivo internos sin aplicación obligatoria en la gerencia",
+            "Suspender temporalmente las políticas de no discriminación cuando se presenten situaciones de alta presión comercial"
+        ],
+        "correcta": "Asumir la responsabilidad de liderar con el ejemplo, respaldando los protocolos y promoviendo una cultura de cero tolerancia al abuso"
+    },
+    {
+        "id": 72,
+        "eje": "Módulo X: Gobernanza y Sostenibilidad Laboral",
+        "titulo": "72. Indicadores de Gestión y Monitoreo de Clima Laboral",
+        "contenido": "Las empresas comprometidas con la mejora continua implementan herramientas científicas y metodologías de medición periódica del clima laboral, tales como encuestas de satisfacción anónimas, evaluación de riesgos psicosociales y auditorías internas de equidad retributiva.<br><br>Estos indicadores permiten a la gerencia detectar a tiempo cualquier foco de conflicto, desmotivación o percepción de desigualdad, facilitando la adopción inmediata de medidas correctivas y planes de acción ajustados a la realidad de la organización.<br><br>Para ti como colaborador, participar en estas mediciones de manera honesta y constructiva significa aportar directamente a la optimización de tu propio entorno de trabajo, sabiendo que tu opinión es valorada y tomada en cuenta.<br><br>Monitorear permanentemente el clima laboral transforma los datos en acciones concretas que garantizan un ambiente armónico, saludable, participativo y firmemente enfocado en el bienestar general.",
+        "pregunta": "¿Qué propósito fundamental cumplen las herramientas de medición periódica del clima laboral en la empresa?",
+        "opciones": [
+            "Detectar focos de conflicto o desigualdad para adoptar medidas correctivas y optimizar el entorno de trabajo",
+            "Establecer deducciones salariales automáticas basadas en los resultados de las evaluaciones individuales",
+            "Justificar la reducción de personal en los departamentos que presenten menores índices de satisfacción",
+            "Eliminar la obligatoriedad de cumplir con los reglamentos internos de disciplina y orden operativo"
+        ],
+        "correcta": "Detectar focos de conflicto o desigualdad para adoptar medidas correctivas y optimizar el entorno de trabajo"
+    },
+    {
+        "id": 73,
+        "eje": "Módulo X: Gobernanza y Sostenibilidad Laboral",
+        "titulo": "73. La Importancia de la Memoria Documental en la Gestión Laboral",
+        "contenido": "La gestión documental rigurosa constituye el respaldo probatorio indispensable ante cualquier auditoría del Ministerio del Trabajo o controversia jurídica, abarcando el archivo ordenado de contratos, roles de pago, registros de asistencia, actas de capacitación y evaluaciones de desempeño.<br><br>Contar con un sistema de archivo digital e impreso seguro garantiza la trazabilidad de las acciones patronales, demostrando con hechos el cumplimiento estricto de las obligaciones legales y convencionales.<br><br>Para ti, la existencia de una memoria documental transparente asegura que tus derechos adquiridos, ascensos, permisos y reconocimientos se encuentren debidamente registrados y respaldados ante cualquier eventualidad administrativa.<br><br>La pulcritud en el manejo de la información consolida una gestión institucional ordenada, eficiente y plenamente blindada frente a errores u omisiones de carácter formal.",
+        "pregunta": "¿Qué representa una gestión documental rigurosa y ordenada para la empresa y sus colaboradores?",
+        "opciones": [
+            "Un respaldo probatorio seguro que garantiza la trazabilidad de contratos, capacitaciones y derechos adquiridos",
+            "Un requisito burocrático innecesario que incrementa los costos operativos y de almacenamiento físico",
+            "Una herramienta exclusiva para sancionar a los trabajadores que cometan faltas leves de puntualidad",
+            "Un archivo confidencial de acceso prohibido para los colaboradores que deseen verificar sus propios roles"
+        ],
+        "correcta": "Un respaldo probatorio seguro que garantiza la trazabilidad de contratos, capacitaciones y derechos adquiridos"
+    },
+    {
+        "id": 74,
+        "eje": "Módulo X: Gobernanza y Sostenibilidad Laboral",
+        "titulo": "74. Cultura de Prevención frente a la Judicialización de Conflictos",
+        "contenido": "El enfoque moderno de las relaciones de trabajo prioriza la cultura de prevención y diálogo interno por encima de la judicialización prolongada de los conflictos, promoviendo espacios donde las discrepancias se solucionan mediante la negociación de buena fe y la mediación.<br><br>Prevenir los litigios laborales mediante una comunicación abierta, el cumplimiento puntual de obligaciones y la aplicación justa de las normas beneficia la estabilidad financiera y emocional de toda la comunidad corporativa.<br><br>Para ti como colaborador, saber que la compañía prefiere el entendimiento directo y la solución pacífica de las controversias te otorga confianza y tranquilidad en el desarrollo diario de tus funciones.<br><br>Fomentar la prevención consolida un modelo de gestión basado en la armonía y la cooperación mutua, reduciendo drásticamente la conflictividad y fortaleciendo el tejido social de la organización.",
+        "pregunta": "¿Por qué es preferible fomentar una cultura de prevención frente a la judicialización de conflictos laborales?",
+        "opciones": [
+            "Porque permite resolver discrepancias mediante el diálogo y la buena fe, preservando la armonía institucional",
+            "Porque elimina por completo el derecho constitucional de los trabajadores a presentar demandas judiciales",
+            "Porque exime a la empresa de cumplir con el pago de indemnizaciones en casos de despido intempestivo",
+            "Porque traslada la responsabilidad de solucionar los desacuerdos económicos al propio personal operativo"
+        ],
+        "correcta": "Porque permite resolver discrepancias mediante el diálogo y la buena fe, preservando la armonía institucional"
+    },
+    {
+        "id": 75,
+        "eje": "Módulo X: Gobernanza y Sostenibilidad Laboral",
+        "titulo": "75. Innovación Social y Bienestar Integral del Capital Humano",
+        "contenido": "La sostenibilidad de una organización en el tiempo depende de su capacidad para innovar no solo en procesos tecnológicos y comerciales, sino también en el ámbito de la innovación social, colocando el bienestar integral de su capital humano en el centro de la estrategia corporativa.<br><br>Programas de salud preventiva, apoyo a la conciliación familiar, planes de carrera equitativos y capacitación continua forman parte de un ecosistema que transforma el trabajo en una fuente de realización personal y desarrollo económico sostenible.<br><br>Para ti, formar parte de una empresa enfocada en el bienestar integral significa contar con un espacio donde tu evolución profesional y tu tranquilidad personal son pilares reconocidos y respaldados.<br><br>De este modo, cerramos este amplio ciclo formativo reafirmando que el éxito empresarial y la dignidad humana son inseparables, guiando cada uno de nuestros pasos hacia un futuro de equidad, legalidad y prosperidad compartida.",
+        "pregunta": "¿Qué busca consolidar una organización que apuesta por la innovación social y el bienestar integral de su capital humano?",
+        "opciones": [
+            "Un ecosistema donde el trabajo sea una fuente de realización personal, equidad y desarrollo sostenible",
+            "Un sistema de control estricto que limite la autonomía creativa de los colaboradores en sus áreas",
+            "Una reducción temporal de los estándares de calidad exigidos en la producción comercial ordinaria",
+            "Una dependencia absoluta de subsidios estatales para el financiamiento de las actividades operativas"
+        ],
+        "correcta": "Un ecosistema donde el trabajo sea una fuente de realización personal, equidad y desarrollo sostenible"
+    },
+    {
+        "id": 76,
+        "eje": "Módulo XI: Cultura de Prevención y Seguridad Jurídica",
+        "titulo": "76. La Prevención de Riesgos Laborales como Cultura Corporativa",
+        "contenido": "La seguridad y salud ocupacional no debe entenderse como un conjunto de trámites burocráticos o normativas aisladas, sino como una cultura viva de prevención que involucra de manera directa a cada uno de los integrantes de la compañía en todos los niveles operativos y administrativos.<br><br>Asumir la prevención como un valor corporativo implica identificar de manera proactiva los peligros en el entorno de trabajo, reportar condiciones inseguras y aplicar rigurosamente los protocolos técnicos establecidos para evitar accidentes y enfermedades profesionales.<br><br>Para ti como colaborador, interiorizar esta cultura de autocuidado garantiza que regreses a tu hogar con plena integridad física, sabiendo que la empresa provee los medios y fomenta un ambiente donde la vida y la salud son siempre lo primero.<br><br>Consolidar esta mentalidad preventiva reduce los índices de siniestralidad, fortalece la confianza colectiva y asegura que la productividad y la seguridad marchen siempre de la mano.",
+        "pregunta": "¿Cómo debe concebirse la seguridad y salud ocupacional dentro de una organización moderna según los principios de prevención?",
+        "opciones": [
+            "Como una cultura viva de prevención y autocuidado que involucra a todos los niveles para proteger la vida y la salud",
+            "Como un requisito documental obligatorio que se archiva sin aplicación práctica en las áreas operativas",
+            "Como una responsabilidad exclusiva de los inspectores externos contratados de manera ocasional al año",
+            "Como un trámite optativo que los trabajadores pueden omitir cuando deban cumplir metas urgentes"
+        ],
+        "correcta": "Como una cultura viva de prevención y autocuidado que involucra a todos los niveles para proteger la vida y la salud"
+    },
+    {
+        "id": 77,
+        "eje": "Módulo XI: Cultura de Prevención y Seguridad Jurídica",
+        "titulo": "77. La Importancia del Reglamento Interno de Trabajo",
+        "contenido": "El Reglamento Interno de Trabajo constituye el cuerpo normativo fundamental que regula los derechos, obligaciones, prohibiciones y régimen disciplinario específico aplicable dentro de una organización, debidamente aprobado por las autoridades del Ministerio del Trabajo.<br><br>Este instrumento jurídico delimita con claridad las reglas de convivencia, los horarios, los procedimientos de justificación de faltas y las directrices operativas que garantizan el orden institucional y la seguridad jurídica para ambas partes de la relación de dependencia.<br><br>Para ti como colaborador, conocer a profundidad el contenido de este reglamento te otorga claridad sobre las expectativas de la empresa, evitando infracciones involuntarias y brindándote seguridad en tus actuaciones diarias.<br><br>La observancia estricta de sus disposiciones previene conflictos disciplinarios y asegura un ambiente de trabajo equilibrado, predecible y respetuoso de la legalidad vigente en el Ecuador.",
+        "pregunta": "¿Qué función cumple el Reglamento Interno de Trabajo debidamente aprobado por el Ministerio?",
+        "opciones": [
+            "Regular los derechos, obligaciones, prohibiciones y normas disciplinarias que garantizan el orden y la seguridad jurídica",
+            "Sustituir por completo las disposiciones contenidas en la Constitución de la República y el Código del Trabajo",
+            "Fijar de manera confidencial los sueldos y bonificaciones de la alta gerencia corporativa",
+            "Establecer multas económicas discrecionales aplicadas de forma directa por los supervisores de planta"
+        ],
+        "correcta": "Regular los derechos, obligaciones, prohibiciones y normas disciplinarias que garantizan el orden y la seguridad jurídica"
+    },
+    {
+        "id": 78,
+        "eje": "Módulo XI: Cultura de Prevención y Seguridad Jurídica",
+        "titulo": "78. El Debido Proceso en los Procedimientos Disciplinarios",
+        "contenido": "Cualquier medida de orden disciplinario o investigación interna que deba aplicarse ante una presunta falta laboral exige el respeto irrestricto al principio constitucional del debido proceso, garantizando el derecho a ser escuchado, a presentar pruebas de descargo y a una resolución motivada.<br><br>Las decisiones de carácter sancionatorio no pueden adoptarse de forma arbitraria o sumaria sin conceder al colaborador la oportunidad legítima de ejercer su defensa y explicar su versión de los hechos ante la instancia competente.<br><br>Para ti, la vigencia de esta garantía procesal significa que tu estabilidad y tu reputación profesional están protegidas contra decisiones precipitadas o injustas, asegurando que cualquier controversia interna sea tratada con rigor ético e imparcialidad.<br><br>El respeto al debido proceso fortalece la justicia interna y consolida la credibilidad en las normas disciplinarias de la institución.",
+        "pregunta": "¿Qué garantiza la aplicación del principio del debido proceso en los procedimientos disciplinarios internos de la empresa?",
+        "opciones": [
+            "El derecho del colaborador a ser escuchado, presentar pruebas de descargo y recibir una decisión motivada e imparcial",
+            "La facultad de la gerencia para sancionar de forma inmediata sin permitir explicaciones ni descargos al trabajador",
+            "La intervención obligatoria de tribunales penales externos en cualquier falta de carácter leve o administrativa",
+            "La exoneración total de responsabilidad para aquellos empleados que cuenten con mayor antigüedad institucional"
+        ],
+        "correcta": "El derecho del colaborador a ser escuchado, presentar pruebas de descargo y recibir una decisión motivada e imparcial"
+    },
+    {
+        "id": 79,
+        "eje": "Módulo XI: Cultura de Prevención y Seguridad Jurídica",
+        "titulo": "79. Erradicación del Hostigamiento Digital y Ciberacoso en el Trabajo",
+        "contenido": "Con la digitalización de las comunicaciones corporativas, el hostigamiento laboral y el acoso han encontrado nuevos canales de expresión a través del ciberacoso o el envío masivo de mensajes ofensivos, intimidatorios o denigrantes fuera o dentro de los horarios formales de labor.<br><br>Las políticas internas de la organización extienden la protección frente a la violencia y el acoso hacia cualquier plataforma digital, redes sociales corporativas o canales de mensajería instantánea utilizados por los colaboradores.<br><br>Para ti como trabajador, saber que el respeto digital es una exigencia obligatoria te otorga la tranquilidad de interactuar en un ecosistema virtual seguro, libre de abusos, burlas o presiones cibernéticas inaceptables.<br><br>Sancionar drásticamente el ciberacoso protege la salud mental del personal y adapta la normativa de convivencia a las realidades tecnológicas del mundo moderno.",
+        "pregunta": "¿Cómo se abordan las conductas de hostigamiento o acoso cuando ocurren a través de canales digitales y mensajería?",
+        "opciones": [
+            "Se sancionan con la misma severidad, ya que las políticas de cero tolerancia cubren las plataformas virtuales y redes",
+            "Se consideran asuntos de índole personal que escapan del control y la regulación del reglamento interno de la empresa",
+            "Se permiten de manera excepcional si ocurren fuera del horario oficial de oficinas y durante los fines de semana",
+            "Se catalogan como faltas menores al no existir un contacto físico directo entre los colaboradores involucrados"
+        ],
+        "correcta": "Se sancionan con la misma severidad, ya que las políticas de cero tolerancia cubren las plataformas virtuales y redes"
+    },
+    {
+        "id": 80,
+        "eje": "Módulo XI: Cultura de Prevención y Seguridad Jurídica",
+        "titulo": "80. El Valor Estratégico de la Retroalimentación Constructiva",
+        "contenido": "La retroalimentación o feedback constructivo constituye una herramienta gerencial y de compañerismo indispensable para corregir desviaciones operativas, potenciar talentos y orientar el desempeño hacia la excelencia sin menoscabar la autoestima ni la dignidad del trabajador.<br><br>A diferencia de la descalificación personal o la crítica destructiva, la retroalimentación objetiva se centra en los procesos, en los resultados medibles y en las oportunidades de mejora técnica, fomentando un aprendizaje continuo.<br><br>Para ti, recibir orientaciones profesionales estructuradas representa una oportunidad valiosa para perfeccionar tus habilidades y crecer dentro de la estructura corporativa con total confianza y apoyo institucional.<br><br>Fomentar esta práctica comunicativa fortalece el liderazgo positivo, mejora los indicadores de rendimiento y consolida un ambiente de trabajo estimulante y altamente colaborativo.",
+        "pregunta": "¿Qué diferencia fundamental existe entre la retroalimentación constructiva y la descalificación personal en el trabajo?",
+        "opciones": [
+            "La retroalimentación se centra en los procesos y resultados para mejorar, mientras que la descalificación ataca la dignidad",
+            "La retroalimentación es un proceso confidencial opcional y la descalificación constituye una norma reglamentaria",
+            "La retroalimentación la aplican únicamente los auditores externos y la descalificación los jefes de área",
+            "No existe ninguna diferencia práctica, ya que ambas metodologías buscan presionar al personal operativo"
+        ],
+        "correcta": "La retroalimentación se centra en los procesos y resultados para mejorar, mientras que la descalificación ataca la dignidad"
+    },
+    {
+        "id": 81,
+        "eje": "Módulo XII: Gestión del Talento y Equidad Estructural",
+        "titulo": "81. El Rol Estratégico del Departamento de Talento Humano",
+        "contenido": "El departamento de Talento Humano en una organización moderna trasciende la simple administración de planillas o el control de asistencia, convirtiéndose en el garante estratégico de la equidad, la aplicación de políticas de igualdad, la selección objetiva y el bienestar integral.<br><br>Esta unidad especializada tiene la responsabilidad de velar por el cumplimiento de los protocolos de prevención de acoso, coordinar las capacitaciones obligatorias y mantener canales abiertos de escucha activa para todo el personal.<br><br>Para ti como colaborador, contar con un departamento de Talento Humano accesible, imparcial y profesional significa tener un aliado institucional sólido para resolver inquietudes, tramitar permisos y canalizar cualquier sugerencia o reclamo.<br><br>Fortalecer la gestión técnica de esta área asegura que las decisiones corporativas prioricen siempre el desarrollo humano, la legalidad y la justicia organizacional.",
+        "pregunta": "¿Cuál es la función principal de Talento Humano dentro de una organización alineada con las normativas de equidad?",
+        "opciones": [
+            "Actuar como garante estratégico de la equidad, el cumplimiento de protocolos, las capacitaciones y el bienestar",
+            "Ejecutar recortes presupuestarios unilaterales afectando exclusivamente las remuneraciones del personal base",
+            "Limitar la comunicación directa entre los trabajadores y la alta gerencia mediante filtros burocráticos",
+            "Administrar de forma discrecional los fondos de reserva sin la supervisión de las autoridades ministeriales"
+        ],
+        "correcta": "Actuar como garante estratégico de la equidad, el cumplimiento de protocolos, las capacitaciones y el bienestar"
+    },
+    {
+        "id": 82,
+        "eje": "Módulo XII: Gestión del Talento y Equidad Estructural",
+        "titulo": "82. Transparencia en los Procesos de Ascenso y Plan de Carrera",
+        "contenido": "Un plan de carrera transparente establece las directrices claras, los requisitos de formación, las evaluaciones de desempeño y las competencias necesarias para que cualquier colaborador pueda aspirar a una promoción interna de manera justa y predecible.<br><br>Eliminar la opacidad en los ascensos evita la percepción de favoritismos y estimula la motivación colectiva, garantizando que los cargos de mayor jerarquía sean ocupados por quienes demuestren mérito y liderazgo comprobado.<br><br>Para ti, la existencia de un plan de carrera estructurado te otorga una perspectiva de futuro clara dentro de la compañía, sabiendo que tu esfuerzo y superación profesional son los únicos motores de tu avance jerárquico.<br><br>Garantizar la meritocracia en la promoción interna fortalece la estabilidad institucional y retiene el mejor talento dentro de la organización.",
+        "pregunta": "¿Qué aporta un plan de carrera transparente y estructurado a la dinámica de desarrollo del personal?",
+        "opciones": [
+            "Define reglas claras y meritocráticas para aspirar a promociones internas basándose en competencias y esfuerzo",
+            "Obliga a la empresa a ascender al personal exclusivamente en función de su antigüedad cronológica",
+            "Permite a los jefes de departamento designar cargos directivos mediante nombramientos verbales directos",
+            "Restringe la postulación a nuevas vacantes únicamente a candidatos externos contratados por agencias"
+        ],
+        "correcta": "Define reglas claras y meritocráticas para aspirar a promociones internas basándose en competencias y esfuerzo"
+    },
+    {
+        "id": 83,
+        "eje": "Módulo XII: Gestión del Talento y Equidad Estructural",
+        "titulo": "83. La Importancia del Diálogo Social Interno",
+        "contenido": "El diálogo social interno representa la capacidad permanente de la organización para propiciar espacios de comunicación fluida, asambleas informativas, comités paritarios y reuniones de coordinación donde empleador y trabajadores intercambian puntos de vista con respeto.<br><br>Este intercambio constructivo facilita la resolución anticipada de malentendidos, fomenta el sentido de pertenencia y alinea los objetivos estratégicos de la compañía con las expectativas de bienestar del personal.<br><br>Para ti como colaborador, participar en estos espacios o conocer sus resoluciones te integra de manera activa en la vida institucional, haciéndote partícipe de las decisiones que impactan tu jornada diaria.<br><br>Un canal de diálogo abierto y sincero es el antídoto más eficaz contra la desinformación, la apatía y los conflictos laborales prolongados.",
+        "pregunta": "¿Qué beneficios genera el fomento constante del diálogo social interno entre trabajadores y directivos?",
+        "opciones": [
+            "Facilita la resolución anticipada de malentendidos, fomenta el sentido de pertenencia y alinea objetivos y bienestar",
+            "Sustituye la obligación patronal de cumplir con las jornadas máximas legales establecidas en el código",
+            "Permite a los empleados modificar unilateralmente las políticas financieras y comerciales de la empresa",
+            "Elimina la necesidad de contar con reglamentos internos de disciplina y manuales de funciones"
+        ],
+        "correcta": "Facilita la resolución anticipada de malentendidos, fomenta el sentido de pertenencia y alinea objetivos y bienestar"
+    },
+    {
+        "id": 84,
+        "eje": "Módulo XII: Gestión del Talento y Equidad Estructural",
+        "titulo": "84. Prevención del Burnout y Promoción del Descanso Efectivo",
+        "contenido": "El síndrome de desgaste profesional o Burnout constituye un riesgo psicosocial grave caracterizado por agotamiento emocional, cinismo laboral y una marcada disminución de la realización personal, originado por cargas excesivas y falta de pausas adecuadas.<br><br>Las directrices de bienestar ocupacional exigen a la empresa monitorear las cargas de trabajo, promover el uso efectivo de las vacaciones y respetar rigurosamente los tiempos de descanso intrajornada y reposo semanal.<br><br>Para ti, cuidar tu salud mental y física mediante el descanso oportuno es un derecho y una necesidad vital para mantener un equilibrio sostenible entre tu vida personal y tu desempeño profesional.<br><br>Prevenir el Burnout asegura equipos de trabajo lúcidos, motivados, creativos y protegidos frente al deterioro de su salud integral.",
+        "pregunta": "¿Cómo interviene la empresa para prevenir el síndrome de Burnout o desgaste profesional en sus equipos?",
+        "opciones": [
+            "Monitoreando cargas de trabajo, promoviendo el uso efectivo de vacaciones y respetando los tiempos de descanso",
+            "Exigiendo turnos dobles continuos remunerados para compensar las deficiencias operativas temporales",
+            "Eliminando los permisos por calamidad doméstica para mantener la concentración absoluta en las metas",
+            "Delegando en el propio trabajador la responsabilidad exclusiva de gestionar su nivel de estrés sin pausas"
+        ],
+        "correcta": "Monitoreando cargas de trabajo, promoviendo el uso efectivo de vacaciones y respetando los tiempos de descanso"
+    },
+    {
+        "id": 85,
+        "eje": "Módulo XII: Gestión del Talento y Equidad Estructural",
+        "titulo": "85. La Ética en la Toma de Decisiones Operativas",
+        "contenido": "La toma de decisiones en el nivel operativo y gerencial debe estar guiada permanentemente por principios éticos inquebrantables, asegurando que la búsqueda de rentabilidad económica no vulnere jamás los derechos, la seguridad ni la dignidad de los colaboradores.<br><br>Actuar con integridad significa escoger la opción correcta y legal incluso cuando no existan supervisores observando, consolidando una cultura de probidad y honorabilidad en cada proceso productivo o administrativo.<br><br>Para ti como colaborador, saber que tus superiores toman decisiones basadas en la ética te otorga la seguridad de laborar en una institución respetable, confiable y plenamente alineada con los valores de la justicia social.<br><br>La conducta ética colectiva es la mejor carta de presentación de una empresa verdaderamente sostenible y exitosa en el tiempo.",
+        "pregunta": "¿Qué principio debe prevalecer invariablemente en la toma de decisiones operativas y gerenciales de la compañía?",
+        "opciones": [
+            "La integridad ética, asegurando que la rentabilidad nunca vulnere los derechos, la seguridad ni la dignidad",
+            "La maximización de los ingresos financieros a cualquier costo operativo o humano necesario",
+            "La discrecionalidad absoluta de los supervisores para omitir normativas de seguridad si hay urgencia",
+            "La priorización de intereses personales por encima de las directrices establecidas en el reglamento"
+        ],
+        "correcta": "La integridad ética, asegurando que la rentabilidad nunca vulnere los derechos, la seguridad ni la dignidad"
+    },
+    {
+        "id": 86,
+        "eje": "Módulo XIII: Sostenibilidad y Futuro del Trabajo",
+        "titulo": "86. Adaptabilidad Tecnológica y Resguardo de Derechos Laborales",
+        "contenido": "La automatización, la digitalización de procesos y la incorporación de inteligencia artificial en las distintas industrias plantean nuevos retos para la sostenibilidad del empleo, exigiendo que la adaptabilidad tecnológica camine de la mano con el respeto a los derechos laborales.<br><br>La reconversión y la capacitación continua se convierten en herramientas indispensables para preparar al capital humano frente a las nuevas demandas operativas, garantizando la estabilidad y el crecimiento profesional dentro de la organización.<br><br>Para ti como colaborador, asumir la transformación digital con una actitud abierta al aprendizaje continuo te permite mantener vigentes tus competencias y liderar los procesos de innovación en tu área.<br><br>Garantizar que la tecnología potencie al trabajador en lugar de desplazarlo injustamente consolida un modelo de progreso humanista, inclusivo y sostenible.",
+        "pregunta": "¿Cómo debe gestionarse la incorporación de nuevas tecnologías y automatización frente a los derechos del personal?",
+        "opciones": [
+            "A través de la reconversión y capacitación continua, garantizando que el desarrollo tecnológico proteja al talento",
+            "Mediante la terminación masiva de contratos para reducir costos operativos frente a la inversión en equipos",
+            "Eximiendo a la empresa de cumplir con las normativas de seguridad al operar maquinarias automatizadas",
+            "Trasladando el costo total de la actualización técnica y formación directamente al presupuesto del trabajador"
+        ],
+        "correcta": "A través de la reconversión y capacitación continua, garantizando que el desarrollo tecnológico proteja al talento"
+    },
+    {
+        "id": 87,
+        "eje": "Módulo XIII: Sostenibilidad y Futuro del Trabajo",
+        "titulo": "87. Responsabilidad Ambiental y Salud Ocupacional",
+        "contenido": "La sostenibilidad moderna vincula indisolublemente la responsabilidad ambiental corporativa con la salud ocupacional y el bienestar de la comunidad interna y externa, reduciendo la huella ecológica y previniendo la exposición a agentes contaminantes.<br><br>Cumplir con las normativas ambientales y de manejo seguro de materiales peligrosos protege tanto los ecosistemas circundantes como la integridad física de los operarios expuestos en las líneas de producción.<br><br>Para ti, laborar en una empresa ecológicamente responsable significa compartir el orgullo de pertenecer a una institución que cuida el entorno natural y salvaguarda la salud pública con rigurosidad técnica.<br><br>Integrar la ecología y la seguridad laboral en una sola estrategia consolida una gestión empresarial moderna, consciente y firmemente comprometida con las futuras generaciones.",
+        "pregunta": "¿Qué relación existe entre la responsabilidad ambiental y la salud ocupacional en las organizaciones sostenibles?",
+        "opciones": [
+            "Se integran para proteger tanto los ecosistemas como la integridad física de los trabajadores frente a agentes nocivos",
+            "Son áreas administrativas totalmente independientes sin relación directa con las operaciones de las plantas",
+            "La normativa ambiental aplica únicamente para las oficinas administrativas y la salud ocupacional para talleres",
+            "Constituyen trámites opcionales que se ejecutan solo cuando los municipios locales lo solicitan de forma verbal"
+        ],
+        "correcta": "Se integran para proteger tanto los ecosistemas como la integridad física de los trabajadores frente a agentes nocivos"
+    },
+    {
+        "id": 88,
+        "eje": "Módulo XIII: Sostenibilidad y Futuro del Trabajo",
+        "titulo": "88. Gestión de la Diversidad Generacional en la Empresa",
+        "contenido": "Los centros de trabajo actuales congregan múltiples generaciones, desde colaboradores con amplia trayectoria hasta jóvenes profesionales que se incorporan por primera vez, generando un valioso intercambio de experiencias, conocimientos y perspectivas.<br><br>Gestionar esta diversidad generacional exige eliminar cualquier sesgo por edad, fomentando la mentoría inversa, el respeto mutuo y la valoración de las fortalezas particulares que cada etapa aporta al equipo de trabajo.<br><br>Para ti como colaborador, convivir en un equipo intergeneracional enriquece tu visión profesional, estimula la adaptabilidad y fortalece un clima de compañerismo basado en la tolerancia y el aprendizaje compartido.<br><br>Aprovechar la sinergia de distintas generaciones posiciona a la empresa como una organización dinámica, abierta al cambio y altamente competitiva.",
+        "pregunta": "¿Qué valor estratégico aporta la gestión adecuada de la diversidad generacional en los equipos corporativos?",
+        "opciones": [
+            "Fomenta el intercambio de experiencias y conocimientos, enriqueciendo la perspectiva y la competitividad colectiva",
+            "Establece jerarquías salariales basadas exclusivamente en la edad cronológica de ingreso a la compañía",
+            "Justifica la separación física de los departamentos según el año de nacimiento de los colaboradores",
+            "Elimina la necesidad de realizar evaluaciones de desempeño estandarizadas para el personal veterano"
+        ],
+        "correcta": "Fomenta el intercambio de experiencias y conocimientos, enriqueciendo la perspectiva y la competitividad colectiva"
+    },
+    {
+        "id": 89,
+        "eje": "Módulo XIII: Sostenibilidad y Futuro del Trabajo",
+        "titulo": "89. El Reconocimiento al Desempeño y Buenas Prácticas",
+        "contenido": "El reconocimiento oportuno, público o privado, de las buenas prácticas, la innovación, el compañerismo y el cumplimiento sobresaliente de metas constituye un pilar motivacional de gran impacto en el desarrollo del talento humano.<br><br>Premiar el esfuerzo extraordinario refuerza los comportamientos deseados, estimula la creatividad operativa y demuestra que la compañía valora con justicia el aporte individual de su personal.<br><br>Para ti, ver que el trabajo dedicado y honesto es reconocido por la organización incrementa tu sentido de pertenencia, tu motivación diaria y tu orgullo de pertenecer a un equipo enfocado en la excelencia.<br><br>Institucionalizar el reconocimiento al mérito fortalece una cultura de aprecio mutuo, dinamismo y mejora continua en todas las áreas.",
+        "pregunta": "¿Qué impacto genera el reconocimiento oportuno al desempeño y las buenas prácticas en la dinámica del personal?",
+        "opciones": [
+            "Incrementa la motivación, refuerza los valores institucionales y fortalece el sentido de pertenencia y orgullo",
+            "Genera rivalidades destructivas e inconformidad salarial injustificada entre los departamentos operativos",
+            "Sustituye la obligación patronal de cumplir con el pago puntual de las remuneraciones mensuales de ley",
+            "Invalida la aplicación de las normas disciplinarias establecidas en el reglamento interno de trabajo"
+        ],
+        "correcta": "Incrementa la motivación, refuerza los valores institucionales y fortalece el sentido de pertenencia y orgullo"
+    },
+    {
+        "id": 90,
+        "eje": "Módulo XIII: Sostenibilidad y Futuro del Trabajo",
+        "titulo": "90. Consolidación de una Visión Compartida de Éxito",
+        "contenido": "Al finalizar este módulo avanzado sobre sostenibilidad y futuro del trabajo, resulta evidente que el éxito duradero de una organización no se mide únicamente por sus indicadores financieros, sino por la solidez de sus principios éticos y el bienestar de su gente.<br><br>Compartir una visión de éxito basada en la legalidad, la equidad salarial, la no discriminación y el respeto absoluto a la dignidad humana garantiza que cada meta alcanzada sea motivo de orgullo colectivo.<br><br>Para ti como colaborador, ser parte de esta visión compartida significa que tu esfuerzo diario construye un legado de justicia, progreso y armonía para ti, para tu familia y para toda la sociedad ecuatoriana.<br><br>Sigamos adelante con el firme compromiso de mantener nuestra organización en la cúspide de la excelencia, la ética y el cumplimiento normativo.",
+        "pregunta": "¿Cómo se define el éxito duradero de una organización según los principios de sostenibilidad y futuro del trabajo?",
+        "opciones": [
+            "A través de la solidez de sus principios éticos, el cumplimiento normativo y el bienestar integral de su gente",
+            "Mediante la evasión de controles estatales y la reducción de presupuestos destinados a la seguridad industrial",
+            "A partir de la imposición de metas comerciales inalcanzables que fuercen jornadas extraordinarias continuas",
+            "Con la supresión de los planes de capacitación continua para optimizar la rentabilidad financiera a corto plazo"
+        ],
+        "correcta": "A través de la solidez de sus principios éticos, el cumplimiento normativo y el bienestar integral de su gente"
+    },
+    {
+        "id": 91,
+        "eje": "Módulo XIV: Ética Aplicada y Gobernanza Avanzada",
+        "titulo": "91. El Valor de la Transparencia en la Gestión Financiera",
+        "contenido": "La transparencia en la gestión financiera, en el pago puntual de haberes, en el cálculo de utilidades y en la entrega de roles desglosados constituye un deber patronal ineludible que fortalece la confianza y previene cualquier suspicacia salarial.<br><br>Los colaboradores tienen el derecho legítimo de conocer las bases de cálculo de sus retribuciones y bonificaciones, asegurando que los procesos contables se ejecuten con absoluto rigor técnico y apego a la ley.<br><br>Para ti, contar con total claridad en tus ingresos y beneficios elimina incertidumbres y consolida una relación económica transparente, justa y predecible con la empresa.<br><br>Garantizar la pulcritud financiera refrenda la probidad institucional y proyecta una imagen de solidez y absoluta rectitud corporativa.",
+        "pregunta": "¿Qué impacto genera la transparencia en la gestión financiera y en el cálculo de haberes para el colaborador?",
+        "opciones": [
+            "Fortalece la confianza, elimina incertidumbres y garantiza una relación económica justa, clara y predecible",
+            "Permite a los empleados modificar directamente los asientos contables de la empresa en el sistema",
+            "Exime a la compañía de presentar las declaraciones tributarias anuales ante los organismos de control",
+            "Facilita la retención arbitraria de porcentajes salariales para fondos de ahorro corporativo internos"
+        ],
+        "correcta": "Fortalece la confianza, elimina incertidumbres y garantiza una relación económica justa, clara y predecible"
+    },
+    {
+        "id": 92,
+        "eje": "Módulo XIV: Ética Aplicada y Gobernanza Avanzada",
+        "titulo": "92. Prevención de Riesgos Legales Mediante el Cumplimiento",
+        "contenido": "La mejor estrategia preventiva frente a contingencias judiciales, multas ministeriales o demandas laborales radica en el cumplimiento riguroso, diario y documentado de todas las obligaciones normativas establecidas en el ordenamiento ecuatoriano.<br><br>Auditar constantemente los procesos internos permite corregir a tiempo cualquier desviación formal, evitando litigios costosos y protegiendo el patrimonio y la reputación institucional de la compañía.<br><br>Para ti como colaborador, trabajar en una empresa legalmente blindada significa contar con la estabilidad y la tranquilidad de pertenecer a una organización sólida que hace las cosas bien desde el principio.<br><br>El cumplimiento preventivo es la garantía más segura de sostenibilidad y éxito empresarial a largo plazo.",
+        "pregunta": "¿Cuál es la estrategia más eficaz para prevenir riesgos legales y litigios laborales en una organización?",
+        "opciones": [
+            "El cumplimiento riguroso, diario y documentado de todas las obligaciones normativas y laborales vigentes",
+            "La contratación de estudios jurídicos externos especializados en la disolución de sindicatos internos",
+            "La supresión de los canales formales de denuncia para evitar registros públicos de inconformidad",
+            "El pago de compensaciones económicas informales fuera de roles para eludir inspecciones del IESS"
+        ],
+        "correcta": "El cumplimiento riguroso, diario y documentado de todas las obligaciones normativas y laborales vigentes"
+    },
+    {
+        "id": 93,
+        "eje": "Módulo XIV: Ética Aplicada y Gobernanza Avanzada",
+        "titulo": "93. El Respeto a la Privacidad en el Espacio de Trabajo",
+        "contenido": "El respeto a la privacidad y a la dignidad personal de los colaboradores dentro de las instalaciones corporativas constituye un límite infranqueable para las facultades de control y fiscalización del empleador.<br><br>Los espacios personales de almacenamiento, los efectos privados y las comunicaciones de índole personal están protegidos por la ley, impidiendo revisiones arbitrarias o intromisiones injustificadas que vulneren los derechos fundamentales.<br><br>Para ti, saber que tu privacidad es respetada te otorga un espacio de seguridad psicológica indispensable para desenvolverte con naturalidad y confianza en tu puesto diario.<br><br>Equilibrar las necesidades operativas de control con el respeto absoluto a la intimidad demuestra la madurez ética y el talante humanitario de la organización.",
+        "pregunta": "¿Qué límite fundamental imponen las normativas legales a las facultades de fiscalización del empleador?",
+        "opciones": [
+            "El respeto obligatorio a la privacidad, la dignidad y los espacios personales de los colaboradores",
+            "La prohibición absoluta de instalar sistemas de videovigilancia en las plantas de producción",
+            "La obligación de solicitar autorización notariada previa para revisar las herramientas de trabajo",
+            "La imposibilidad de evaluar el desempeño operativo si el trabajador se encuentra en su oficina"
+        ],
+        "correcta": "El respeto obligatorio a la privacidad, la dignidad y los espacios personales de los colaboradores"
+    },
+    {
+        "id": 94,
+        "eje": "Módulo XIV: Ética Aplicada y Gobernanza Avanzada",
+        "titulo": "94. La Gestión de Quejas y Sugerencias Constructivas",
+        "contenido": "Una gobernanza avanzada requiere la implementación de mecanismos ágiles, confidenciales y accesibles para la recepción y trámite de quejas, sugerencias o propuestas de mejora por parte de los trabajadores.<br><br>Canalizar constructivamente las inquietudes del personal permite identificar oportunidades de optimización operativa y resolver pequeños malentendidos antes de que se transformen en conflictos de mayor magnitud.<br><br>Para ti, contar con canales formales de sugerencias significa que tu voz tiene eco y que la compañía valora tus ideas para construir un mejor lugar para laborar cada día.<br><br>Abrir espacios a la retroalimentación participativa dinamiza la gestión y fortalece el compromiso colectivo con la mejora continua.",
+        "pregunta": "¿Qué propósito fundamental cumplen los canales formales de recepción de quejas y sugerencias en la empresa?",
+        "opciones": [
+            "Canalizar inquietudes, identificar oportunidades de mejora y resolver malentendidos de forma anticipada",
+            "Establecer un registro de amonestaciones públicas para sancionar a quienes presenten reclamos",
+            "Trasladar la responsabilidad directiva de la toma de decisiones operativas directamente al personal base",
+            "Demorar la atención de trámites administrativos mediante la acumulación masiva de solicitudes"
+        ],
+        "correcta": "Canalizar inquietudes, identificar oportunidades de mejora y resolver malentendidos de forma anticipada"
+    },
+    {
+        "id": 95,
+        "eje": "Módulo XIV: Ética Aplicada y Gobernanza Avanzada",
+        "titulo": "95. El Liderazgo Empático como Motor de Productividad",
+        "contenido": "El liderazgo empático combina la exigencia de altos estándares de rendimiento con la comprensión profunda de las realidades humanas, emocionales y familiares de los colaboradores, desterrando el autoritarismo y la presión desmedida.<br><br>Los supervisores y jefes que lideran con empatía generan mayores niveles de compromiso, lealtad y cooperación espontánea en sus equipos, reduciendo el desgaste y optimizando los resultados operativos.<br><br>Para ti, trabajar bajo la guía de un liderazgo empático representa un aliciente extraordinario para desarrollar tu potencial con entusiasmo, sabiendo que cuentas con apoyo y orientación genuina.<br><br>Demostrar humanidad en la gestión directiva es la clave más efectiva para alcanzar una productividad sostenible y un clima laboral verdaderamente excepcional.",
+        "pregunta": "¿Qué caracteriza a un modelo de liderazgo empático dentro de la estructura gerencial de la empresa?",
+        "opciones": [
+            "Combina altos estándares de exigencia con comprensión humana, generando lealtad, compromiso y cooperación",
+            "Elimina por completo el cumplimiento de metas y plazos de entrega para evitar la fatiga operativa",
+            "Sustituye las normas disciplinarias del reglamento interno por acuerdos flexibles informales",
+            "Delega la imposición de sanciones y amonestaciones directamente en la asamblea de trabajadores"
+        ],
+        "correcta": "Combina altos estándares de exigencia con comprensión humana, generando lealtad, compromiso y cooperación"
+    },
+    {
+        "id": 96,
+        "eje": "Módulo XV: Cierre y Consolidación Formativa",
+        "titulo": "96. La Importancia de la Memoria Colectiva y Formativa",
+        "contenido": "Consolidar una memoria colectiva y formativa a través de la inducción constante y los ciclos anuales de capacitación garantiza que los nuevos ingresos asimilen rápidamente los valores de equidad, respeto y legalidad que caracterizan a la institución.<br><br>Mantener viva la doctrina del cumplimiento normativo evita que las buenas prácticas se diluyan con el tiempo, asegurando que la cultura corporativa evolucione sin perder sus fundamentos éticos esenciales.<br><br>Para ti, ser parte de esta memoria colectiva implica transmitir el ejemplo, compartir tus conocimientos y colaborar en la formación de tus compañeros para mantener un estándar elevado de conducta.<br><br>La solidez de una organización se mide por su capacidad de preservar y proyectar su identidad ética a través de las generaciones de trabajadores que la integran.",
+        "pregunta": "¿Qué garantiza la preservación de una memoria colectiva y formativa dentro de la organización?",
+        "opciones": [
+            "Que los valores de equidad, legalidad y respeto se transmitan de forma constante a las nuevas generaciones",
+            "Que la empresa mantenga congelados los manuales operativos sin permitir actualizaciones tecnológicas",
+            "Que la antigüedad de los colaboradores sea el único criterio válido para acceder a cargos directivos",
+            "Que los registros de capacitación histórica se eliminen periódicamente para optimizar espacio digital"
+        ],
+        "correcta": "Que los valores de equidad, legalidad y respeto se transmitan de forma constante a las nuevas generaciones"
+    },
+    {
+        "id": 97,
+        "eje": "Módulo XV: Cierre y Consolidación Formativa",
+        "titulo": "97. Compromiso Personal con la No Violencia y la Equidad",
+        "contenido": "El cierre de este extenso recorrido formativo nos convoca a renovar un compromiso personal e intransferible con la práctica diaria de la no violencia, la igualdad de género, el respeto a la diversidad y la defensa irrestricta de los derechos laborales.<br><br>La ley y los protocolos establecen el marco regulador, pero es la voluntad ética de cada individuo la que transforma estas directrices en una realidad palpable dentro de cada oficina, taller o espacio de labor.<br><br>Para ti como colaborador, asumir este compromiso significa ser custodio activo de la armonía, un defensor de la justicia salarial y un aliado incondicional frente a cualquier forma de abuso o discriminación.<br><br>Tu participación consciente es el pilar definitivo que sostiene el prestigio, la humanidad y el éxito perdurable de nuestra gran familia institucional.",
+        "pregunta": "¿Cómo se transforman las normativas y protocolos de equidad en una realidad palpable dentro de la empresa?",
+        "opciones": [
+            "A través de la voluntad ética y el compromiso personal diario de cada colaborador en su espacio de trabajo",
+            "Mediante la fiscalización permanente ejercida por los inspectores del Ministerio de Gobierno en las oficinas",
+            "A través de la publicación trimestral de comunicados oficiales en las redes sociales corporativas externas",
+            "Mediante la aplicación automática de multas económicas descontadas a quienes no firmen actas"
+        ],
+        "correcta": "A través de la voluntad ética y el compromiso personal diario de cada colaborador en su espacio de trabajo"
+    },
+    {
+        "id": 98,
+        "eje": "Módulo XV: Cierre y Consolidación Formativa",
+        "titulo": "98. Excelencia Operativa y Respeto a la Dignidad",
+        "contenido": "Alcanzar la excelencia operativa en los procesos industriales y administrativos no está reñido con el respeto absoluto a la dignidad humana; por el contrario, ambas dimensiones se potencian mutuamente para construir una organización verdaderamente invulnerable y competitiva.<br><br>La eficiencia sin ética carece de sostenibilidad a largo plazo, mientras que el respeto a los derechos humanos y la equidad impulsan la motivación y el compromiso genuino del capital humano.<br><br>Para ti, trabajar bajo este estándar significa que tu aporte técnico y tu bienestar personal son valorados con la misma intensidad, permitiéndote dar lo mejor de ti en un entorno seguro y estimulante.<br><br>Consolidar esta síntesis entre eficiencia y dignidad es el mayor triunfo que una institución puede alcanzar en el mercado moderno.",
+        "pregunta": "Según los principios formativos finales, ¿qué relación existe entre la excelencia operativa y el respeto a la dignidad humana?",
+        "opciones": [
+            "Se potencian mutuamente, demostrando que la eficiencia técnica y el bienestar humano son inseparables",
+            "Son objetivos opuestos, obligando a las empresas a sacrificar los derechos laborales para lograr rentabilidad",
+            "La eficiencia operativa rige exclusivamente para el sector privado y la dignidad humana para el sector público",
+            "Constituyen conceptos teóricos abstractos sin aplicación práctica en el desarrollo de las tareas diarias"
+        ],
+        "correcta": "Se potencian mutuamente, demostrando que la eficiencia técnica y el bienestar humano son inseparables"
+    },
+    {
+        "id": 99,
+        "eje": "Módulo XV: Cierre y Consolidación Formativa",
+        "titulo": "99. Legado Institucional y Orgullo Corporativo",
+        "contenido": "El legado institucional de una empresa se construye con el esfuerzo acumulado de todos sus trabajadores, directivos y colaboradores que, a lo largo del tiempo, han mantenido en alto los principios de honestidad, justicia, legalidad y compañerismo.<br><br>Sentir orgullo corporativo significa reconocer que cada producto elaborado, cada servicio prestado y cada meta superada lleva impregnado el sello de una comunidad laboral unida por valores sólidos y éticos.<br><br>Para ti, formar parte de este legado representa el privilegio de dejar una huella positiva, contribuyendo con tu talento diario al prestigio y a la prosperidad de una organización ejemplar en el Ecuador.<br><br>Sigamos construyendo juntos este gran futuro, inspirados por la convicción de que el trabajo honesto y equitativo es la fuerza más poderosa de transformación social.",
+        "pregunta": "¿Qué representa el orgullo corporativo y el legado institucional para quienes integran la organización?",
+        "opciones": [
+            "El reconocimiento de que el esfuerzo diario contribuye al prestigio y a la prosperidad de una comunidad ética y unida",
+            "La obligación de priorizar los intereses comerciales de la marca por encima de los derechos constitucionales",
+            "La permanencia indefinida en los cargos directivos sin necesidad de someterse a evaluaciones de desempeño",
+            "La exención de cumplir con las normativas de seguridad industrial al alcanzar metas financieras históricas"
+        ],
+        "correcta": "El reconocimiento de que el esfuerzo diario contribuye al prestigio y a la prosperidad de una comunidad ética y unida"
+    },
+    {
+        "id": 100,
+        "eje": "Módulo XV: Cierre y Consolidación Formativa",
+        "titulo": "100. Conclusión Definitiva del Programa Integral de Capacitación",
+        "contenido": "Con la culminación de este centésimo módulo, damos por concluido este extenso, riguroso y profundo programa de capacitación virtual obligatoria, diseñado para dotarte de herramientas conceptuales, jurídicas y prácticas orientadas a garantizar tus derechos, la igualdad salarial, la no violencia y la excelencia laboral.<br><br>Has recorrido los fundamentos constitucionales, las normativas del Código del Trabajo, los convenios internacionales de la OIT y los acuerdos ministeriales que regulan un entorno de trabajo justo, inclusivo y seguro.<br><br>Te felicitamos por tu dedicación, tu apertura al aprendizaje y tu firme compromiso con los valores que nos distinguen; estás completamente preparado para ejercer tus funciones con absoluto respaldo legal y profesional.<br><br>Aplica estos conocimientos cada día, sé un agente de cambio y recuerda siempre que en nuestra institución tu dignidad, tu esfuerzo y tu talento son el motor fundamental del éxito compartido.",
+        "pregunta": "Al finalizar este programa centésimo de capacitación integral, ¿qué herramientas consolida el trabajador para su desempeño?",
+        "opciones": [
+            "Conceptos jurídicos, normativos y prácticos para garantizar sus derechos, la equidad, la seguridad y la excelencia",
+            "Autorizaciones administrativas temporales para modificar las escalas de sueldos de sus departamentos",
+            "Exoneraciones permanentes del cumplimiento de las normativas internas de disciplina y puntualidad",
+            "Facultades legales exclusivas para sancionar a los representantes legales de la compañía ante faltas leves"
+        ],
+        "correcta": "Conceptos jurídicos, normativos y prácticos para garantizar sus derechos, la equidad, la seguridad y la excelencia"
     }
 ]
+
+
+
+
+
+
 
         
