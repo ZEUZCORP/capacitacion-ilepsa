@@ -191,7 +191,6 @@ if st.session_state.paso == "login":
                         st.session_state.falladas = falladas_db if isinstance(falladas_db, list) else []
                         
                         calif_db = user_data.get("calificacion")
-                        # Si está en sección 0 y aún no empieza, su puntaje acumulado real empieza en 0
                         if st.session_state.seccion_actual == 0 and len(st.session_state.falladas) == 0 and (calif_db is None or calif_db == 100):
                             st.session_state.calificacion = 0.0
                         else:
@@ -305,7 +304,7 @@ elif st.session_state.paso == "instrucciones":
         st.rerun()
 
 # =========================================================
-# FASE 3.5: VIDEO INTRODUCTORIO (OBLIGATORIO COMPLETO)
+# FASE 3.5: VIDEO INTRODUCTORIO
 # =========================================================
 elif st.session_state.paso == "video_introduccion":
     st.markdown(f"""
@@ -472,7 +471,6 @@ elif st.session_state.paso == "evaluacion":
                         st.session_state[key_estado_msg] = ""
                         st.session_state.respuestas_correctas += 1
                         
-                        # Solo suma puntos si la pregunta no había sido fallada previamente
                         if sec_idx not in st.session_state.falladas:
                             st.session_state.calificacion = round(min(100.0, st.session_state.calificacion + valor_pregunta), 2)
                             
@@ -513,7 +511,6 @@ elif st.session_state.paso == "evaluacion":
                             st.rerun()
                         else:
                             st.session_state[key_estado_msg] = "error"
-                            # Si es la primera vez que falla esta pregunta, la marcamos como anulada para puntaje
                             if sec_idx not in st.session_state.falladas:
                                 st.session_state.falladas.append(sec_idx)
                                 try:
@@ -529,7 +526,7 @@ elif st.session_state.paso == "evaluacion":
         st.rerun()
 
 # =========================================================
-# FASE 4.5: PANTALLA INTERMEDIA DE FELICITACIONES Y CALIFICACIÓN
+# FASE 4.5: PANTALLA INTERMEDIA DE CALIFICACIÓN
 # =========================================================
 elif st.session_state.paso == "felicitaciones_intermedia":
     nota_final = round(st.session_state.calificacion, 2)
@@ -567,29 +564,27 @@ elif st.session_state.paso == "felicitaciones_intermedia":
         )
 
     st.markdown(f"""
-    <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid {color_barra}; text-align: center; padding: 40px;">
-        <span style="font-size: 36px;">🎉 🏆</span>
-        <h2 style="color: #0f172a; margin-top: 15px;">¡FELICITACIONES, {st.session_state.nombre_usuario}!</h2>
-        <p style="font-size: 16.5px; color: #475569; margin-bottom: 20px;">
-            Has finalizado el recorrido de la capacitación obligatoria en cumplimiento del <b>Acuerdo Ministerial MDT-2025-006</b>.
-        </p>
-        
-        <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 20px; margin-bottom: 25px;">
-            <span style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 700;">Tu puntaje final obtenido es:</span>
-            <div style="font-size: 42px; font-weight: 800; color: {color_barra}; margin: 5px 0;">
-                {nota_mostrar} / 100
-            </div>
-            <div style="width: 100%; background-color: #e2e8f0; border-radius: 999px; height: 14px; overflow: hidden; margin-top: 10px;">
-                <div style="width: {min(100, max(0, nota_final))}%; background-color: {color_barra}; height: 100%; border-radius: 999px;"></div>
-            </div>
-        </div>
-
-        <div style="background-color: {fondo_barra}; border: 1px solid {borde_barra}; color: {texto_barra}; padding: 18px; border-radius: 8px; text-align: justify; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-            <div style="font-weight: 700; margin-bottom: 6px; font-size: 16.5px;">{titulo_estado}</div>
-            {mensaje_resultado}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+<div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid {color_barra}; text-align: center; padding: 40px;">
+<span style="font-size: 36px;">🎉 🏆</span>
+<h2 style="color: #0f172a; margin-top: 15px;">¡FELICITACIONES, {st.session_state.nombre_usuario}!</h2>
+<p style="font-size: 16.5px; color: #475569; margin-bottom: 20px;">
+Has finalizado el recorrido de la capacitación obligatoria en cumplimiento del <b>Acuerdo Ministerial MDT-2025-006</b>.
+</p>
+<div style="background-color: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; padding: 20px; margin-bottom: 25px;">
+<span style="font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 700;">Tu puntaje final obtenido es:</span>
+<div style="font-size: 42px; font-weight: 800; color: {color_barra}; margin: 5px 0;">
+{nota_mostrar} / 100
+</div>
+<div style="width: 100%; background-color: #e2e8f0; border-radius: 999px; height: 14px; overflow: hidden; margin-top: 10px;">
+<div style="width: {min(100, max(0, nota_final))}%; background-color: {color_barra}; height: 100%; border-radius: 999px;"></div>
+</div>
+</div>
+<div style="background-color: {fondo_barra}; border: 1px solid {borde_barra}; color: {texto_barra}; padding: 18px; border-radius: 8px; text-align: justify; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
+<div style="font-weight: 700; margin-bottom: 6px; font-size: 16.5px;">{titulo_estado}</div>
+{mensaje_resultado}
+</div>
+</div>
+""", unsafe_allow_html=True)
 
     if nota_final < 50:
         if st.button("🔄 Reiniciar Capacitación y Repetir Cuestionario", use_container_width=True):
