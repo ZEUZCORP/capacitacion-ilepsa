@@ -192,7 +192,7 @@ if st.session_state.paso == "login":
                         except Exception:
                             pass
 
-                        if "Administrador" in st.session_state.nombre_usuario or cedula_limpia in ["9999999999", "1"]:
+                        if "Administrador" in st.session_state.nombre_usuario or cedula_limpia in ["1708663529", "9999999999", "1"]:
                             st.session_state.es_admin = True
                             st.session_state.paso = "admin_dashboard"
                         else:
@@ -210,50 +210,70 @@ if st.session_state.paso == "login":
                 st.error("Ingrese un número de cédula válido.")
 
 # =========================================================
-# FASE 2: PANEL DE ADMINISTRACIÓN
+# FASE 2: PANEL DE ADMINISTRACIÓN / GERENCIA EN TIEMPO REAL
 # =========================================================
 elif st.session_state.paso == "admin_dashboard":
     st.markdown(f"""
     <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #0f172a;">
-        <h3 style="color: #0f172a; margin-top:0;">📊 PANEL DE CONTROL Y ESTADÍSTICAS - ILEPSA</h3>
-        <p style="color: #64748b; font-size: 15px;"><b>Administrador en sesión:</b> {st.session_state.nombre_usuario}</p>
+        <h3 style="color: #0f172a; margin-top:0;">📊 PANEL DE MONITOREO EN TIEMPO REAL - ILEPSA</h3>
+        <p style="color: #64748b; font-size: 15px;"><b>Gerencia / Administrador en sesión:</b> {st.session_state.nombre_usuario}</p>
         <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 12px 0;">
         <p style="font-size: 15px; color: #334155;">
-            Monitoreo en tiempo real de accesos, tiempos de conexión y avance guardado de los colaboradores bajo la normativa MDT-2025-006.
+            Monitoreo activo conectado con Supabase. Visualice el avance por sección y el registro de conexiones de los colaboradores bajo el Acuerdo Ministerial MDT-2025-006.
         </p>
     </div>
     """, unsafe_allow_html=True)
     
-    st.markdown("### 🕒 Registro de Ingresos y Tiempos de Conexión")
+    col_ref1, col_ref2 = st.columns([4, 1])
+    with col_ref1:
+        st.markdown("### 🕒 Conexiones y Estado Actual en Vivo")
+    with col_ref2:
+        if st.button("🔄 Actualizar Datos", use_container_width=True):
+            st.rerun()
+
     try:
         query_tiempos = supabase.table("registro_tiempos").select("*").order("fecha_ingreso", desc=True).execute()
         if query_tiempos.data and len(query_tiempos.data) > 0:
             datos_tabla = []
+            cedulas_procesadas = set()
+            
             for reg in query_tiempos.data:
                 cedula_reg = reg.get("cedula", "N/A")
+                
+                if cedula_reg in cedulas_procesadas:
+                    continue
+                cedulas_procesadas.add(cedula_reg)
+                
                 fecha_reg = reg.get("fecha_ingreso", "N/A")
                 
-                res_user = supabase.table("usuarios").select("nombres, seccion_actual").eq("cedula", cedula_reg).execute()
+                res_user = supabase.table("usuarios").select("nombres, cargo, seccion_actual").eq("cedula", cedula_reg).execute()
                 if res_user.data:
                     nombre_reg = res_user.data[0]["nombres"]
+                    cargo_reg = res_user.data[0].get("cargo", "N/A")
                     sec_progreso = res_user.data[0].get("seccion_actual", 0)
+                    seccion_humana = int(sec_progreso) + 1 if isinstance(sec_progreso, int) else 1
+                    estado_seccion = f"Sección {seccion_humana} de {len(SECCIONES)}"
                 else:
-                    nombre_reg = "Colaborador / Admin"
-                    sec_progreso = "N/A"
+                    nombre_reg = "Gerencia / Administrador"
+                    cargo_reg = "DIRECCIÓN / GERENCIA"
+                    estado_seccion = "Panel de Control"
                 
                 datos_tabla.append({
                     "Colaborador": nombre_reg,
+                    "Cargo": cargo_reg,
                     "Cédula": cedula_reg,
-                    "Sección Actual": f"{sec_progreso} / {len(SECCIONES)}" if isinstance(sec_progreso, int) else sec_progreso,
-                    "Fecha y Hora de Ingreso": fecha_reg
+                    "Ubicación Actual": estado_seccion,
+                    "Último Acceso / Conexión": fecha_reg
                 })
+            
             st.dataframe(datos_tabla, use_container_width=True)
         else:
-            st.info("Aún no se registran ingresos en la tabla registro_tiempos.")
+            st.info("Aún no se registran conexiones activas en la base de datos.")
     except Exception as e:
-        st.error(f"Error al consultar los registros: {e}")
+        st.error(f"Error al consultar el monitoreo en tiempo real: {e}")
         
-    if st.button("Cerrar Sesión de Administrador", type="primary", use_container_width=True):
+    st.markdown("<br>", unsafe_allow_html=True)
+    if st.button("Cerrar Sesión de Gerencia / Administrador", type="primary", use_container_width=True):
         st.session_state.paso = "login"
         st.session_state.cedula = ""
         st.session_state.nombre_usuario = ""
@@ -670,7 +690,7 @@ elif st.session_state.paso == "certificado":
     components.html(html_certificado, height=620, scrolling=True)
     st.markdown("<br>", unsafe_allow_html=True)
     
-    if st.button("🖨️ Imprimir y Guardar Certificado in PDF", type="primary", use_container_width=True):
+    if st.button("🖨️ Imprimir y Guardar Certificado en PDF", type="primary", use_container_width=True):
         components.html("<script>window.parent.print();</script>", height=0)
     
     if st.button("Finalizar y Salir del Sistema"):
