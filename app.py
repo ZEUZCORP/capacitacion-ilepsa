@@ -232,26 +232,28 @@ elif st.session_state.paso == "admin_dashboard":
             st.rerun()
 
     try:
-        query_tiempos = supabase.table("registro_tiempos").select("*").order("fecha_ingreso", desc=True).execute()
+        query_tiempos = supabase.table("registro_tiempos").select("*").order("id", desc=True).execute()
         if query_tiempos.data and len(query_tiempos.data) > 0:
             datos_tabla = []
             cedulas_procesadas = set()
             
             for reg in query_tiempos.data:
-                cedula_reg = reg.get("cedula", "N/A")
-                
-                if cedula_reg in cedulas_procesadas:
+                cedula_reg = reg.get("cedula")
+                if not cedula_reg or cedula_reg in cedulas_procesadas:
                     continue
                 cedulas_procesadas.add(cedula_reg)
                 
                 fecha_reg = reg.get("fecha_ingreso", "N/A")
                 
                 res_user = supabase.table("usuarios").select("nombres, cargo, seccion_actual").eq("cedula", cedula_reg).execute()
-                if res_user.data:
-                    nombre_reg = res_user.data[0]["nombres"]
+                if res_user.data and len(res_user.data) > 0:
+                    nombre_reg = res_user.data[0].get("nombres", "Desconocido")
                     cargo_reg = res_user.data[0].get("cargo", "N/A")
                     sec_progreso = res_user.data[0].get("seccion_actual", 0)
-                    seccion_humana = int(sec_progreso) + 1 if isinstance(sec_progreso, int) else 1
+                    try:
+                        seccion_humana = int(sec_progreso) + 1
+                    except:
+                        seccion_humana = 1
                     estado_seccion = f"Sección {seccion_humana} de {len(SECCIONES)}"
                 else:
                     nombre_reg = "Gerencia / Administrador"
@@ -266,9 +268,12 @@ elif st.session_state.paso == "admin_dashboard":
                     "Último Acceso / Conexión": fecha_reg
                 })
             
-            st.dataframe(datos_tabla, use_container_width=True)
+            if datos_tabla:
+                st.dataframe(datos_tabla, use_container_width=True)
+            else:
+                st.info("Aún no se registran conexiones activas válidas.")
         else:
-            st.info("Aún no se registran conexiones activas en la base de datos.")
+            st.info("Aún no se registran conexiones en la base de datos.")
     except Exception as e:
         st.error(f"Error al consultar el monitoreo en tiempo real: {e}")
         
