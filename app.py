@@ -160,8 +160,15 @@ components.html(
 # FASE 1: LOGIN
 # =========================================================
 if st.session_state.paso == "login":
+    col_l1, col_l2, col_l3 = st.columns([1, 2, 1])
+    with col_l2:
+        try:
+            st.image("logo_ilepsa.png", width=220)
+        except Exception:
+            pass
+
     st.markdown("""
-    <div class="pagina-nueva-transicion card-principal" style="text-align: center; border-top: 5px solid #0284c7; max-width: 550px; margin: 40px auto;">
+    <div class="pagina-nueva-transicion card-principal" style="text-align: center; border-top: 5px solid #0284c7; max-width: 550px; margin: 20px auto;">
         <h3 style="color: #0f172a; margin-top:0;">ACCESO COLABORADORES ILEPSA</h3>
         <p style="color: #64748b; font-size: 15px; margin-bottom: 0;">Ingrese su número de cédula para acceder a la capacitación virtual programada por la compañía.</p>
     </div>
