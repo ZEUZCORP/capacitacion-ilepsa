@@ -481,7 +481,7 @@ elif st.session_state.paso == "evaluacion":
                 else:
                     btn_siguiente = st.button("Enviar Respuesta", type="primary", key=f"btn_enviar_{sec_idx}", use_container_width=True)
                     if btn_siguiente:
-                        if respuesta == seccion['correct`']:
+                        if respuesta == seccion['correcta']:
                             st.session_state[key_estado_msg] = "exito"
                             st.rerun()
                         else:
@@ -670,7 +670,7 @@ elif st.session_state.paso == "certificado":
     components.html(html_certificado, height=620, scrolling=True)
     st.markdown("<br>", unsafe_allow_html=True)
     
-    if st.button("🖨️ Imprimir y Guardar Certificado en PDF", type="primary", use_container_width=True):
+    if st.button("🖨️ Imprimir y Guardar Certificado in PDF", type="primary", use_container_width=True):
         components.html("<script>window.parent.print();</script>", height=0)
     
     if st.button("Finalizar y Salir del Sistema"):
