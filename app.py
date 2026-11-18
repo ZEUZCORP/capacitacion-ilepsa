@@ -162,22 +162,21 @@ components.html(
 # FASE 1: LOGIN
 # =========================================================
 if st.session_state.paso == "login":
+    # CARGA DEL LOGO CON EL NOMBRE EXACTO QUE LE PONE GITHUB
     try:
-        if os.path.exists("logo_ilepsa.png"):
-            with open("logo_ilepsa.png", "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read()).decode()
-            st.markdown(f"""
-            <div style="text-align: center; margin-bottom: 15px;">
-                <img src="data:image/png;base64,{encoded_string}" alt="Logo ILEPSA" style="max-width: 210px; height: auto;">
-            </div>
-            """, unsafe_allow_html=True)
-        else:
-            st.image("logo_ilepsa.png", width=210)
+        nombre_logo = "logo_ilepsa.png.png"
+        if not os.path.exists(nombre_logo):
+            nombre_logo = "logo_ilepsa.png"
+            
+        with open(nombre_logo, "rb") as f:
+            data_img = base64.b64encode(f.read()).decode("utf-8")
+        st.markdown(f"""
+        <div style="text-align: center; margin-bottom: 15px;">
+            <img src="data:image/png;base64,{data_img}" alt="ILEPSA Logo" style="max-width: 210px; height: auto;">
+        </div>
+        """, unsafe_allow_html=True)
     except Exception:
-        try:
-            st.image("logo_ilepsa.png", width=210)
-        except Exception:
-            pass
+        pass
 
     st.markdown("""
     <div class="pagina-nueva-transicion card-principal" style="text-align: center; border-top: 5px solid #0284c7; max-width: 550px; margin: 10px auto 20px auto;">
@@ -696,7 +695,7 @@ elif st.session_state.paso == "certificado":
         <div class="cedula-texto">Cédula de Identidad N° <b>{st.session_state.cedula}</b></div>
         
         <div class="cuerpo-texto">
-          Por haber cumplido y aprobado satisfactoriamente el programa de formación corporativa en cumplimiento del <b>Artículo 3 del Acuerdo Ministerial MDT-2025-006</b>, abordando los ejes de derechos laborales de mujeres y hombres, igualdad de género, erradicación de violencia y no discriminación en el centro de trabajo, y trabajo de igual valor, con una intensidad de <b>40 horas académicas</b>.
+          Por haber cumplido y aprobado satisfactoriamente el programa de formación corporativa en cumplimiento del <b>Artículo 3 del Acuerdo Ministerial MDT-2025-006</b>, abordando los ejes de derechos laborales de mujeres y hombres, igualdad de género, erradicación de violencia y non discriminación en el centro de trabajo, y trabajo de igual valor, con una intensidad de <b>40 horas académicas</b>.
         </div>
         
         <div class="firmas-area">
