@@ -446,7 +446,8 @@ elif st.session_state.paso == "evaluacion":
             with col_btn2:
                 if st.session_state[key_estado_msg] == "exito":
                     numero_seccion_siguiente = sec_idx + 1
-                    if st.button(f"Continuar Sección {numero_seccion_siguiente} de Capacitación ➔", key=f"btn_continuar_sec_{sec_idx}", use_container_width=True):
+                    texto_boton_siguiente = f"Continuar Sección {numero_seccion_siguiente} de Capacitación ➔" if numero_seccion_siguiente < total_secciones else "Finalizar Capacitación y Ver Certificación ➔"
+                    if st.button(texto_boton_siguiente, key=f"btn_continuar_sec_{sec_idx}", use_container_width=True):
                         st.session_state[key_estado_msg] = ""
                         st.session_state.respuestas_correctas += 1
                         st.session_state.seccion_actual += 1
@@ -480,13 +481,35 @@ elif st.session_state.paso == "evaluacion":
                 else:
                     btn_siguiente = st.button("Enviar Respuesta", type="primary", key=f"btn_enviar_{sec_idx}", use_container_width=True)
                     if btn_siguiente:
-                        if respuesta == seccion['correcta']:
+                        if respuesta == seccion['correct`']:
                             st.session_state[key_estado_msg] = "exito"
                             st.rerun()
                         else:
                             st.session_state[key_estado_msg] = "error"
                             st.rerun()
     else:
+        st.session_state.paso = "felicitaciones_intermedia"
+        st.rerun()
+
+# =========================================================
+# FASE 4.5: PANTALLA INTERMEDIA DE FELICITACIONES
+# =========================================================
+elif st.session_state.paso == "felicitaciones_intermedia":
+    st.markdown(f"""
+    <div class="pagina-nueva-transicion card-principal" style="border-top: 5px solid #059669; text-align: center; padding: 40px;">
+        <span style="font-size: 36px;">🎉 🏆</span>
+        <h2 style="color: #0f172a; margin-top: 15px;">¡FELICITACIONES, {st.session_state.nombre_usuario}!</h2>
+        <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 20px 0;">
+        <p style="font-size: 18px; color: #334155; line-height: 1.8; text-align: justify; margin-bottom: 25px;">
+            Has cumplido satisfactoriamente con todo el contenido de la capacitación obligatoria en cumplimiento del <b>Acuerdo Ministerial MDT-2025-006</b>, completando los ejes normativos de igualdad de género, derechos laborales, erradicación de violencia y trabajo de igual valor.
+        </p>
+        <p style="font-size: 16.5px; color: #0284c7; background-color: #e0f2fe; padding: 15px; border-radius: 8px; font-weight: 600;">
+            📥 A continuación, procede a descargar tu certificado de cumplimiento oficial haciendo clic en el botón inferior.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    if st.button("Ver y Descargar mi Certificado Oficial ➔", type="primary", use_container_width=True):
         st.session_state.paso = "certificado"
         st.rerun()
 
@@ -497,7 +520,7 @@ elif st.session_state.paso == "certificado":
     st.markdown("""
     <div style="text-align: center; margin-bottom: 20px;">
         <span style="font-size: 28px;">🎓 ✨</span>
-        <h3 style="color: #059669; margin: 5px 0; font-size: 22px;">¡CAPACITACIÓN APROBADA CON ÉXITO!</h3>
+        <h3 style="color: #059669; margin: 5px 0; font-size: 22px;">¡CERTIFICADO OFICIAL DE CUMPLIMIENTO!</h3>
         <p style="color: #64748b; font-size: 15px;">Su certificado oficial de cumplimiento ha sido emitido satisfactoriamente.</p>
     </div>
     """, unsafe_allow_html=True)
